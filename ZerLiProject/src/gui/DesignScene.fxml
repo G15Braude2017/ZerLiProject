@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditPuductInformation">
+   <children>
+      <Button fx:id="btnSearchPID" layoutX="218.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#searchButtonPressed" text="Search" />
+      <Label layoutX="53.0" layoutY="70.0" text="Enter ProductID:" />
+      <TextField fx:id="txtFldProductIdSearch" layoutX="53.0" layoutY="100.0" text="3034" />
+      <Label fx:id="lblProductIdResult" layoutX="53.0" layoutY="164.0" text="ProductID: ---" />
+      <Label fx:id="lblProductNameResult" layoutX="53.0" layoutY="196.0" text="Product Name: ---" />
+      <Label fx:id="lblProductTypeResult" layoutX="53.0" layoutY="231.0" text="Product Type: ---" />
+      <TextField fx:id="txtFldProductChangeName" layoutX="311.0" layoutY="192.0" />
+      <Label layoutX="311.0" layoutY="172.0" text="Change name:" />
+      <Button fx:id="btnChangeName" layoutX="468.0" layoutY="192.0" mnemonicParsing="false" onAction="#ChangeBtnPressed" text="Change" />
+      <Label fx:id="lblProductIdStatus" layoutX="321.0" layoutY="104.0" text="---" />
+   </children>
+</Pane>
