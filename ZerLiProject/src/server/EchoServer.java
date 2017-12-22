@@ -49,7 +49,7 @@ public class EchoServer extends AbstractServer {
 
 		Statement stmt;
 		String tempSqlCommand;
-		ArrayList<String> rawList = new ArrayList<String>();
+		
 		boolean queryResultEmpty = true;
 
 		try {
@@ -61,13 +61,14 @@ public class EchoServer extends AbstractServer {
 				
 				ResultSet rs;
 				
-				if(tempSqlCommand.toLowerCase().contains("update"))
+				if(tempSqlCommand.toLowerCase().contains("update") || tempSqlCommand.toLowerCase().contains("insert into"))
 				{
 					try {
 					stmt.executeUpdate(tempSqlCommand);
 					((PacketClass)packet).setSuccessSql(true);
 					}catch(Exception ex) {
 						((PacketClass)packet).setSuccessSql(false);
+						ServerMain.getServerPanelControl().UpdateConsol(ex.toString());
 					}
 					
 				}
@@ -77,6 +78,7 @@ public class EchoServer extends AbstractServer {
 				
 				while (rs.next()) {
 					int i = 1;
+					ArrayList<String> rawList = new ArrayList<String>();
 
 					try {
 						while (true) {

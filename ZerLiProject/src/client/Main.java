@@ -1,5 +1,8 @@
 package client;
 
+import java.io.IOException;
+
+import CustomerService.CustomerServiceMain;
 import gui.EditPuductInformation;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -11,15 +14,24 @@ public class Main extends Application{
 	public static final int EditProductInformationSearchBtn = 1;
 	public static final int EditProductInformationChangeBtn = 2;
 	
+	public static final int CreateSurveyInitializeSurveyID = 3;
+	public static final int CreateSurveyAddSurveyBtn = 4;
+	
 	// Gui controls handles
 	private static EditPuductInformation EditPuductInformationControl;
+	private static CustomerServiceMain CustomerServiceMainControl;
 	
+	// Client control handle
+	private static ClientConsole clientConsolHandle;
+
 	// Sql command defines
 	final public static String SELECTCommandStatement = "SELECT ";
 	final public static String UPDATECommandStatement = "UPDATE ";
 	final public static String SETCommandStatement = " SET ";
 	final public static String FROMCommmandStatement = " FROM ";
 	final public static String WHERECommmandStatement = " WHERE ";
+	final public static String INSERTCommmandStatement ="INSERT INTO ";
+	final public static String VALUESCommmandStatement ="VALUES ";
 	
 	// Socket properties
 	final public static int DEFAULT_PORT = 5555;
@@ -31,9 +43,37 @@ public class Main extends Application{
 	// General defines
 	private static String[] arguments;
 	
+	// Messages color
+	public static final String RED = "red";
+	public static final String GREEN = "green";
+	
 	
 	public static void main(String[] args) throws Exception {
-		arguments = args;
+
+		String host = "";
+		int port; // The port number
+		
+		try {
+			host = args[0];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			host = "localhost";
+		}
+		
+		
+		try {
+			port = Integer.parseInt(args[1]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			port = Main.DEFAULT_PORT;
+		}
+
+		try {
+
+			clientConsolHandle = new ClientConsole(host, port);
+			System.out.println("Success client connect");
+		} catch (IOException ex) {
+			System.out.println("Error: Can't setup connection! Check host and port.");
+		}
+		
 		launch(args); 
 	}
 	
@@ -41,24 +81,36 @@ public class Main extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception { 
 								  		
-				EditPuductInformation frameInstance = new EditPuductInformation(); // create StudentFrame
+		CustomerServiceMain frameInstance = new CustomerServiceMain(); // create StudentFrame
 				
-				EditPuductInformationControl = frameInstance;
+		CustomerServiceMainControl = frameInstance;
 				
-				frameInstance.start(arg0);
+		frameInstance.start();
 	}
 	
 	
+	public static CustomerServiceMain getCustomerServiceMainControl() {
+		return CustomerServiceMainControl;
+	}
+
+
+	public static void setCustomerServiceMainControl(CustomerServiceMain customerServiceMainControl) {
+		CustomerServiceMainControl = customerServiceMainControl;
+	}
+
+
 	public static String[] getArguments() {
 		return arguments;
 	}
 	
-	public static EditPuductInformation getFrameHandle() {
-		return EditPuductInformationControl;
-	}
 	
-	public static void setFrameHandle(EditPuductInformation handle) {
-		EditPuductInformationControl = handle;
+	public static ClientConsole getClientConsolHandle() {
+		return clientConsolHandle;
+	}
+
+
+	public static void setClientConsolHandle(ClientConsole clientConsolHandle) {
+		Main.clientConsolHandle = clientConsolHandle;
 	}
 	
 	

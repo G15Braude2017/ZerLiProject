@@ -60,21 +60,28 @@ public class ChatClient extends AbstractClient {
 	 */
 	public void handleMessageFromServer(Object msg) {
 
-		try {
-		EditPuductInformation aFrame = Main.getFrameHandle();
+		//EditPuductInformation aFrame = Main.getFrameHandle();
 
 		switch (((PacketClass) msg).getGuiHandle()) {
 		case Main.EditProductInformationSearchBtn :
-			aFrame.EditProductInformation_SearchBtn_HandleMessageFromServer((PacketClass)msg);
+			//aFrame.EditProductInformation_SearchBtn_HandleMessageFromServer((PacketClass)msg);
 			break;
 		case Main.EditProductInformationChangeBtn:
-			aFrame.EditProductInformation_ChangeBtn_HandleMessageFromServer((PacketClass)msg);
+			//aFrame.EditProductInformation_ChangeBtn_HandleMessageFromServer((PacketClass)msg);
+			break;
+		case Main.CreateSurveyInitializeSurveyID:
+			Main.getCustomerServiceMainControl().getCreateSurveyControl().initializeGUI_SurveyIDCheck_FromServer((PacketClass)msg);
+			break;
+		case Main.CreateSurveyAddSurveyBtn:
+			Main.getCustomerServiceMainControl().getCreateSurveyControl().addSurveyClicked_handleFromServer((PacketClass)msg);
 			break;
 		default:
 		}
+			/*try {
+		}
 
 		}catch(Exception ex) {System.out.println("Unknown error handleMessageFromServer");}
-		
+		*/
 
 	}
 

@@ -69,7 +69,7 @@ public class EditPuductInformation implements Initializable {
 		loader.setLocation(getClass().getResource("DesignScene.fxml"));
 		Parent root = (Parent) loader.load();
 
-		Main.setFrameHandle((EditPuductInformation) (loader.getController()));
+		//Main.setFrameHandle((EditPuductInformation) (loader.getController()));
 
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("ZerLi");
