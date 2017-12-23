@@ -19,9 +19,9 @@
                   <Image url="@Images/white-down-arrow-png-2.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="97.0" fitWidth="86.0" layoutX="247.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Images/leaf-icon.png" />
+                  <Image url="@Images/זר-לי.png" />
                </image>
             </ImageView>
          </children>
