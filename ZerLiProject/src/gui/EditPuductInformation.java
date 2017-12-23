@@ -129,7 +129,7 @@ public class EditPuductInformation implements Initializable {
 							+ Main.WHERECommmandStatement + "ProductID=" + strProductID,
 					Main.EditProductInformationSearchBtn, Main.READ);
 
-			clientConsolHandle.sendSqlQueryToServer(packet);
+			//clientConsolHandle.sendSqlQueryToServer(packet);
 		} else {
 			System.out.println("Error: Invalid product id.");
 
@@ -190,7 +190,7 @@ public class EditPuductInformation implements Initializable {
 								+ "'" + Main.WHERECommmandStatement + "ProductID=" + currentPID + ";",
 						Main.EditProductInformationChangeBtn, Main.READ);
 
-				clientConsolHandle.sendSqlQueryToServer(packet);
+				//clientConsolHandle.sendSqlQueryToServer(packet);
 			} else {
 				System.out.println("Error: Invalid product Name.");
 				// Update GUI

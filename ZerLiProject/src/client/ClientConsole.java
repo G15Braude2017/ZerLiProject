@@ -57,7 +57,7 @@ public class ClientConsole implements ChatIF
    * This method waits for input from the console.  Once it is 
    * received, it sends it to the client's message handler.
    */
-  public void sendSqlQueryToServer(PacketClass packet) 
+  public void sendSqlQueryToServer(PacketClass packet) throws Exception
   {
     try
     {
@@ -67,7 +67,8 @@ public class ClientConsole implements ChatIF
     catch (Exception ex) 
     {
       System.out.println
-        ("Unexpected error while reading from text box");
+        ("Unexpected error sendSqlQueryToServer");
+      throw ex;
     }
   }
 

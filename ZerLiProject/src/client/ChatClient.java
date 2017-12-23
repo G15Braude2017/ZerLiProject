@@ -91,15 +91,13 @@ public class ChatClient extends AbstractClient {
 	 * @param message
 	 *            The message from the UI.
 	 */
-	public void handleMessageFromClientUI(PacketClass packet) {
+	public void handleMessageFromClientUI(PacketClass packet) throws Exception{
 		try {
 			sendToServer(packet);
-		} catch (IOException e) {
-			System.out.println("Could not send message to server.  Terminating client.");
-			// quit();
 		} catch (Exception e) {
-			quit();
-		}
+			System.out.println("Could not send message to server.  handleMessageFromClientUI.");
+			throw e;
+		} 
 	}
 
 	/**
