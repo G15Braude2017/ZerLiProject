@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 
 import CustomerService.CustomerServiceMain;
+import ShopWorker.ShopWorkerMain;
 import gui.EditPuductInformation;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -17,10 +18,17 @@ public class Main extends Application{
 	public static final int CreateSurveyInitializeSurveyID = 3;
 	public static final int CreateSurveyAddSurveyBtn = 4;
 	
+	public static final int FillCustomerAnswersInitializeSurveyID = 5;
+	public static final int FillCustomerAnswersAddSurveyAnswersBtn = 6;
+	public static final int FillCustomerAnswersCheckComboBox = 7;
+	
 	// Gui controls handles
 	private static EditPuductInformation EditPuductInformationControl;
 	private static CustomerServiceMain CustomerServiceMainControl;
+	private static ShopWorkerMain ShopWorkerMainControl;
 	
+	
+
 	// Client control handle
 	private static ClientConsole clientConsolHandle;
 
@@ -31,7 +39,7 @@ public class Main extends Application{
 	final public static String FROMCommmandStatement = " FROM ";
 	final public static String WHERECommmandStatement = " WHERE ";
 	final public static String INSERTCommmandStatement ="INSERT INTO ";
-	final public static String VALUESCommmandStatement ="VALUES ";
+	final public static String VALUESCommmandStatement =" VALUES ";
 	
 	// Socket properties
 	final public static int DEFAULT_PORT = 5555;
@@ -81,9 +89,9 @@ public class Main extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception { 
 								  		
-		CustomerServiceMain frameInstance = new CustomerServiceMain(); // create StudentFrame
+		ShopWorkerMain frameInstance = new ShopWorkerMain(); // create StudentFrame
 				
-		CustomerServiceMainControl = frameInstance;
+		ShopWorkerMainControl = frameInstance;
 				
 		frameInstance.start();
 	}
@@ -113,6 +121,15 @@ public class Main extends Application{
 		Main.clientConsolHandle = clientConsolHandle;
 	}
 	
+	public static ShopWorkerMain getShopWorkerMainControl() {
+		return ShopWorkerMainControl;
+	}
+
+
+	public static void setShopWorkerMainControl(ShopWorkerMain shopWorkerMainControl) {
+		ShopWorkerMainControl = shopWorkerMainControl;
+	}
+
 	
 }
 

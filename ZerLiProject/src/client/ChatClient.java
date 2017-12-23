@@ -75,6 +75,15 @@ public class ChatClient extends AbstractClient {
 		case Main.CreateSurveyAddSurveyBtn:
 			Main.getCustomerServiceMainControl().getCreateSurveyControl().addSurveyClicked_handleFromServer((PacketClass)msg);
 			break;
+		case Main.FillCustomerAnswersInitializeSurveyID:
+			Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().initializeGUI_GetSurveysID_FromServer((PacketClass)msg);
+			break;
+		case Main.FillCustomerAnswersAddSurveyAnswersBtn:
+			Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().click_FillCustomerAnswers_SaveAnswersBtn_FromServer((PacketClass)msg);
+			break;
+		case Main.FillCustomerAnswersCheckComboBox:
+			Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().click_FillCustomerAnswers_ComboBoxID_FromServer((PacketClass)msg);
+			break;
 		default:
 		}
 			/*try {
