@@ -129,7 +129,7 @@ public class CreateSurvey {
 		if (packet.getSuccessSql()) {
 
 			if (CurrentWorkerID == -1) {
-				// Invalid workerID, not changed - disable all components
+				// Invalid workerID, not changed 
 				updateStatusLabel("Invalid WorkerID, log in again", true);
 
 			} else {
@@ -157,7 +157,7 @@ public class CreateSurvey {
 			}
 
 		} else {
-			// Sql command failed - disable all components
+			// Sql command failed
 			updateStatusLabel("Failed connect to surveys data", true);
 
 		}

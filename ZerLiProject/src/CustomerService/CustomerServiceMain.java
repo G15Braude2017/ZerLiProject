@@ -13,7 +13,6 @@ public class CustomerServiceMain {
 
 	private static CreateSurvey CreateSurveyHandle;
 
-
 	public void start() throws Exception {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CustomerServiceMain.fxml"));
