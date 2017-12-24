@@ -16,12 +16,12 @@
             <Button layoutX="515.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Sign UP" textFill="WHITE" />
             <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
-                  <Image url="@../Icons/white-down-arrow-png-2.png" />
+                  <Image url="@Images/white-down-arrow-png-2.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="97.0" fitWidth="86.0" layoutX="247.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Icons/leaf-icon.png" />
+                  <Image url="@Images/זר-לי.png" />
                </image>
             </ImageView>
          </children>
@@ -32,12 +32,12 @@
             <JFXTextField layoutX="202.0" layoutY="153.0" prefHeight="25.0" prefWidth="258.0" promptText="  Password" unFocusColor="WHITE" />
             <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="158.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Icons/multiple-users-silhouette.png" />
+                  <Image url="@Images/multiple-users-silhouette.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="158.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Icons/locked-padlock.png" />
+                  <Image url="@Images/locked-padlock.png" />
                </image>
             </ImageView>
             <JFXButton layoutX="384.0" layoutY="208.0" prefHeight="27.0" prefWidth="76.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Login" textFill="WHITE" />
