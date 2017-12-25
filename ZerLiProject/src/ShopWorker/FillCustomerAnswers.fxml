@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShopWorker.FillCustomerAnswers">
+   <children>
+      <Pane prefHeight="544.0" prefWidth="451.0">
+         <children>
+            <ComboBox fx:id="cbChooseSurveyID" layoutX="27.0" layoutY="87.0" onAction="#click_FillCustomerAnswers_ComboBoxIDClient" prefHeight="25.0" prefWidth="396.0" />
+            <Label layoutX="53.0" layoutY="63.0" text="Select survey:" />
+            <Label fx:id="lblQ1" layoutX="30.0" layoutY="130.0" text="q1" />
+            <Label fx:id="lblQ2" layoutX="30.0" layoutY="190.0" text="q2" />
+            <Button layoutX="18.0" layoutY="14.0" mnemonicParsing="false" text="back" />
+            <Button fx:id="btnAddAnswers" layoutX="195.0" layoutY="505.0" mnemonicParsing="false" onAction="#click_FillCustomerAnswers_SaveAnswersBtnClient" text="Save answers" />
+            <Label fx:id="lblQ3" layoutX="30.0" layoutY="250.0" text="q3" />
+          	<Label fx:id="lblQ4" layoutX="30.0" layoutY="310.0" text="q4" />
+      		<Label fx:id="lblQ5" layoutX="30.0" layoutY="370.0" text="q5" />
+      		<Label fx:id="lblQ6" layoutX="30.0" layoutY="430.0" text="q6" />
+            <Label fx:id="lblFillStatus" layoutX="181.0" layoutY="18.0" text="---" />
+            <ComboBox fx:id="cbQ1" layoutX="30.0" layoutY="155.0" onAction="#ComboBox1" prefWidth="150.0" />
+            <ComboBox fx:id="cbQ2" layoutX="30.0" layoutY="215.0" onAction="#ComboBox2" prefWidth="150.0" />
+            <ComboBox fx:id="cbQ3" layoutX="30.0" layoutY="275.0" onAction="#ComboBox3" prefWidth="150.0" />
+            <ComboBox fx:id="cbQ4" layoutX="30.0" layoutY="335.0" onAction="#ComboBox4" prefWidth="150.0" />
+            <ComboBox fx:id="cbQ5" layoutX="30.0" layoutY="395.0" onAction="#ComboBox5" prefWidth="150.0" />
+            <ComboBox fx:id="cbQ6" layoutX="30.0" layoutY="455.0" onAction="#ComboBox6" prefWidth="150.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
