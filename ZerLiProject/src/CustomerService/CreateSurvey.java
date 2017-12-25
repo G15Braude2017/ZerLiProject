@@ -177,7 +177,7 @@ public class CreateSurvey {
 
 	}
 
-	public void backButtonClicked(ActionEvent event) {
+	public void click_CreateSurvey_backButton(ActionEvent event) {
 
 		((Node) event.getSource()).getScene().getWindow().hide();
 

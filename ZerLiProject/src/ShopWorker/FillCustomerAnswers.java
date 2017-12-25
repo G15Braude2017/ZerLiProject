@@ -6,8 +6,10 @@ import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -243,6 +245,21 @@ public class FillCustomerAnswers {
 		else
 			updateStatusLabel("Save answers for " + CurrentSurveyID + " failed", true);
 	}
+	
+	
+	public void click_FillCustomerAnswers_backButton(ActionEvent event) {
+
+		((Node) event.getSource()).getScene().getWindow().hide();
+
+		try {
+			Main.getShopWorkerMainControl().start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
 
 	//////////////////////////////////
 	// INTERNAL FUNCTIONS

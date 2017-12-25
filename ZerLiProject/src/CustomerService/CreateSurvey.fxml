@@ -22,7 +22,7 @@
             <Label layoutX="88.0" layoutY="21.0" text="Add new Survey" />
             <Label fx:id="lblCurrentWorkerID" layoutX="294.0" layoutY="67.0" text="Worker ID: " />
             <Button fx:id="btnAddSurvey" layoutX="258.0" layoutY="391.0" mnemonicParsing="false" onAction="#addSurveyClicked" text="Add Survey" />
-            <Button layoutX="22.0" layoutY="17.0" mnemonicParsing="false" onAction="#backButtonClicked" text="back" />
+            <Button layoutX="22.0" layoutY="17.0" mnemonicParsing="false" onAction="#click_CreateSurvey_backButton" text="back" />
             <Label fx:id="lblSurveyStatus" layoutX="258.0" layoutY="464.0" text="---" />
          </children>
       </Pane>
