@@ -89,10 +89,10 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage arg0) throws Exception { 
-								  		
-		ShopWorkerMain frameInstance = new ShopWorkerMain(); // create StudentFrame
+			//Test Classes					  		
+		CompanyManagerMain frameInstance = new CompanyManagerMain(); // create StudentFrame
 				
-		ShopWorkerMainControl = frameInstance;
+		CompanyManagerMainControl = frameInstance;
 				
 		frameInstance.start();
 	}

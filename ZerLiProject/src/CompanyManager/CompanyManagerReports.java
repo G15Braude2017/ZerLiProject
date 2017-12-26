@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 public class CompanyManagerReports {
 	private static int CurrentStoreID = -1;
+	private static int reportAmount=0;
 	//ObservableList<String> comboBoxList_amount1=FXCollections.observableArrayList("One Report","Two Reports");
     @FXML
     private Label lblFillStatus;
@@ -54,7 +55,22 @@ public class CompanyManagerReports {
     private JFXComboBox<?> comboBox_Ryear2;
     @FXML
     private JFXComboBox<?> comboBox_Rquarter2;
-
+    @FXML
+    private Label label_id1;
+    @FXML
+    private Label label_id2;
+    @FXML
+    private Label label_type1;
+    @FXML
+    private Label label_type2;
+    @FXML
+    private Label label_year1;
+    @FXML
+    private Label label_year2;
+    @FXML
+    private Label label_qnum1;
+    @FXML
+    private Label label_qnum2;
     public void start() throws Exception {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CompanyManagerReports.fxml"));
@@ -70,7 +86,12 @@ public class CompanyManagerReports {
 		initialize();
 
 	}
-    
+   /* void initializeReportAmounts()
+    {
+        ObservableList amountList=FXCollections.observableArrayList("One Report","Two Reports");
+        comboBox_amount1.setItems(amountList);
+        
+    }*/
     private ObservableList getYear()
     {
     	ObservableList yearList = FXCollections.observableArrayList();
@@ -88,11 +109,13 @@ public class CompanyManagerReports {
         comboBox_amount1.setItems(amountList);
         ObservableList ReportTypetList=FXCollections.observableArrayList("Income Report","Order Report","Satisfaction Report","Complaint Report");
         comboBox_Rtype1.setItems(ReportTypetList);
+        comboBox_Rtype2.setItems(ReportTypetList);
         ObservableList YearList=getYear(); 
         comboBox_Ryear1.setItems(YearList);
+        comboBox_Ryear2.setItems(YearList);
         ObservableList quarterNumList=FXCollections.observableArrayList(1,2,3,4);
         comboBox_Rquarter1.setItems(quarterNumList); 
-
+        comboBox_Rquarter2.setItems(quarterNumList); 
 		PacketClass packet = new PacketClass( // , store id
 				Main.SELECTCommandStatement + "storeID" + Main.FROMCommmandStatement + "store",
 				Main.InitializeCompanyManagerStoreIDcomboBox, Main.READ);
@@ -132,6 +155,7 @@ public class CompanyManagerReports {
 								}
 								
 								Main.getCompanyManagerMainControl().getShowManagerReportsHandle().comboBox_StoreID1.setItems(storeIDList);
+								Main.getCompanyManagerMainControl().getShowManagerReportsHandle().comboBox_StoreID2.setItems(storeIDList);
 							}
 						});
 					} catch (Exception e) {
@@ -146,6 +170,30 @@ public class CompanyManagerReports {
 			CurrentStoreID = -1;
 		}
 	}
+    @FXML
+    void click_CompanyManager_comboBoxReportAmount(ActionEvent event) {
+    	if(comboBox_amount1.getValue()=="One Report")
+    	{
+    		label_id1.setDisable(false);
+    		label_type1.setDisable(false);
+    		label_year1.setDisable(false);
+    		label_qnum1.setDisable(false);
+    	}
+    	else
+    	{
+    		if(comboBox_amount1.getValue()=="Two Reports")
+    		{
+        		label_id1.setDisable(false);
+        		label_type1.setDisable(false);
+        		label_year1.setDisable(false);
+        		label_qnum1.setDisable(false);
+        		label_id2.setDisable(false);
+        		label_type2.setDisable(false);
+        		label_year2.setDisable(false);
+        		label_qnum2.setDisable(false);
+    		}
+    	}
+    }
     @FXML
     void click_CompanyManagerReports_backBtn(ActionEvent event) {
 
