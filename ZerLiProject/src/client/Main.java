@@ -2,6 +2,7 @@ package client;
 
 import java.io.IOException;
 
+import CompanyManager.CompanyManagerMain;
 import CustomerService.CustomerServiceMain;
 import ShopWorker.ShopWorkerMain;
 import gui.EditPuductInformation;
@@ -26,7 +27,7 @@ public class Main extends Application{
 	private static EditPuductInformation EditPuductInformationControl;
 	private static CustomerServiceMain CustomerServiceMainControl;
 	private static ShopWorkerMain ShopWorkerMainControl;
-	
+	private static CompanyManagerMain CompanyManagerMainControl;
 	
 
 	// Client control handle
@@ -129,7 +130,14 @@ public class Main extends Application{
 	public static void setShopWorkerMainControl(ShopWorkerMain shopWorkerMainControl) {
 		ShopWorkerMainControl = shopWorkerMainControl;
 	}
+	public static CompanyManagerMain getCompanyManagerMainControl() {
+		return CompanyManagerMainControl;
+	}
 
+
+	public static void setCompanyManagerMainControl(CompanyManagerMain companyManagerMainControl) {
+		CompanyManagerMainControl = companyManagerMainControl;
+	}
 	
 }
 
