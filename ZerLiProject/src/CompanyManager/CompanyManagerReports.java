@@ -95,7 +95,7 @@ public class CompanyManagerReports {
 
 		PacketClass packet = new PacketClass( // , store id
 				Main.SELECTCommandStatement + "storeID" + Main.FROMCommmandStatement + "store",
-				Main.InitializeStoreID, Main.READ);
+				Main.InitializeCompanyManagerStoreIDcomboBox, Main.READ);
 
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
@@ -106,8 +106,8 @@ public class CompanyManagerReports {
 	public void FillCompanyManagerStoreID_ComboBoxStoreID_FromServer(PacketClass packet) {
 
 		ArrayList<ArrayList<String>> DataList;
-  ObservableList storeIDList=FXCollections.observableArrayList();
-   //    comboBox_Rquarter1.setItems(quarterNumList); 
+		ObservableList storeIDList=FXCollections.observableArrayList();
+   
 		if (packet.getSuccessSql()) {
 		/*	if (CurrentStoreID == -1) {
 				// Invalid ShopID, not changed
@@ -139,8 +139,6 @@ public class CompanyManagerReports {
 						CurrentStoreID = -1;
 					}
 				}
-
-			}
 
 		} else {
 			// Sql command failed

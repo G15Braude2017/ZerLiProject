@@ -22,7 +22,7 @@ public class Main extends Application{
 	public static final int FillCustomerAnswersInitializeSurveyID = 5;
 	public static final int FillCustomerAnswersAddSurveyAnswersBtn = 6;
 	public static final int FillCustomerAnswersCheckComboBox = 7;
-	
+	public static final int InitializeCompanyManagerStoreIDcomboBox=50;
 	// Gui controls handles
 	private static EditPuductInformation EditPuductInformationControl;
 	private static CustomerServiceMain CustomerServiceMainControl;
