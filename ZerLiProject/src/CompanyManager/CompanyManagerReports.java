@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
+//import com.jfoenix.controls.JFXButton;
+//import com.jfoenix.controls.JFXComboBox;
 
 import ShopWorker.FillCustomerAnswers;
 import client.Main;
@@ -27,34 +27,34 @@ public class CompanyManagerReports {
 	//ObservableList<String> comboBoxList_amount1=FXCollections.observableArrayList("One Report","Two Reports");
     @FXML
     private Label lblFillStatus;
-    @FXML
-    private JFXButton btn_send;
+    //@FXML
+    //private JFXButton btn_send;
 
-    @FXML
-    private JFXComboBox<?> comboBox_amount1;
+    //@FXML
+    //private JFXComboBox<?> comboBox_amount1;
 
-    @FXML
-    private JFXComboBox<?> comboBox_StoreID1;
+    //@FXML
+    //private JFXComboBox<?> comboBox_StoreID1;
 
-    @FXML
-    private JFXComboBox<?> comboBox_Rtype1;
+    //@FXML
+    //private JFXComboBox<?> comboBox_Rtype1;
 
-    @FXML
-    private JFXComboBox<?> comboBox_StoreID2;
+   // @FXML
+    //private JFXComboBox<?> comboBox_StoreID2;
 
-    @FXML
-    private JFXComboBox<?> comboBox_Rtype2;
+    //@FXML
+    //private JFXComboBox<?> comboBox_Rtype2;
 
-    @FXML
-    private JFXComboBox<?> comboBox_Ryear1;
+    //@FXML
+   //private JFXComboBox<?> comboBox_Ryear1;
 
-    @FXML
-    private JFXComboBox<?> comboBox_Rquarter1;
+   // @FXML
+   // private JFXComboBox<?> comboBox_Rquarter1;
 
-    @FXML
-    private JFXComboBox<?> comboBox_Ryear2;
-    @FXML
-    private JFXComboBox<?> comboBox_Rquarter2;
+   // @FXML
+    //private JFXComboBox<?> comboBox_Ryear2;
+   // @FXML
+    //private JFXComboBox<?> comboBox_Rquarter2;
     @FXML
     private Label label_id1;
     @FXML
@@ -105,7 +105,7 @@ public class CompanyManagerReports {
     }
     void initialize()
     {
-        ObservableList amountList=FXCollections.observableArrayList("OneReport","Two Reports");
+        /*ObservableList amountList=FXCollections.observableArrayList("OneReport","Two Reports");
         comboBox_amount1.setItems(amountList);
         ObservableList ReportTypetList=FXCollections.observableArrayList("Income Report","Order Report","Satisfaction Report","Complaint Report");
         comboBox_Rtype1.setItems(ReportTypetList);
@@ -118,10 +118,10 @@ public class CompanyManagerReports {
         comboBox_Rquarter2.setItems(quarterNumList); 
 		PacketClass packet = new PacketClass( // , store id
 				Main.SELECTCommandStatement + "storeID" + Main.FROMCommmandStatement + "store",
-				Main.InitializeCompanyManagerStoreIDcomboBox, Main.READ);
+				Main.InitializeCompanyManagerStoreIDcomboBox, Main.READ);*/
 
 		try {
-			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
+			//Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
 			updateStatusLabel("Client connection error", true);
 		}
@@ -154,8 +154,8 @@ public class CompanyManagerReports {
 								storeIDList.add(DataList.get(i).get(0));
 								}
 								
-								Main.getCompanyManagerMainControl().getShowManagerReportsHandle().comboBox_StoreID1.setItems(storeIDList);
-								Main.getCompanyManagerMainControl().getShowManagerReportsHandle().comboBox_StoreID2.setItems(storeIDList);
+								//Main.getCompanyManagerMainControl().getShowManagerReportsHandle().comboBox_StoreID1.setItems(storeIDList);
+								//Main.getCompanyManagerMainControl().getShowManagerReportsHandle().comboBox_StoreID2.setItems(storeIDList);
 							}
 						});
 					} catch (Exception e) {
@@ -172,7 +172,7 @@ public class CompanyManagerReports {
 	}
     @FXML
     void click_CompanyManager_comboBoxReportAmount(ActionEvent event) {
-    	if(comboBox_amount1.getValue()=="One Report")
+    	/*if(comboBox_amount1.getValue()=="One Report")
     	{
     		label_id1.setDisable(false);
     		label_type1.setDisable(false);
@@ -192,7 +192,7 @@ public class CompanyManagerReports {
         		label_year2.setDisable(false);
         		label_qnum2.setDisable(false);
     		}
-    	}
+    	}*/
     }
     @FXML
     void click_CompanyManagerReports_backBtn(ActionEvent event) {

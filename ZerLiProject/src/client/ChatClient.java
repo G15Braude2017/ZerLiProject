@@ -84,6 +84,9 @@ public class ChatClient extends AbstractClient {
 		case Main.FillCustomerAnswersCheckComboBox:
 			Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().click_FillCustomerAnswers_ComboBoxID_FromServer((PacketClass)msg);
 			break;
+		case Main.PullSurveyResultsInitializeSurveyID:
+			Main.getServiceExpertMainControl().getPullSurveyResultsControl().initializeGUI_PullSurveyResults_FromServer((PacketClass)msg);
+			break;
 		default:
 		}
 			/*try {

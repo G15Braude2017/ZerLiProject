@@ -38,4 +38,14 @@ private static PullSurveyResults PullSurveyResultsControl;
 			e.printStackTrace();
 		}
 	}
+
+
+	public static PullSurveyResults getPullSurveyResultsControl() {
+		return PullSurveyResultsControl;
+	}
+
+
+	public static void setPullSurveyResultsControl(PullSurveyResults pullSurveyResultsControl) {
+		PullSurveyResultsControl = pullSurveyResultsControl;
+	}
 }

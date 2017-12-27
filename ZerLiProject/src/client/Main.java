@@ -2,7 +2,7 @@ package client;
 
 import java.io.IOException;
 
-import CompanyManager.CompanyManagerMain;
+//import CompanyManager.CompanyManagerMain;
 import CustomerService.CustomerServiceMain;
 import ServiceExpert.ServiceExpertMain;
 import ShopWorker.ShopWorkerMain;
@@ -24,6 +24,7 @@ public class Main extends Application{
 	public static final int FillCustomerAnswersAddSurveyAnswersBtn = 6;
 	public static final int FillCustomerAnswersCheckComboBox = 7;
 	
+	public static final int PullSurveyResultsInitializeSurveyID = 8;
 	
 	public static final int InitializeCompanyManagerStoreIDcomboBox=50;
 	
@@ -32,7 +33,7 @@ public class Main extends Application{
 	private static EditPuductInformation EditPuductInformationControl;
 	private static CustomerServiceMain CustomerServiceMainControl;
 	private static ShopWorkerMain ShopWorkerMainControl;
-	private static CompanyManagerMain CompanyManagerMainControl;
+	//private static CompanyManagerMain CompanyManagerMainControl;
 	private static ServiceExpertMain ServiceExpertMainControl;
 	
 
@@ -96,9 +97,9 @@ public class Main extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception { 
 			//Test Classes					  		
-		CompanyManagerMain frameInstance = new CompanyManagerMain(); // create StudentFrame
+		ServiceExpertMain frameInstance = new ServiceExpertMain(); // create StudentFrame
 				
-		CompanyManagerMainControl = frameInstance;
+		ServiceExpertMainControl = frameInstance;
 				
 		frameInstance.start();
 	}
@@ -136,14 +137,15 @@ public class Main extends Application{
 	public static void setShopWorkerMainControl(ShopWorkerMain shopWorkerMainControl) {
 		ShopWorkerMainControl = shopWorkerMainControl;
 	}
-	public static CompanyManagerMain getCompanyManagerMainControl() {
+	
+	/*public static CompanyManagerMain getCompanyManagerMainControl() {
 		return CompanyManagerMainControl;
 	}
 
 
 	public static void setCompanyManagerMainControl(CompanyManagerMain companyManagerMainControl) {
 		CompanyManagerMainControl = companyManagerMainControl;
-	}
+	}*/
 	
 	public static ServiceExpertMain getServiceExpertMainControl() {
 		return ServiceExpertMainControl;
