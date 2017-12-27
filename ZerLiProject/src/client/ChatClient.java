@@ -87,6 +87,21 @@ public class ChatClient extends AbstractClient {
 		case Main.PullSurveyResultsInitializeSurveyID:
 			Main.getServiceExpertMainControl().getPullSurveyResultsControl().initializeGUI_PullSurveyResults_FromServer((PacketClass)msg);
 			break;
+		case Main.PullSurveyResultsCheckComboBoxSurveyID:
+			Main.getServiceExpertMainControl().getPullSurveyResultsControl().click_PullSurveyResults_ComboBoxIDServer((PacketClass)msg);
+			break;
+		case Main.PullSurveyResultsAddConclusionBtn:
+			Main.getServiceExpertMainControl().getPullSurveyResultsControl().click_PullSurveyResults_AddConclusionServer((PacketClass)msg);
+			break;
+		case Main.SaveSurveyConclusionCheckComboBoxSurveyID:
+			Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().initializeGUI_SaveSurveyConclusion_FromServer((PacketClass)msg);
+			break;
+		case Main.SaveSurveyConclusionGetConclusionText:
+			Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().click_SaveSurveyConclusion_ComboBoxIDServer((PacketClass)msg);
+			break;
+		case Main.SaveSurveyConclusionApproveConclusionBtn:
+			Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().click_SaveSurveyConclusion_ApproveConclusionServer((PacketClass)msg);
+			break;
 		default:
 		}
 			/*try {

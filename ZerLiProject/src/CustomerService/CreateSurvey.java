@@ -149,7 +149,7 @@ public class CreateSurvey {
 						CurrentSurveyID++;
 						setGUI_CreateSurvey_Disable(false);
 					} catch (Exception e) {
-						updateStatusLabel(e.toString(), true);
+						updateStatusLabel("Invalid data format in DataBase", true);
 					}
 				}
 

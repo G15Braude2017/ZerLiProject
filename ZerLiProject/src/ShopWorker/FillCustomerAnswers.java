@@ -225,7 +225,7 @@ public class FillCustomerAnswers {
 						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().getcbQ3().getValue() + ","
 						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().getcbQ4().getValue() + ","
 						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().getcbQ5().getValue() + ","
-						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().getcbQ6().getValue() + ");",
+						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().getcbQ6().getValue() + ", CURDATE());",
 						Main.FillCustomerAnswersAddSurveyAnswersBtn, Main.WRITE);
 
 				try {
@@ -251,6 +251,15 @@ public class FillCustomerAnswers {
 
 		((Node) event.getSource()).getScene().getWindow().hide();
 
+		CurrentSurveyID = -1;
+		CurrentStoreID = -1;
+		a1 = false; 
+		a2 = false; 
+		a3 = false; 
+		a4 = false; 
+		a5 = false; 
+		a6 = false;
+		
 		try {
 			Main.getShopWorkerMainControl().start();
 		} catch (Exception e) {

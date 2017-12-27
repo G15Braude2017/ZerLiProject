@@ -11,7 +11,8 @@ import javafx.stage.Stage;
 
 public class CustomerServiceMain {
 
-	private static CreateSurvey CreateSurveyHandle;
+	private static CreateSurvey CreateSurveyControl;
+	private static SaveSurveyConclusion SaveSurveyConclusionControl;
 
 	public void start() throws Exception {
 
@@ -23,7 +24,8 @@ public class CustomerServiceMain {
 		stage.show();
 
 		Main.setCustomerServiceMainControl(fxmlLoader.getController());
-		CreateSurveyHandle = new CreateSurvey();
+		CreateSurveyControl = new CreateSurvey();
+		SaveSurveyConclusionControl = new SaveSurveyConclusion();
 	}
 
 	public void click_CreateNewSurvey_btn(ActionEvent event) {
@@ -32,7 +34,21 @@ public class CustomerServiceMain {
 
 		
 		try {
-			CreateSurveyHandle.start();
+			CreateSurveyControl.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void click_SaveSurveyConclusion_btn(ActionEvent event) {
+
+		((Node) event.getSource()).getScene().getWindow().hide();
+
+		
+		try {
+			SaveSurveyConclusionControl.start();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,11 +57,20 @@ public class CustomerServiceMain {
 	}
 
 	public static CreateSurvey getCreateSurveyControl() {
-		return CreateSurveyHandle;
+		return CreateSurveyControl;
 	}
 
 	public static void setCreateSurveyControl(CreateSurvey createSurveyControl) {
-		CreateSurveyHandle = createSurveyControl;
+		CreateSurveyControl = createSurveyControl;
 	}
+
+	public static SaveSurveyConclusion getSaveSurveyConclusionControl() {
+		return SaveSurveyConclusionControl;
+	}
+
+	public static void setSaveSurveyConclusionControl(SaveSurveyConclusion saveSurveyConclusionControl) {
+		SaveSurveyConclusionControl = saveSurveyConclusionControl;
+	}
+	
 
 }

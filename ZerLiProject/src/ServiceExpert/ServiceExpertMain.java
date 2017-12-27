@@ -27,7 +27,7 @@ private static PullSurveyResults PullSurveyResultsControl;
 	}
 
 
-	public void click_FillCustomerAnswers_btn(ActionEvent event) {
+	public void click_ServiceExpertMain_btn(ActionEvent event) {
 		
 		((Node) event.getSource()).getScene().getWindow().hide();
 		

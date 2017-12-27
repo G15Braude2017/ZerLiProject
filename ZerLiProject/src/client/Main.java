@@ -2,7 +2,7 @@ package client;
 
 import java.io.IOException;
 
-//import CompanyManager.CompanyManagerMain;
+import CompanyManager.CompanyManagerMain;
 import CustomerService.CustomerServiceMain;
 import ServiceExpert.ServiceExpertMain;
 import ShopWorker.ShopWorkerMain;
@@ -25,6 +25,12 @@ public class Main extends Application{
 	public static final int FillCustomerAnswersCheckComboBox = 7;
 	
 	public static final int PullSurveyResultsInitializeSurveyID = 8;
+	public static final int PullSurveyResultsAddConclusionBtn = 9;
+	public static final int PullSurveyResultsCheckComboBoxSurveyID = 10;
+	
+	public static final int SaveSurveyConclusionCheckComboBoxSurveyID = 11;
+	public static final int SaveSurveyConclusionGetConclusionText = 12;
+	public static final int SaveSurveyConclusionApproveConclusionBtn = 13;
 	
 	public static final int InitializeCompanyManagerStoreIDcomboBox=50;
 	
@@ -33,7 +39,7 @@ public class Main extends Application{
 	private static EditPuductInformation EditPuductInformationControl;
 	private static CustomerServiceMain CustomerServiceMainControl;
 	private static ShopWorkerMain ShopWorkerMainControl;
-	//private static CompanyManagerMain CompanyManagerMainControl;
+	private static CompanyManagerMain CompanyManagerMainControl;
 	private static ServiceExpertMain ServiceExpertMainControl;
 	
 
@@ -96,12 +102,24 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage arg0) throws Exception { 
-			//Test Classes					  		
-		ServiceExpertMain frameInstance = new ServiceExpertMain(); // create StudentFrame
+		
+		//Test Classes					  		
+		CustomerServiceMain frameInstance = new CustomerServiceMain();
 				
+		CustomerServiceMainControl = frameInstance;
+				
+		frameInstance.start();
+		
+		
+		/*ServiceExpertMain frameInstance = new ServiceExpertMain();
+		
 		ServiceExpertMainControl = frameInstance;
 				
 		frameInstance.start();
+		*/
+		
+		
+		
 	}
 	
 	
@@ -138,14 +156,14 @@ public class Main extends Application{
 		ShopWorkerMainControl = shopWorkerMainControl;
 	}
 	
-	/*public static CompanyManagerMain getCompanyManagerMainControl() {
+	public static CompanyManagerMain getCompanyManagerMainControl() {
 		return CompanyManagerMainControl;
 	}
 
 
 	public static void setCompanyManagerMainControl(CompanyManagerMain companyManagerMainControl) {
 		CompanyManagerMainControl = companyManagerMainControl;
-	}*/
+	}
 	
 	public static ServiceExpertMain getServiceExpertMainControl() {
 		return ServiceExpertMainControl;

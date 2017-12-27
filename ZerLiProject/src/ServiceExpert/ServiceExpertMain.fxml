@@ -4,13 +4,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="ServiceExpert.ServiceExpertMain">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServiceExpert.ServiceExpertMain">
    <children>
       <Pane prefHeight="486.0" prefWidth="504.0">
          <children>
             <Button layoutX="21.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
-            <Button layoutX="185.0" layoutY="83.0" mnemonicParsing="false" text="Add survey conclusion" />
+            <Button layoutX="185.0" layoutY="83.0" mnemonicParsing="false" onAction="#click_ServiceExpertMain_btn" text="Add survey conclusion" />
          </children>
       </Pane>
    </children>

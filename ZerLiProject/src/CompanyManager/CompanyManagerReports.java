@@ -209,14 +209,14 @@ public class CompanyManagerReports {
 			@Override
 			public void run() {
 				// Update GUI
-				Main.getCompanyManagerMainControl().getShowManagerReportsHandle().lblFillStatus.setText(message);
+				//Main.getCompanyManagerMainControl().getShowManagerReportsHandle().lblFillStatus.setText(message);
 
-				if (red_green)
+				/*if (red_green)
 					Main.getCompanyManagerMainControl().getShowManagerReportsHandle().lblFillStatus
 							.setTextFill(Paint.valueOf(Main.RED));
 				else
 					Main.getCompanyManagerMainControl().getShowManagerReportsHandle().lblFillStatus
-							.setTextFill(Paint.valueOf(Main.GREEN));
+							.setTextFill(Paint.valueOf(Main.GREEN));*/
 			}
 		});
 	}
