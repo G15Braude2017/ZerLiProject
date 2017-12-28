@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="508.0" prefWidth="441.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Button layoutX="356.0" layoutY="440.0" mnemonicParsing="false" text="Back" />
+      <TextField layoutX="138.0" layoutY="128.0" text="Shipping address" />
+      <TextField layoutX="138.0" layoutY="201.0" text="Phone number" />
+      <TextField layoutX="138.0" layoutY="303.0" text="receiver name" />
+      <Button layoutX="187.0" layoutY="428.0" mnemonicParsing="false" text="Confirm" />
+   </children>
+</AnchorPane>
