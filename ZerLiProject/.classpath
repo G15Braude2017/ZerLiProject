@@ -4,6 +4,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="mysql-connector-java-5.1.19-bin.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Misha/eclipse-workspace/ZerLiProject/jfoenix-9.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-9.0.1/lib/javafx-swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

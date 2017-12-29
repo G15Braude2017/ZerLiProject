@@ -1,5 +1,10 @@
 /CompanyManager/
-/ServiceExpert/
-/client/
+/Costumer/
 /CustomerService/
+/ServiceExpert/
 /ShopWorker/
+/client/
+/clientServerCommon/
+/gui/
+/ocsf/
+/server/

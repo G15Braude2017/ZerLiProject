@@ -69,6 +69,15 @@ public class Main extends Application{
 	public static final String RED = "red";
 	public static final String GREEN = "green";
 	
+	//enums
+	public enum GreetingCardIs {yes,no};
+	public enum OrderType {SelfDefined,CatalogType};
+	public enum ItemType {FlowerArrangement,Pot,BridalBouquet,Bouquet};
+	public enum IsOnSale {OnSale,NotOnSale};
+	public enum DelivryOrShipping {shipping,delivery};
+	public enum Color {none,red,black,yellow};
+	public enum ReceiptStatus {active,canceled_before_refund};
+	
 	
 	public static void main(String[] args) throws Exception {
 
