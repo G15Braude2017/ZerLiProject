@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerService.FollowComplaint">
+   <children>
+      <Pane prefHeight="525.0" prefWidth="453.0">
+         <children>
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
+            <ComboBox layoutX="34.0" layoutY="89.0" prefHeight="25.0" prefWidth="376.0" />
+            <Label layoutX="34.0" layoutY="63.0" text="Complaint ID:" />
+            <Label layoutX="34.0" layoutY="131.0" text="Status:" />
+            <Label layoutX="291.0" layoutY="131.0" text="Time left:" />
+            <Label fx:id="lblTime" layoutX="291.0" layoutY="158.0" text="-- : --" />
+            <ComboBox layoutX="34.0" layoutY="154.0" prefWidth="150.0" />
+            <Label layoutX="34.0" layoutY="203.0" text="Compansation amount:" />
+            <TextField layoutX="171.0" layoutY="199.0" prefHeight="25.0" prefWidth="240.0" />
+            <Label layoutX="34.0" layoutY="242.0" text="Complaint Text:" />
+            <TextArea layoutX="34.0" layoutY="259.0" prefHeight="200.0" prefWidth="376.0" />
+            <Button layoutX="174.0" layoutY="477.0" mnemonicParsing="false" text="Confirm changes" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

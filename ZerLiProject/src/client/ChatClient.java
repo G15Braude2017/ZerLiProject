@@ -102,6 +102,12 @@ public class ChatClient extends AbstractClient {
 		case Main.SaveSurveyConclusionApproveConclusionBtn:
 			Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().click_SaveSurveyConclusion_ApproveConclusionServer((PacketClass)msg);
 			break;
+		case Main.OpenNewComplaintInitializeSurveyID:
+			Main.getCustomerServiceMainControl().getOpenNewComplaintControl().initializeGUI_SurveyIDCheck_FromServer((PacketClass)msg);
+			break;
+		case Main.OpenNewComplaintInitializeOrderID:
+			Main.getCustomerServiceMainControl().getOpenNewComplaintControl().click_OpenNewComplaint_ComboBoxIDServer((PacketClass)msg);
+			break;
 		default:
 		}
 			/*try {

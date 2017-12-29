@@ -32,6 +32,9 @@ public class Main extends Application{
 	public static final int SaveSurveyConclusionGetConclusionText = 12;
 	public static final int SaveSurveyConclusionApproveConclusionBtn = 13;
 	
+	public static final int OpenNewComplaintInitializeSurveyID = 14;
+	public static final int OpenNewComplaintInitializeOrderID = 15;
+	
 	public static final int InitializeCompanyManagerStoreIDcomboBox=50;
 	
 	

@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1">
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerService.OpenNewComplaint">
    <children>
       <Pane prefHeight="523.0" prefWidth="442.0">
          <children>
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
             <Label layoutX="34.0" layoutY="77.0" text="CustomerID:" />
             <Label layoutX="32.0" layoutY="135.0" text="OrderID:" />
-            <ComboBox layoutX="34.0" layoutY="101.0" prefHeight="25.0" prefWidth="375.0" />
-            <ComboBox layoutX="34.0" layoutY="161.0" prefHeight="25.0" prefWidth="375.0" />
+            <ComboBox fx:id="cbCustomerID" layoutX="34.0" layoutY="101.0" onAction="#click_OpenNewComplaint_ComboBoxCustomerIDClient" prefHeight="25.0" prefWidth="375.0" />
+            <ComboBox fx:id="cbOrderID" layoutX="34.0" layoutY="161.0" prefHeight="25.0" prefWidth="375.0" />
             <Label layoutX="32.0" layoutY="208.0" text="Complaint Text:" />
-            <TextArea layoutX="32.0" layoutY="235.0" prefHeight="200.0" prefWidth="375.0" />
-            <Button layoutX="158.0" layoutY="468.0" mnemonicParsing="false" text="Open new complaint" />
+            <TextArea fx:id="taComplaintText" layoutX="32.0" layoutY="235.0" prefHeight="200.0" prefWidth="375.0" />
+            <Button fx:id="btnOpenNewComplaint" layoutX="158.0" layoutY="468.0" mnemonicParsing="false" text="Open new complaint" />
+            <Label fx:id="lblComplaintStatus" layoutX="270.0" layoutY="18.0" text="---" />
          </children>
       </Pane>
    </children>

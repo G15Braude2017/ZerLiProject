@@ -13,6 +13,9 @@ public class CustomerServiceMain {
 
 	private static CreateSurvey CreateSurveyControl;
 	private static SaveSurveyConclusion SaveSurveyConclusionControl;
+	private static OpenNewComplaint OpenNewComplaintControl;
+	private static FollowComplaint FollowComplaintControl;
+	
 
 	public void start() throws Exception {
 
@@ -26,6 +29,8 @@ public class CustomerServiceMain {
 		Main.setCustomerServiceMainControl(fxmlLoader.getController());
 		CreateSurveyControl = new CreateSurvey();
 		SaveSurveyConclusionControl = new SaveSurveyConclusion();
+		FollowComplaintControl = new FollowComplaint();
+		OpenNewComplaintControl = new OpenNewComplaint();
 	}
 
 	public void click_CreateNewSurvey_btn(ActionEvent event) {
@@ -55,6 +60,34 @@ public class CustomerServiceMain {
 		}
 
 	}
+	
+	public void click_FollowComplaint_btn(ActionEvent event) {
+
+		((Node) event.getSource()).getScene().getWindow().hide();
+
+		
+		try {
+			FollowComplaintControl.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void click_OpenNewComplaint_btn(ActionEvent event) {
+
+		((Node) event.getSource()).getScene().getWindow().hide();
+
+		
+		try {
+			OpenNewComplaintControl.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	public static CreateSurvey getCreateSurveyControl() {
 		return CreateSurveyControl;
@@ -70,6 +103,22 @@ public class CustomerServiceMain {
 
 	public static void setSaveSurveyConclusionControl(SaveSurveyConclusion saveSurveyConclusionControl) {
 		SaveSurveyConclusionControl = saveSurveyConclusionControl;
+	}
+
+	public static OpenNewComplaint getOpenNewComplaintControl() {
+		return OpenNewComplaintControl;
+	}
+
+	public static void setOpenNewComplaintControl(OpenNewComplaint openNewComplaintControl) {
+		OpenNewComplaintControl = openNewComplaintControl;
+	}
+
+	public static FollowComplaint getFollowComplaintControl() {
+		return FollowComplaintControl;
+	}
+
+	public static void setFollowComplaintControl(FollowComplaint followComplaintControl) {
+		FollowComplaintControl = followComplaintControl;
 	}
 	
 
