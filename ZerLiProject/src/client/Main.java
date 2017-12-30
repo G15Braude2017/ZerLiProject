@@ -34,6 +34,12 @@ public class Main extends Application{
 	
 	public static final int OpenNewComplaintInitializeSurveyID = 14;
 	public static final int OpenNewComplaintInitializeOrderID = 15;
+	public static final int OpenNewComplaintCheckComboBoxOrderID = 16;
+	public static final int OpenNewComplaintOpenComplaintBtn = 17;
+	
+	public static final int FollowComplaintInitializeOrderID = 18;
+	public static final int FollowComplaintCheckComboBoxOrderID = 19;
+	public static final int FollowComplaintConfirmComplaintBtn = 20;
 	
 	public static final int InitializeCompanyManagerStoreIDcomboBox=50;
 	

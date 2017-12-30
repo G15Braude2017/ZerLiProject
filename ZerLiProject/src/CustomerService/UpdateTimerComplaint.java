@@ -10,33 +10,41 @@ import javafx.application.Platform;
 
 public class UpdateTimerComplaint extends Thread {
 
-	private static boolean timerFlag = true;
+	private boolean timerFlag = true;
+	private String timeStampStr = null;
+
+	public UpdateTimerComplaint(String timeStamp) {
+		timeStampStr = timeStamp;
+	}
 
 	public void run() {
-		try {
-			updateTimeLeftTimer("2017-12-27 20:15:00");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if (timeStampStr != null) {
+
+			try {
+				updateTimeLeftTimer(timeStampStr);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else
+			Main.getCustomerServiceMainControl().getFollowComplaintControl().updateTimeComplaint("No time info", true);
+
 	}
 
 	private void updateTimeLeftTimer(String SqlFullDate) throws Exception {
-
-		String timeToString = "";
-		int Fhour, Fminuts, Fseconds;
-		int totalSeconds;
+		
+		timerFlag = true;
 
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
+
 		while (timerFlag) {
-			
+
 			Date date = format.parse(SqlFullDate);
 
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
 			cal.add(Calendar.HOUR_OF_DAY, 24);
-			
+
 			if (Calendar.getInstance().after(cal)) {
 				Main.getCustomerServiceMainControl().getFollowComplaintControl().updateTimeComplaint("24h over", true);
 				timerFlag = false;
@@ -46,15 +54,24 @@ public class UpdateTimerComplaint extends Thread {
 				cal.add(cal.MINUTE, -(Calendar.getInstance().getTime().getMinutes()));
 				cal.add(cal.SECOND, -(Calendar.getInstance().getTime().getSeconds()));
 
-				Main.getCustomerServiceMainControl().getFollowComplaintControl()
-						.updateTimeComplaint(cal.getTime().getHours() + ":" + cal.getTime().getMinutes() + ":"
-								+ cal.getTime().getSeconds(), false);
+				Main.getCustomerServiceMainControl().getFollowComplaintControl().updateTimeComplaint(
+						cal.getTime().getHours() + ":" + cal.getTime().getMinutes() + ":" + cal.getTime().getSeconds(),
+						false);
 
 				Thread.sleep(500);
 			}
 		}
 
 		timerFlag = true;
+		timeStampStr = null;
+	}
+	
+	public boolean isTimerFlag() {
+		return timerFlag;
+	}
+
+	public void setTimerFlag(boolean timerFlag) {
+		this.timerFlag = timerFlag;
 	}
 
 }

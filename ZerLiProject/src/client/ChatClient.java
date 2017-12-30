@@ -106,7 +106,22 @@ public class ChatClient extends AbstractClient {
 			Main.getCustomerServiceMainControl().getOpenNewComplaintControl().initializeGUI_SurveyIDCheck_FromServer((PacketClass)msg);
 			break;
 		case Main.OpenNewComplaintInitializeOrderID:
-			Main.getCustomerServiceMainControl().getOpenNewComplaintControl().click_OpenNewComplaint_ComboBoxIDServer((PacketClass)msg);
+			Main.getCustomerServiceMainControl().getOpenNewComplaintControl().click_OpenNewComplaint_ComboBoxCustomerIDServer((PacketClass)msg);
+			break;
+		case Main.OpenNewComplaintCheckComboBoxOrderID:
+			Main.getCustomerServiceMainControl().getOpenNewComplaintControl().click_OpenNewComplaint_ComboBoxOrderIDServer((PacketClass)msg);
+			break;
+		case Main.OpenNewComplaintOpenComplaintBtn:
+			Main.getCustomerServiceMainControl().getOpenNewComplaintControl().click_OpenNewComplaint_OpenNewComplaintBtnServer((PacketClass)msg);
+			break;
+		case Main.FollowComplaintInitializeOrderID:
+			Main.getCustomerServiceMainControl().getFollowComplaintControl().initializeGUI_OrderIDCheck_FromServer((PacketClass)msg);
+			break;
+		case Main.FollowComplaintCheckComboBoxOrderID:
+			Main.getCustomerServiceMainControl().getFollowComplaintControl().click_FollowComplaint_ComboBoxOrderIDServer((PacketClass)msg);
+			break;
+		case Main.FollowComplaintConfirmComplaintBtn:
+			Main.getCustomerServiceMainControl().getFollowComplaintControl().click_FollowComplaint_ConfirmChangesBtnServer((PacketClass)msg);
 			break;
 		default:
 		}
