@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerService.OpenNewComplaint">
+   <children>
+      <Pane prefHeight="523.0" prefWidth="442.0">
+         <children>
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#click_OpenNewComplaint_backBtn" text="Back" />
+            <Label layoutX="34.0" layoutY="77.0" text="CustomerID:" />
+            <Label layoutX="32.0" layoutY="135.0" text="OrderID:" />
+            <ComboBox fx:id="cbCustomerID" layoutX="34.0" layoutY="101.0" onAction="#click_OpenNewComplaint_ComboBoxCustomerIDClient" prefHeight="25.0" prefWidth="375.0" />
+            <ComboBox fx:id="cbOrderID" layoutX="34.0" layoutY="161.0" onAction="#click_OpenNewComplaint_ComboBoxOrderIDClient" prefHeight="25.0" prefWidth="375.0" />
+            <Label layoutX="32.0" layoutY="208.0" text="Complaint Text:" />
+            <TextArea fx:id="taComplaintText" layoutX="32.0" layoutY="235.0" prefHeight="200.0" prefWidth="375.0" />
+            <Button fx:id="btnOpenNewComplaint" layoutX="158.0" layoutY="468.0" mnemonicParsing="false" onAction="#click_OpenNewComplaint_OpenNewComplaintBtnClient" text="Open new complaint" />
+            <Label fx:id="lblComplaintStatus" layoutX="178.0" layoutY="18.0" text="---" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

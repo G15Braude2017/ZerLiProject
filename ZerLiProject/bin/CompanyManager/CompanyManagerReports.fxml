@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CompanyManager.CompanyManagerReports">
+   <children>
+      <AnchorPane prefHeight="421.0" prefWidth="612.0">
+         <children>
+            <AnchorPane prefHeight="87.0" prefWidth="618.0" style="-fx-background-color: #145A32;">
+               <children>
+                  <Button layoutX="42.0" layoutY="18.0" mnemonicParsing="false" onAction="#click_CompanyManagerReports_backBtn" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #145A32;" text="Back to preview" textFill="#fcfcfc" />
+                  <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+                     <image>
+                        <Image url="@../../ProjectImages/white-down-arrow-png-2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../ProjectImages/זר-לי.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lblFillStatus" layoutX="446.0" layoutY="36.0" prefHeight="17.0" prefWidth="131.0" textFill="RED" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="87.0" prefHeight="335.0" prefWidth="618.0" style="-fx-background-color: #6DC76C;">
+               <children>
+                  <JFXButton fx:id="btn_send" layoutX="255.0" layoutY="278.0" onAction="#click_CompanyManagerReports_btnSend" prefHeight="27.0" prefWidth="76.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Send" textFill="WHITE" />
+                  <JFXComboBox fx:id="comboBox_amount1" focusColor="WHITE" layoutX="126.0" layoutY="35.0" onAction="#click_CompanyManager_comboBoxReportAmount" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label layoutX="23.0" layoutY="45.0" prefHeight="17.0" prefWidth="92.0" text="Report amount:" textFill="WHITE" />
+                  <JFXComboBox fx:id="comboBox_StoreID1" disable="true" focusColor="WHITE" layoutX="126.0" layoutY="75.0" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label fx:id="label_id1" disable="true" layoutX="23.0" layoutY="85.0" prefHeight="17.0" prefWidth="92.0" text="Store ID:" textFill="WHITE" />
+                  <JFXComboBox fx:id="comboBox_Rtype1" disable="true" focusColor="WHITE" layoutX="126.0" layoutY="115.0" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label fx:id="label_type1" disable="true" layoutX="23.0" layoutY="125.0" prefHeight="17.0" prefWidth="92.0" text="Report Type:" textFill="#fcfcfc" />
+                  <JFXComboBox fx:id="comboBox_StoreID2" disable="true" focusColor="WHITE" layoutX="451.0" layoutY="75.0" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label fx:id="label_id2" disable="true" layoutX="320.0" layoutY="85.0" prefHeight="17.0" prefWidth="131.0" text="Second Store ID:" textFill="WHITE" />
+                  <JFXComboBox fx:id="comboBox_Rtype2" disable="true" focusColor="WHITE" layoutX="451.0" layoutY="115.0" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label fx:id="label_type2" disable="true" layoutX="320.0" layoutY="125.0" prefHeight="17.0" prefWidth="131.0" text="Second Report Type;" textFill="WHITE" />
+                  <JFXComboBox fx:id="comboBox_Ryear1" disable="true" focusColor="WHITE" layoutX="126.0" layoutY="155.0" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label fx:id="label_year1" disable="true" layoutX="23.0" layoutY="165.0" prefHeight="17.0" prefWidth="92.0" text="Report Year:" textFill="WHITE" />
+                  <JFXComboBox fx:id="comboBox_Rquarter1" disable="true" focusColor="WHITE" layoutX="126.0" layoutY="195.0" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label fx:id="label_qnum1" disable="true" layoutX="23.0" layoutY="205.0" prefHeight="17.0" prefWidth="92.0" text="Quarter Number:" textFill="WHITE" />
+                  <JFXComboBox fx:id="comboBox_Ryear2" disable="true" focusColor="WHITE" layoutX="451.0" layoutY="155.0" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label fx:id="label_year2" disable="true" layoutX="320.0" layoutY="165.0" prefHeight="17.0" prefWidth="109.0" text="Report Year:" textFill="WHITE" />
+                  <JFXComboBox fx:id="comboBox_Rquarter2" disable="true" focusColor="WHITE" layoutX="451.0" layoutY="195.0" prefHeight="25.0" prefWidth="122.0" unFocusColor="WHITE" />
+                  <Label fx:id="label_qnum2" disable="true" layoutX="320.0" layoutY="205.0" prefHeight="17.0" prefWidth="109.0" text="Quarter Number:" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

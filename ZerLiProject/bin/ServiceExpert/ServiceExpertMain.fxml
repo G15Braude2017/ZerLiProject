@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServiceExpert.ServiceExpertMain">
+   <children>
+      <Pane prefHeight="486.0" prefWidth="504.0">
+         <children>
+            <Button layoutX="21.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
+            <Button layoutX="185.0" layoutY="83.0" mnemonicParsing="false" onAction="#click_ServiceExpertMain_btn" text="Add survey conclusion" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
