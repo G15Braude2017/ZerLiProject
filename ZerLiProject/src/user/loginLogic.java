@@ -89,9 +89,9 @@ public class loginLogic
 			dataList = (ArrayList<ArrayList<String>>)packet.getResults();//
 						
 			if(dataList.get(0).get(2) == "true")
-				NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), true, dataList.get(0).get(3), dataList.get(0).get(4));
+				NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), true, Integer.parseInt(dataList.get(0).get(3)), dataList.get(0).get(4));
 			else
-				NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), false, dataList.get(0).get(3), dataList.get(0).get(4));
+				NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), false, Integer.parseInt(dataList.get(0).get(3)), dataList.get(0).get(4));
 			
 			if(NewUser.getUserName() == null)
 			{

@@ -12,12 +12,12 @@ public class User
 	
 	private String storeID;
 	
-	public User(String Uname, String pass, boolean conn, permission per, String Sid )
+	public User(String Uname, String pass, boolean conn, int per, String Sid )
 	{
 		userName = Uname;
 		password = pass;
 		connected = conn;
-		Permission = per;
+		Permission = permission.values()[per];
 		storeID = Sid;
 	}
 	
