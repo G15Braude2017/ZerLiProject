@@ -7,17 +7,17 @@ public class User
 	private String userName;
 	private String password;
 	private boolean connected;
-	public enum permission { ShopWorker, Customer, CustomerService, Expert, SystemManager, CompanyManager, StoreManager, CompenyEmployee};
+	public enum permission { ShopWorker, Customer, CustomerService, Expert, SystemManager, CompanyManager, StoreManager, CompenyEmployee;};
 	private permission Permission;
 	
 	private String storeID;
 	
-	public User(String Uname, String pass, boolean conn, permission per, String Sid )
+	public User(String Uname, String pass, boolean conn, int per, String Sid )
 	{
 		userName = Uname;
 		password = pass;
 		connected = conn;
-		Permission = per;
+		Permission = permission.values()[per];
 		storeID = Sid;
 	}
 	
