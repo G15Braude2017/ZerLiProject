@@ -10,6 +10,7 @@ import StoreManager.StoreManagerMain;
 import gui.EditPuductInformation;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import user.loginLogic;
 
 
 public class Main extends Application{
@@ -45,6 +46,9 @@ public class Main extends Application{
 	public static final int InitializeCompanyManagerStoreIDcomboBox=50;
 	public static final int GetComplaintReportData=55;
 	
+	public static final int CheckIfUserExists = 30;
+	public static final int UpdateStatusOfAnExistingUser = 31;
+	
 	// Gui controls handles
 	private static EditPuductInformation EditPuductInformationControl;
 	private static CustomerServiceMain CustomerServiceMainControl;
@@ -53,6 +57,8 @@ public class Main extends Application{
 	private static ServiceExpertMain ServiceExpertMainControl;
 	private static StoreManagerMain StoreManagerMainControl;
 
+	private static loginLogic LoginLogicControl;
+	
 	// Client control handle
 	private static ClientConsole clientConsolHandle;
 
@@ -209,6 +215,16 @@ public class Main extends Application{
 
 	public static void setStoreManagerMainControl(StoreManagerMain storeManagerMainControl) {
 		StoreManagerMainControl = storeManagerMainControl;
+	}
+	
+	public static loginLogic getLoginLogicControl()
+	{
+		return LoginLogicControl;
+	}
+	
+	public static void setLoginLogicControl(loginLogic loginLogicControl)
+	{
+		LoginLogicControl = loginLogicControl;
 	}
 	
 }

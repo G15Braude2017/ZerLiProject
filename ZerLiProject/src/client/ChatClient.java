@@ -123,6 +123,10 @@ public class ChatClient extends AbstractClient {
 		case Main.FollowComplaintConfirmComplaintBtn:
 			Main.getCustomerServiceMainControl().getFollowComplaintControl().click_FollowComplaint_ConfirmChangesBtnServer((PacketClass)msg);
 			break;
+		case Main.CheckIfUserExists:
+			Main.getLoginLogicControl().validationFromServer((PacketClass)msg);
+		case Main.UpdateStatusOfAnExistingUser:
+			Main.getLoginLogicControl().UpdateStatusUserFromServer((PacketClass)msg);
 		default:
 		}
 			/*try {
