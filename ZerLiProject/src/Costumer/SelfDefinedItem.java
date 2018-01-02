@@ -1,18 +1,18 @@
 package Costumer;
 
-import client.Main.Color;
+
 import client.Main.ItemType;
 import client.Main.OrderType;
 
 public class SelfDefinedItem extends OrderItem{
 
-	private Color color;
+	private String color;
 	private float MaxSelfDeifinedItemPrice;
 	private float MinSelfDefinedItemPrice;
 	
 	
 	
-	public SelfDefinedItem(OrderType orderType, ItemType itemType, float itemPrice, int itemInOrderAmount, int itemID,int MinPrice , int MaxPrice , Color color) {
+	public SelfDefinedItem(OrderType orderType, ItemType itemType, float itemPrice, int itemInOrderAmount, int itemID,int MinPrice , int MaxPrice , String color) {
 		super(orderType, itemType, itemPrice, itemInOrderAmount, itemID);
 		this.MinSelfDefinedItemPrice= MinPrice;
 		this.color= color;
