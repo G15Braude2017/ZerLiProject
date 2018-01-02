@@ -6,6 +6,7 @@ import CompanyManager.CompanyManagerMain;
 import CustomerService.CustomerServiceMain;
 import ServiceExpert.ServiceExpertMain;
 import ShopWorker.ShopWorkerMain;
+import StoreManager.StoreManagerMain;
 import gui.EditPuductInformation;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -42,7 +43,7 @@ public class Main extends Application{
 	public static final int FollowComplaintConfirmComplaintBtn = 20;
 	
 	public static final int InitializeCompanyManagerStoreIDcomboBox=50;
-	
+	public static final int GetComplaintReportData=55;
 	
 	// Gui controls handles
 	private static EditPuductInformation EditPuductInformationControl;
@@ -50,7 +51,7 @@ public class Main extends Application{
 	private static ShopWorkerMain ShopWorkerMainControl;
 	private static CompanyManagerMain CompanyManagerMainControl;
 	private static ServiceExpertMain ServiceExpertMainControl;
-	
+	private static StoreManagerMain StoreManagerMainControl;
 
 	// Client control handle
 	private static ClientConsole clientConsolHandle;
@@ -192,6 +193,14 @@ public class Main extends Application{
 
 	public static void setServiceExpertMainControl(ServiceExpertMain serviceExpertMainControl) {
 		ServiceExpertMainControl = serviceExpertMainControl;
+	}
+	public static StoreManagerMain getStoreManagerMainControl() {
+		return StoreManagerMainControl;
+	}
+
+
+	public static void setStoreManagerMainControl(StoreManagerMain storeManagerMainControl) {
+		StoreManagerMainControl = storeManagerMainControl;
 	}
 	
 }
