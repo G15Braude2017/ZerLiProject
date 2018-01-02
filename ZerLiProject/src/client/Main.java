@@ -71,6 +71,17 @@ public class Main extends Application{
 	public static final boolean READ = true;
 	public static final boolean WRITE = false;
 	
+	//enums
+		public enum GreetingCardIs {yes,no};
+		public enum OrderType {SelfDefined,CatalogType};
+		public enum ItemType {FlowerArrangement,Pot,BridalBouquet,Bouquet};
+		public enum IsOnSale {OnSale,NotOnSale};
+		public enum DelivryOrShipping {shipping,delivery};
+		public enum ReceiptStatus {active,canceled_before_refund};
+		public enum Premission {user,costumer,systemManager,companyMangager,storeManager,shopWorker,companyWorker,serviceExpert,costumerService};
+
+	
+	
 	// General defines
 	private static String[] arguments;
 	

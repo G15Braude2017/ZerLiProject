@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="365.0" prefWidth="466.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Button layoutX="374.0" layoutY="288.0" mnemonicParsing="false" text="Back" />
+      <ComboBox layoutX="233.0" layoutY="97.0" prefWidth="150.0" />
+      <Label layoutX="78.0" layoutY="101.0" text="Costumer's Orders :" />
+      <Button layoutX="190.0" layoutY="288.0" mnemonicParsing="false" text="Cancel Order" />
+   </children>
+</AnchorPane>
