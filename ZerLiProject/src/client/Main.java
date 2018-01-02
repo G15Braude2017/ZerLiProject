@@ -124,13 +124,21 @@ public class Main extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception { 
 		
-		//Test Classes					  		
-		CustomerServiceMain frameInstance = new CustomerServiceMain();
+		//Test Classes		
+		CompanyManagerMain frameInstance = new CompanyManagerMain();
+		
+		CompanyManagerMainControl = frameInstance;
+				
+		frameInstance.start();
+		
+		
+		
+		/*CustomerServiceMain frameInstance = new CustomerServiceMain();
 				
 		CustomerServiceMainControl = frameInstance;
 				
 		frameInstance.start();
-		
+		*/
 		
 		/*ServiceExpertMain frameInstance = new ServiceExpertMain();
 		
