@@ -85,8 +85,8 @@ public class Main extends Application{
 		public enum IsOnSale {OnSale,NotOnSale};
 		public enum DelivryOrShipping {shipping,delivery};
 		public enum ReceiptStatus {active,canceled_before_refund};
-		public enum Premission {user,costumer,systemManager,companyMangager,storeManager,shopWorker,companyWorker,serviceExpert,costumerService};
-
+		public enum Premission {user,ShopWorker, Customer, CustomerService, Expert, SystemManager, CompanyManager, StoreManager, CompenyEmployee};
+		
 	
 	
 	// General defines
@@ -130,12 +130,18 @@ public class Main extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception { 
 		
-		//Test Classes		
+		loginLogic frameInstance = new loginLogic();
+		
+		LoginLogicControl  = frameInstance;
+		
+		frameInstance.start();
+		
+		/*//Test Classes		
 		CompanyManagerMain frameInstance = new CompanyManagerMain();
 		
 		CompanyManagerMainControl = frameInstance;
 				
-		frameInstance.start();
+		frameInstance.start();*/
 		
 		
 		

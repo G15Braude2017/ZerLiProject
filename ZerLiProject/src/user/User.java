@@ -1,6 +1,10 @@
 package user;
 
+
 import java.util.EnumSet;
+
+import client.Main;
+import client.Main.Premission;
 
 public class User 
 {
@@ -9,15 +13,17 @@ public class User
 	private boolean connected;
 	public enum permission { ShopWorker, Customer, CustomerService, Expert, SystemManager, CompanyManager, StoreManager, CompenyEmployee;};
 	private permission Permission;
+	private Premission permission;
 	
-	private String storeID;
+	private int storeID;
 	
-	public User(String Uname, String pass, boolean conn, int per, String Sid )
+	
+	public User(String Uname, String pass, boolean conn, int per, int Sid )
 	{
 		userName = Uname;
 		password = pass;
 		connected = conn;
-		Permission = permission.values()[per];
+		permission = Main.Premission.values()[per];
 		storeID = Sid;
 	}
 	
@@ -36,12 +42,12 @@ public class User
 		return connected;
 	}
 	
-	public permission getPermission()
+	public Premission getPermission()
 	{
-		return Permission;
+		return permission;
 	}
 	
-	public String getStoreID()
+	public int getStoreID()
 	{
 		return storeID;
 	}

@@ -6,35 +6,26 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="CompanyManager.CompanyManagerMain">
+<AnchorPane prefHeight="421.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane>
+      <AnchorPane prefHeight="87.0" prefWidth="618.0" style="-fx-background-color: #145A32;">
          <children>
-            <AnchorPane prefHeight="421.0" prefWidth="612.0">
-               <children>
-                  <AnchorPane prefHeight="87.0" prefWidth="618.0" style="-fx-background-color: #145A32;">
-                     <children>
-                        <Button layoutX="42.0" layoutY="18.0" mnemonicParsing="false" onAction="#click_CompanyManagerReports_backBtn" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #145A32;" text="Back to preview" textFill="#fcfcfc" />
-                        <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
-                           <image>
-                              <Image url="@../../ProjectImages/white-down-arrow-png-2.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../ProjectImages/זר-לי.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutY="88.0" prefHeight="335.0" prefWidth="618.0" style="-fx-background-color: #6DC76C;">
-                     <children>
-                        <JFXButton fx:id="btn_showReports" layoutX="235.0" layoutY="57.0" onAction="#click_CompanyManagerMain_btnShowReports" prefHeight="27.0" prefWidth="131.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Show Reports" textFill="WHITE" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
+            <Button layoutX="42.0" layoutY="18.0" mnemonicParsing="false" onAction="#click_CompanyManagerReports_backBtn" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #145A32;" text="Back to preview" textFill="#fcfcfc" />
+            <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+               <image>
+                  <Image url="@../../ProjectImages/white-down-arrow-png-2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ProjectImages/זר-לי.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="88.0" prefHeight="335.0" prefWidth="618.0" style="-fx-background-color: #6DC76C;">
+         <children>
+            <JFXButton fx:id="btn_showReports" layoutX="235.0" layoutY="57.0" onAction="#click_CompanyManagerMain_btnShowReports" prefHeight="27.0" prefWidth="131.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Show Reports" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

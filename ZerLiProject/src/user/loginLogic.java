@@ -28,12 +28,9 @@ import javafx.stage.Stage;
 public class loginLogic 
 {
 	String userName, password;
+	
 	@FXML
-	private Label lblUserNameNote;
-	@FXML
-	private Label lblPasswordNote;
-	@FXML
-	private Label lblConnectedNote;
+	private Label lblNote;
 	@FXML
 	private Label lblUserName;
 	@FXML
@@ -65,7 +62,12 @@ public class loginLogic
 	
 	public void ClickLogin()
 	{
-		PacketClass packet = new PacketClass(Main.SELECTCommandStatement + "UserName, Password, Connected, Permission, StoreID " + Main.FROMCommmandStatement + "Users" + Main.WHERECommmandStatement + "userName=" + txtFldUserName + "password=" + txtFldPassword,
+		if(txtFldUserName.getText().isEmpty() || txtFldPassword.getText().isEmpty())
+		{
+			updateStatusLabel("User details were not entered correctly",true);
+		}
+		
+		PacketClass packet = new PacketClass(Main.SELECTCommandStatement + "UserName, Password, Promission, Connected, StoreID" + Main.FROMCommmandStatement + "Users" + Main.WHERECommmandStatement + "userName='" + txtFldUserName.getText() + "' AND password='" + txtFldPassword.getText()+"';",
 				Main.CheckIfUserExists, Main.READ);
 		try 
 		{
@@ -74,7 +76,7 @@ public class loginLogic
 		catch (Exception e) 
 		{
 			System.out.println(e.toString());
-			updateStatusLabel("ERROR!! Login failed",true,3);
+			updateStatusLabel("ERROR!! Login failed",true);
 		}
 	}
 
@@ -82,39 +84,64 @@ public class loginLogic
 	public void validationFromServer(PacketClass packet)
 	{
 		//Check if username and password exist in DB 
-		
+		int flag =1;
+		String patternPassword = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}";
+		String patternUserName = "[a-zA-Z]{4,}";
 		if (packet.getSuccessSql())
 		{
 			ArrayList<ArrayList<String>> dataList;
 			dataList = (ArrayList<ArrayList<String>>)packet.getResults();//
 						
-			if(dataList.get(0).get(2) == "true")
-				NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), true, Integer.parseInt(dataList.get(0).get(3)), dataList.get(0).get(4));
+			if(Integer.parseInt(dataList.get(0).get(2)) == 1)
+				NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), true, Integer.parseInt(dataList.get(0).get(3)), Integer.parseInt(dataList.get(0).get(4)));
 			else
-				NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), false, Integer.parseInt(dataList.get(0).get(3)), dataList.get(0).get(4));
-			
+				if(Integer.parseInt(dataList.get(0).get(2)) == 0)
+					NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), false, Integer.parseInt(dataList.get(0).get(3)), Integer.parseInt(dataList.get(0).get(4)));
+						
 			if(NewUser.getUserName() == null)
 			{
-				updateStatusLabel("Username does not exist",true,1);
+				updateStatusLabel("Username does not exist",true);
 				flag=0;
 			}
 			
 			if(NewUser.getPassword() == null)
 			{
-				updateStatusLabel("wrong password",true,2);
+				updateStatusLabel("wrong password",true);
 				flag=0;
 			}
 			
 			if(NewUser.getConnected() == false)
 			{
-				updateStatusLabel("User already logged in",true,3);
+				updateStatusLabel("User already logged in",true);
 				flag=0;
 			}
+			
+			if(!(NewUser.getUserName().matches(patternUserName)))
+			{
+				updateStatusLabel("Invalid Username",true);
+				flag=0;
+			}
+			
+			if(!(NewUser.getPassword().matches(patternPassword)))
+			{
+				updateStatusLabel("Invalid Password",true);
+				flag=0;
+			}
+			
 		
 			if(flag == 1)
 			{
 				packet = new PacketClass(Main.UPDATECommandStatement + "Users" + Main.SETCommandStatement + "Connected= true" + Main.WHERECommmandStatement + "userName=" + NewUser.getUserName() + "password=" + NewUser.getPassword(),
 					Main.UpdateStatusOfAnExistingUser, Main.READ);
+				
+				try 
+				{
+					OpenWindowByPermission();
+				} 
+				catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -123,11 +150,11 @@ public class loginLogic
 	{
 		if (!(packet.getSuccessSql()))
 		{
-			updateStatusLabel("Login failed",true,3);
+			updateStatusLabel("Login failed",true);
 		}
 	}
 	
-	private void updateStatusLabel(String message, boolean red_green, int flag) //1=userName, 2=password, 3=connected
+	private void updateStatusLabel(String message, boolean red_green)
 	{
 		Platform.runLater(new Runnable() 
 		{
@@ -135,41 +162,19 @@ public class loginLogic
 			public void run() 
 			{
 				// Update GUI
-				if(flag==1)
-				{
-					Main.getLoginLogicControl().getLblUserNameNote().setText(message);
-					Main.getLoginLogicControl().getLblUserNameNote().setTextFill(Paint.valueOf(Main.RED));
-				}
-				if(flag==2)
-				{
-					Main.getLoginLogicControl().getLblPasswordNote().setText(message);
-					Main.getLoginLogicControl().getLblPasswordNote().setTextFill(Paint.valueOf(Main.RED));
-				}
-				if(flag==3)
-				{
-					Main.getLoginLogicControl().getLblConnectedNote().setText(message);
-					Main.getLoginLogicControl().getLblConnectedNote().setTextFill(Paint.valueOf(Main.RED));
-				}
+				Main.getLoginLogicControl().getLblNote().setText(message);
+				Main.getLoginLogicControl().getLblNote().setTextFill(Paint.valueOf(Main.RED));
+				
 			}
 		});
 	}
 	
-	public Label getLblUserNameNote() 
+	public Label getLblNote() 
 	{
-		return lblUserNameNote;
+		return lblNote;
 	}
 	
-	public Label getLblPasswordNote() 
-	{
-		return lblPasswordNote;
-	}
 	
-	public Label getLblConnectedNote() 
-	{
-		return lblConnectedNote;
-	}
-	
-/*	
 	private void OpenWindowByPermission() throws Exception
 	{
 		switch(NewUser.getPermission())
@@ -179,6 +184,7 @@ public class loginLogic
 			ShopWorkerMain ShopWorker= new ShopWorkerMain();
 			ShopWorker.start();
 		}
+		/*
 		case Customer:
 		{
 			CustomerMain Customer= new CustomerMain();
@@ -216,7 +222,7 @@ public class loginLogic
 			CompenyEmployeeMain CompenyEmployee= new CompenyEmployeeMain();
 			CompenyEmployee.start();
 		}
+		*/
 		}	
-	}
-	*/
+	}	
 }

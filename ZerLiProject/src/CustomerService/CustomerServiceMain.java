@@ -31,6 +31,9 @@ public class CustomerServiceMain {
 		SaveSurveyConclusionControl = new SaveSurveyConclusion();
 		FollowComplaintControl = new FollowComplaint();
 		OpenNewComplaintControl = new OpenNewComplaint();
+		
+		
+		
 	}
 
 	public void click_CreateNewSurvey_btn(ActionEvent event) {
@@ -87,6 +90,14 @@ public class CustomerServiceMain {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void update_NotifierLabel_Client() {
+		
+	}
+	
+	public void update_NotifierLabel_Server() {
+		
 	}
 
 	public static CreateSurvey getCreateSurveyControl() {
