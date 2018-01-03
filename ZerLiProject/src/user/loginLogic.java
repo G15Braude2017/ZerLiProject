@@ -9,7 +9,9 @@ import client.Main;
 import clientServerCommon.PacketClass;
 import ShopWorker.ShopWorkerMain;
 import CustomerService.CustomerServiceMain;
-
+import StoreManager.StoreManagerMain;
+import ServiceExpert.ServiceExpertMain;
+import CompanyManager.CompanyManagerMain;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -133,15 +135,6 @@ public class loginLogic
 			{
 				packet = new PacketClass(Main.UPDATECommandStatement + "Users" + Main.SETCommandStatement + "Connected= true" + Main.WHERECommmandStatement + "userName=" + NewUser.getUserName() + "password=" + NewUser.getPassword(),
 					Main.UpdateStatusOfAnExistingUser, Main.READ);
-				
-				try 
-				{
-					OpenWindowByPermission();
-				} 
-				catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		}
 	}
@@ -152,6 +145,16 @@ public class loginLogic
 		{
 			updateStatusLabel("Login failed",true);
 		}
+		else
+			try 
+			{
+				OpenWindowByPermission();
+			} 
+			catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	private void updateStatusLabel(String message, boolean red_green)
@@ -190,23 +193,25 @@ public class loginLogic
 			CustomerMain Customer= new CustomerMain();
 			Customer.start();
 		}
-		
+		*/
 		case CustomerService:
 		{
 			CustomerServiceMain CustomerService= new CustomerServiceMain();
 			CustomerService.start();
 		}
+		
 		case Expert:
 		{
-			ExpertMain Expert= new ExpertMain();
+			ServiceExpertMain Expert= new ServiceExpertMain();
 			Expert.start();
 		}
-			
+		/*	
 		case SystemManager: 
 		{
 			SystemManagerMain SystemManager= new SystemManagerMain();
 			SystemManager.start();
 		}
+		*/
 		case CompanyManager: 
 		{
 			CompanyManagerMain CompanyManager= new CompanyManagerMain();
@@ -217,6 +222,7 @@ public class loginLogic
 			StoreManagerMain StoreManager= new StoreManagerMain();
 			StoreManager.start();
 		}
+		/*
 		case CompenyEmployee:
 		{
 			CompenyEmployeeMain CompenyEmployee= new CompenyEmployeeMain();
