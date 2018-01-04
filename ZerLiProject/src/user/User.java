@@ -11,8 +11,6 @@ public class User
 	private String userName;
 	private String password;
 	private boolean connected;
-	public enum permission { ShopWorker, Customer, CustomerService, Expert, SystemManager, CompanyManager, StoreManager, CompenyEmployee;};
-	private permission Permission;
 	private Premission permission;
 	
 	private int storeID;

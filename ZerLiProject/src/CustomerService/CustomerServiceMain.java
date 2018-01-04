@@ -1,6 +1,7 @@
 package CustomerService;
 
 
+import client.GuiExtensions;
 import client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import user.loginLogic;
 
-public class CustomerServiceMain {
+public class CustomerServiceMain extends GuiExtensions {
 
 	private static CreateSurvey CreateSurveyControl;
 	private static SaveSurveyConclusion SaveSurveyConclusionControl;
@@ -18,15 +20,9 @@ public class CustomerServiceMain {
 	
 
 	public void start() throws Exception {
+		
+		Main.setCustomerServiceMainControl((CustomerServiceMain) createAndDefinedFxmlWindow("CustomerServiceMain.fxml", "Customer service panel" ));
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CustomerServiceMain.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.setTitle("Customer service panel");
-		stage.show();
-
-		Main.setCustomerServiceMainControl(fxmlLoader.getController());
 		CreateSurveyControl = new CreateSurvey();
 		SaveSurveyConclusionControl = new SaveSurveyConclusion();
 		FollowComplaintControl = new FollowComplaint();

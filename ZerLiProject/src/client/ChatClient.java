@@ -125,8 +125,10 @@ public class ChatClient extends AbstractClient {
 			break;
 		case Main.CheckIfUserExists:
 			Main.getLoginLogicControl().validationFromServer((PacketClass)msg);
+			break;
 		case Main.UpdateStatusOfAnExistingUser:
 			Main.getLoginLogicControl().UpdateStatusUserFromServer((PacketClass)msg);
+			break;
 		default:
 		}
 			/*try {

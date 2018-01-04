@@ -85,7 +85,7 @@ public class Main extends Application{
 		public enum IsOnSale {OnSale,NotOnSale};
 		public enum DelivryOrShipping {shipping,delivery};
 		public enum ReceiptStatus {active,canceled_before_refund};
-		public enum Premission {user,ShopWorker, Customer, CustomerService, Expert, SystemManager, CompanyManager, StoreManager, CompenyEmployee};
+		public enum Premission {user,ShopWorker, Customer, Expert, CustomerService, SystemManager, CompanyManager, StoreManager, CompanyEmployee};
 		
 	
 	
@@ -95,6 +95,8 @@ public class Main extends Application{
 	// Messages color
 	public static final String RED = "red";
 	public static final String GREEN = "green";
+	
+	private static boolean connectionflag = false;
 	
 	
 	public static void main(String[] args) throws Exception {
@@ -119,6 +121,7 @@ public class Main extends Application{
 
 			clientConsolHandle = new ClientConsole(host, port);
 			System.out.println("Success client connect");
+			connectionflag = true;
 		} catch (IOException ex) {
 			System.out.println("Error: Can't setup connection! Check host and port.");
 		}
@@ -134,7 +137,7 @@ public class Main extends Application{
 		
 		LoginLogicControl  = frameInstance;
 		
-		frameInstance.start();
+		frameInstance.start(connectionflag);
 		
 		/*//Test Classes		
 		CompanyManagerMain frameInstance = new CompanyManagerMain();

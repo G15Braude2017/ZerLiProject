@@ -1,3 +1,14 @@
-/user/
-/client/
 /CompanyManager/
+/Costumer/
+/CustomerService/
+/QuarterReports/
+/Reports/
+/ServiceExpert/
+/ShopWorker/
+/StoreManager/
+/client/
+/clientServerCommon/
+/gui/
+/ocsf/
+/server/
+/user/
