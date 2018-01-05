@@ -69,6 +69,12 @@ public class ChatClient extends AbstractClient {
 		case Main.EditProductInformationChangeBtn:
 			//aFrame.EditProductInformation_ChangeBtn_HandleMessageFromServer((PacketClass)msg);
 			break;
+		case Main.LoginVerificateCloseApplication:
+			Main.getLoginLogicControl().verificateApplicationClose((PacketClass)msg);
+			break;
+		case Main.LoginVerificateLogoutApplication:
+			Main.getLoginLogicControl().logoutApplicationServer((PacketClass)msg);
+			break;
 		case Main.CreateSurveyInitializeSurveyID:
 			Main.getCustomerServiceMainControl().getCreateSurveyControl().initializeGUI_SurveyIDCheck_FromServer((PacketClass)msg);
 			break;
@@ -123,10 +129,10 @@ public class ChatClient extends AbstractClient {
 		case Main.FollowComplaintConfirmComplaintBtn:
 			Main.getCustomerServiceMainControl().getFollowComplaintControl().click_FollowComplaint_ConfirmChangesBtnServer((PacketClass)msg);
 			break;
-		case Main.CheckIfUserExists:
+		case Main.LoginCheckIfUserExists:
 			Main.getLoginLogicControl().validationFromServer((PacketClass)msg);
 			break;
-		case Main.UpdateStatusOfAnExistingUser:
+		case Main.LoginUpdateStatusOfAnExistingUser:
 			Main.getLoginLogicControl().UpdateStatusUserFromServer((PacketClass)msg);
 			break;
 		default:

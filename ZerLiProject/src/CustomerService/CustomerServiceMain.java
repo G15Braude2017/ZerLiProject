@@ -4,14 +4,20 @@ package CustomerService;
 import client.GuiExtensions;
 import client.Main;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import user.loginLogic;
 
 public class CustomerServiceMain extends GuiExtensions {
+	
+	//Button
+	@FXML
+	private Button btnLogout;
 
 	private static CreateSurvey CreateSurveyControl;
 	private static SaveSurveyConclusion SaveSurveyConclusionControl;
@@ -88,12 +94,9 @@ public class CustomerServiceMain extends GuiExtensions {
 
 	}
 	
-	public void update_NotifierLabel_Client() {
+	public void clickLogoutButton() {
 		
-	}
-	
-	public void update_NotifierLabel_Server() {
-		
+		logoutApplicationClient(btnLogout);
 	}
 
 	public static CreateSurvey getCreateSurveyControl() {

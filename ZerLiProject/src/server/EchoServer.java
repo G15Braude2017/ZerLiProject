@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 import clientServerCommon.PacketClass;
 
-
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
 
@@ -24,7 +23,6 @@ public class EchoServer extends AbstractServer {
 
 	// Constructors ****************************************************
 
-	
 	/**
 	 * Constructs an instance of the echo server.
 	 *
@@ -49,33 +47,34 @@ public class EchoServer extends AbstractServer {
 
 		Statement stmt;
 		String tempSqlCommand;
-		
+
 		boolean queryResultEmpty = true;
 
 		try {
 			stmt = sqlConnection.createStatement();
 			tempSqlCommand = ((PacketClass) packet).getSqlCommand();
 
-			// TODO change valid sql command rule
-			if (true) {
-				
-				ResultSet rs;
-				
-				if(tempSqlCommand.toLowerCase().contains("update") || tempSqlCommand.toLowerCase().contains("insert into"))
-				{
-					try {
+			// if (true) {
+
+			ResultSet rs;
+
+			if (tempSqlCommand.toLowerCase().contains("update")
+					|| tempSqlCommand.toLowerCase().contains("insert into")) {
+				try {
 					stmt.executeUpdate(tempSqlCommand);
-					((PacketClass)packet).setSuccessSql(true);
-					}catch(Exception ex) {
-						((PacketClass)packet).setSuccessSql(false);
-						ServerMain.getServerPanelControl().UpdateConsol(ex.toString());
-					}
-					
+					((PacketClass) packet).setSuccessSql(true);
+					ServerMain.getServerPanelControl().UpdateConsol(
+							"SqlCommand " + ((PacketClass) packet).getSqlCommand() + " succeed from " + client);
+				} catch (Exception ex) {
+					((PacketClass) packet).setSuccessSql(false);
+					ServerMain.getServerPanelControl().UpdateConsol(ex.toString());
+					ServerMain.getServerPanelControl()
+							.UpdateConsol("SqlCommand " + ((PacketClass) packet).getSqlCommand() + " failed from " + client);
 				}
-				else
-				{
-					rs = stmt.executeQuery(tempSqlCommand);
-				
+
+			} else {
+				rs = stmt.executeQuery(tempSqlCommand);
+
 				while (rs.next()) {
 					int i = 1;
 					ArrayList<String> rawList = new ArrayList<String>();
@@ -86,29 +85,34 @@ public class EchoServer extends AbstractServer {
 							i++;
 							queryResultEmpty = false;
 						}
-					} catch (Exception ex) {};
+					} catch (Exception ex) {
+					}
+					;
 
 					((PacketClass) packet).setResults(rawList);
 				}
-				
 
-				if (queryResultEmpty && ((PacketClass)packet).getReturnWithResult())
-					ServerMain.getServerPanelControl().UpdateConsol("SqlCommand " + ((PacketClass) packet).getSqlCommand() + " return empty result");
+				if (queryResultEmpty && ((PacketClass) packet).getReturnWithResult())
+					ServerMain.getServerPanelControl().UpdateConsol(
+							"SqlCommand " + ((PacketClass) packet).getSqlCommand() + " return empty result");
 				else
 					ServerMain.getServerPanelControl().UpdateConsol(
 							"SqlCommand " + ((PacketClass) packet).getSqlCommand() + " succeed from " + client);
-				
-				((PacketClass)packet).setSuccessSql(true);
-				}
-				
-			} else{
-				ServerMain.getServerPanelControl().UpdateConsol("Invalid Sql Command");
-				((PacketClass)packet).setSuccessSql(false);
+
+				((PacketClass) packet).setSuccessSql(true);
 			}
 
+			/*
+			 * } else{
+			 * ServerMain.getServerPanelControl().UpdateConsol("Invalid Sql Command");
+			 * ((PacketClass)packet).setSuccessSql(false); }
+			 */
+
 		} catch (Exception e) {
+			((PacketClass) packet).setSuccessSql(false);
 			ServerMain.getServerPanelControl().UpdateConsol(e.toString());
-			ServerMain.getServerPanelControl().UpdateConsol("SqlCommand " + ((PacketClass) packet).getSqlCommand() + " failed from " + client);
+			ServerMain.getServerPanelControl()
+					.UpdateConsol("SqlCommand " + ((PacketClass) packet).getSqlCommand() + " failed from " + client);
 		}
 
 	}
@@ -131,10 +135,8 @@ public class EchoServer extends AbstractServer {
 
 	// Class methods ***************************************************
 
-
 	public static void initializeServer() {
-		
-		
+
 		EchoServer sv = new EchoServer(ServerMain.getPort());
 
 		try {
@@ -143,13 +145,17 @@ public class EchoServer extends AbstractServer {
 			try {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 			} catch (Exception ex) {// handle the error
-				ServerMain.getServerPanelControl().UpdateConsol("Error jdbc: "+ ex.toString());
+				ServerMain.getServerPanelControl().UpdateConsol("Error jdbc: " + ex.toString());
 			}
 
 			try {
 
 				// jdbc:mysql://localhost:3306/?user=root
-				sqlConnection = DriverManager.getConnection("jdbc:mysql://" + ServerMain.getSqlHost()+":"+ServerMain.getSqlPort() +"/"+ServerMain.getSqlDbName(), ServerMain.getUserName(), ServerMain.getPassword());
+				sqlConnection = DriverManager
+						.getConnection(
+								"jdbc:mysql://" + ServerMain.getSqlHost() + ":" + ServerMain.getSqlPort() + "/"
+										+ ServerMain.getSqlDbName(),
+								ServerMain.getUserName(), ServerMain.getPassword());
 				ServerMain.getServerPanelControl().UpdateConsol("SQL connection succeed");
 
 			} catch (SQLException ex) {// handle any errors

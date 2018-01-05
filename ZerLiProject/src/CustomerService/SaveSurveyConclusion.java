@@ -2,23 +2,19 @@ package CustomerService;
 
 import java.util.ArrayList;
 
+import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
 
-public class SaveSurveyConclusion {
+public class SaveSurveyConclusion extends GuiExtensions{
 
 	// Labels
 	@FXML
@@ -38,15 +34,7 @@ public class SaveSurveyConclusion {
 
 	public void start() throws Exception {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SaveSurveyConclusion.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.setTitle("Save conclusion");
-		stage.show();
-
-		SaveSurveyConclusion SaveSurveyConclusionControl = fxmlLoader.getController();
-		Main.getCustomerServiceMainControl().setSaveSurveyConclusionControl(SaveSurveyConclusionControl);
+		Main.getCustomerServiceMainControl().setSaveSurveyConclusionControl((SaveSurveyConclusion) createAndDefinedFxmlWindow("SaveSurveyConclusion.fxml", "Save conclusion" ));
 
 		initializeSaveSurveyConclusion();
 
@@ -64,7 +52,7 @@ public class SaveSurveyConclusion {
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true);
+			updateStatusLabel("Client connection error", true, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 		}
 
 	}
@@ -80,7 +68,7 @@ public class SaveSurveyConclusion {
 			int i;
 
 			if (DataList == null) {
-				updateStatusLabel("Survey list is empty", true);
+				updateStatusLabel("Survey list is empty", true, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 			} else {
 
 				setGUI_SaveSurveyConclusion_Disable(false);
@@ -92,7 +80,7 @@ public class SaveSurveyConclusion {
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 
 		}
 	}
@@ -122,7 +110,7 @@ public class SaveSurveyConclusion {
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true);
+			updateStatusLabel("Client connection error", true, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 			setGUI_SaveSurveyConclusion_Disable(true);
 		}
 
@@ -138,7 +126,7 @@ public class SaveSurveyConclusion {
 			String SurveyIDstr;
 
 			if (DataList == null) {
-				updateStatusLabel("Survey conclusion is empty", true);
+				updateStatusLabel("Survey conclusion is empty", true, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 			} else {
 
 				Platform.runLater(new Runnable() {
@@ -155,7 +143,7 @@ public class SaveSurveyConclusion {
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 		}
 
 	}
@@ -163,7 +151,7 @@ public class SaveSurveyConclusion {
 	public void click_SaveSurveyConclusion_ApproveConclusionClient() {
 
 		if (Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().taConclusionText.getText().isEmpty())
-			updateStatusLabel("Conclusion text is empty", true);
+			updateStatusLabel("Conclusion text is empty", true, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 		else {
 			PacketClass packet = new PacketClass(Main.UPDATECommandStatement + "surveys_questions"
 					+ Main.SETCommandStatement + "ConclusionApproved = 1" + Main.WHERECommmandStatement + "SurveyID = '"
@@ -175,7 +163,7 @@ public class SaveSurveyConclusion {
 			try {
 				Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 			} catch (Exception e) {
-				updateStatusLabel("Client connection error", true);
+				updateStatusLabel("Client connection error", true, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 			}
 		}
 	}
@@ -184,35 +172,17 @@ public class SaveSurveyConclusion {
 
 		if (packet.getSuccessSql()) {
 
-			updateStatusLabel("Survey conclusion approved", false);
+			updateStatusLabel("Survey conclusion approved", false, Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true , Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus);
 		}
 	}
 
 	//////////////////////////////////
 	// INTERNAL FUNCTIONS
 	//////////////////////////////////
-
-	private void updateStatusLabel(String message, boolean red_green) {
-
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// Update GUI
-				Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus.setText(message);
-
-				if (red_green)
-					Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus
-							.setTextFill(Paint.valueOf(Main.RED));
-				else
-					Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().lblStatus
-							.setTextFill(Paint.valueOf(Main.GREEN));
-			}
-		});
-	}
 
 	private void setGUI_SaveSurveyConclusion_Disable(boolean bool) {
 		Platform.runLater(new Runnable() {

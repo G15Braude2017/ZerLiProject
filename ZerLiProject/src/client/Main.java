@@ -46,8 +46,10 @@ public class Main extends Application{
 	public static final int InitializeCompanyManagerStoreIDcomboBox=50;
 	public static final int GetComplaintReportData=55;
 	
-	public static final int CheckIfUserExists = 30;
-	public static final int UpdateStatusOfAnExistingUser = 31;
+	public static final int LoginCheckIfUserExists = 30;
+	public static final int LoginUpdateStatusOfAnExistingUser = 31;
+	public static final int LoginVerificateCloseApplication = 32;
+	public static final int LoginVerificateLogoutApplication = 33;
 	
 	// Gui controls handles
 	private static EditPuductInformation EditPuductInformationControl;
@@ -85,20 +87,21 @@ public class Main extends Application{
 		public enum IsOnSale {OnSale,NotOnSale};
 		public enum DelivryOrShipping {shipping,delivery};
 		public enum ReceiptStatus {active,canceled_before_refund};
-		public enum Premission {user,ShopWorker, Customer, Expert, CustomerService, SystemManager, CompanyManager, StoreManager, CompanyEmployee};
+		public enum Permission {user,ShopWorker, Customer, Expert, CustomerService, SystemManager, CompanyManager, StoreManager, CompanyEmployee};
 		
 	
 	
 	// General defines
 	private static String[] arguments;
+	public static final String clientDefaultHost = "localhost";
 	
 	// Messages color
 	public static final String RED = "red";
 	public static final String GREEN = "green";
 	
 	private static boolean connectionflag = false;
-	
-	
+
+
 	public static void main(String[] args) throws Exception {
 
 		String host = "";
@@ -124,6 +127,7 @@ public class Main extends Application{
 			connectionflag = true;
 		} catch (IOException ex) {
 			System.out.println("Error: Can't setup connection! Check host and port.");
+			Main.setConnectionflag(false);
 		}
 		
 		launch(args); 
@@ -234,6 +238,15 @@ public class Main extends Application{
 	public static void setLoginLogicControl(loginLogic loginLogicControl)
 	{
 		LoginLogicControl = loginLogicControl;
+	}
+	
+	public static boolean isConnectionflag() {
+		return connectionflag;
+	}
+
+
+	public static void setConnectionflag(boolean connectionflag) {
+		Main.connectionflag = connectionflag;
 	}
 	
 }

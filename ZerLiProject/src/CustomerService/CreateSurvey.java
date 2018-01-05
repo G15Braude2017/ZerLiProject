@@ -1,29 +1,21 @@
 package CustomerService;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
+import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
 
-public class CreateSurvey {
+public class CreateSurvey extends GuiExtensions{
 
 	private static int CurrentSurveyID;
-	private static int CurrentWorkerID = -1;
+	private static String CurrentWorkerID = null;
 
 	// Labels
 	@FXML
@@ -53,15 +45,7 @@ public class CreateSurvey {
 
 	public void start() throws Exception {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateSurvey.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.setTitle("Create survey");
-		stage.show();
-
-		CreateSurvey CreateSurveyhandle = fxmlLoader.getController();
-		Main.getCustomerServiceMainControl().setCreateSurveyControl(CreateSurveyhandle);
+		Main.getCustomerServiceMainControl().setCreateSurveyControl((CreateSurvey) createAndDefinedFxmlWindow("CreateSurvey.fxml", "Create survey" ));
 		
 		initializeCreateSurvey();
 
@@ -73,8 +57,8 @@ public class CreateSurvey {
 		// disable all and then try to check if can be enabled
 		setGUI_CreateSurvey_Disable(true);
 
-		// TODO get WORKERID into CurrentWorkerID
-		CurrentWorkerID = 7777;
+		
+		CurrentWorkerID = Main.getLoginLogicControl().getNewUser().getUserName();
 
 		PacketClass packet = new PacketClass(
 				Main.SELECTCommandStatement + "SurveyID" + Main.FROMCommmandStatement + "surveys_questions",
@@ -83,8 +67,9 @@ public class CreateSurvey {
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true);
+			updateStatusLabel("Client connection error", true, Main.getCustomerServiceMainControl().getCreateSurveyControl().lblSurveyStatus);
 		}
+		
 	}
 
 	public void addSurveyClicked() {
@@ -101,7 +86,7 @@ public class CreateSurvey {
 
 				if (q1.isEmpty() || q2.isEmpty() || q3.isEmpty() || q4.isEmpty() || q5.isEmpty() || q6.isEmpty()) {
 
-					updateStatusLabel("One or more of the questions text is empty", true);
+					updateStatusLabel("One or more of the questions text is empty", true, Main.getCustomerServiceMainControl().getCreateSurveyControl().lblSurveyStatus);
 				} else {
 
 					PacketClass packet = new PacketClass(Main.INSERTCommmandStatement
@@ -114,7 +99,7 @@ public class CreateSurvey {
 						Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 					} catch (Exception e) {
 						System.out.println(e.toString());
-						updateStatusLabel("Client connection error", true);
+						updateStatusLabel("Client connection error", true, Main.getCustomerServiceMainControl().getCreateSurveyControl().lblSurveyStatus);
 					}
 				}
 
@@ -128,9 +113,9 @@ public class CreateSurvey {
 
 		if (packet.getSuccessSql()) {
 
-			if (CurrentWorkerID == -1) {
+			if (CurrentWorkerID == null) {
 				// Invalid workerID, not changed 
-				updateStatusLabel("Invalid WorkerID, log in again", true);
+				updateStatusLabel("Invalid WorkerID, log in again", true, Main.getCustomerServiceMainControl().getCreateSurveyControl().lblSurveyStatus);
 
 			} else {
 
@@ -149,7 +134,7 @@ public class CreateSurvey {
 						CurrentSurveyID++;
 						setGUI_CreateSurvey_Disable(false);
 					} catch (Exception e) {
-						updateStatusLabel("Invalid data format in DataBase", true);
+						updateStatusLabel("Invalid data format in DataBase", true, Main.getCustomerServiceMainControl().getCreateSurveyControl().lblSurveyStatus);
 					}
 				}
 
@@ -158,7 +143,7 @@ public class CreateSurvey {
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true, Main.getCustomerServiceMainControl().getCreateSurveyControl().lblSurveyStatus);
 
 		}
 
@@ -167,12 +152,12 @@ public class CreateSurvey {
 	public void addSurveyClicked_handleFromServer(PacketClass packet) {
 
 		if (packet.getSuccessSql()) {
-			updateStatusLabel("Survey " + CurrentSurveyID + " added successfuly", false);
+			updateStatusLabel("Survey " + CurrentSurveyID + " added successfuly", false, Main.getCustomerServiceMainControl().getCreateSurveyControl().lblSurveyStatus);
 			CurrentSurveyID++;
 
 			updateIDsLabels();
 		} else {
-			updateStatusLabel("Survey " + CurrentSurveyID + " not added", true);
+			updateStatusLabel("Survey " + CurrentSurveyID + " not added", true , Main.getCustomerServiceMainControl().getCreateSurveyControl().lblSurveyStatus);
 		}
 
 	}
@@ -194,38 +179,22 @@ public class CreateSurvey {
 	// INTERNAL FUNCTIONS
 	//////////////////////////////////
 
-	private void updateStatusLabel(String message, boolean red_green) {
-
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// Update GUI
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getLblSurveyStatus().setText(message);
-
-				if (red_green)
-					Main.getCustomerServiceMainControl().getCreateSurveyControl().getLblSurveyStatus().setTextFill(Paint.valueOf(Main.RED));
-				else
-					Main.getCustomerServiceMainControl().getCreateSurveyControl().getLblSurveyStatus().setTextFill(Paint.valueOf(Main.GREEN));
-			}
-		});
-	}
-
 	private void setGUI_CreateSurvey_Disable(boolean bool) {
 
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getTxtFldQuestion1().setDisable(bool);
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getTxtFldQuestion2().setDisable(bool);
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getTxtFldQuestion3().setDisable(bool);
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getTxtFldQuestion4().setDisable(bool);
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getTxtFldQuestion5().setDisable(bool);
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getTxtFldQuestion6().setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().txtFldQuestion1.setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().txtFldQuestion2.setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().txtFldQuestion3.setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().txtFldQuestion4.setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().txtFldQuestion5.setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().txtFldQuestion6.setDisable(bool);
 
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getLblCurrentSurveyID().setDisable(bool);
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getLblCurrentWorkerID().setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().lblCurrentSurveyID.setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().lblCurrentWorkerID.setDisable(bool);
 
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getBtnAddSurvey().setDisable(bool);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().btnAddSurvey.setDisable(bool);
 
 			}
 		});
@@ -237,53 +206,12 @@ public class CreateSurvey {
 			@Override
 			public void run() {
 				// Update GUI
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getLblCurrentSurveyID().setText("SurveyID: " + CurrentSurveyID);
-				Main.getCustomerServiceMainControl().getCreateSurveyControl().getLblCurrentWorkerID().setText("WorkerID: " + CurrentWorkerID);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().lblCurrentSurveyID.setText("SurveyID: " + CurrentSurveyID);
+				Main.getCustomerServiceMainControl().getCreateSurveyControl().lblCurrentWorkerID.setText("WorkerID: " + CurrentWorkerID);
 
 			}
 		});
 	}
-
-	public TextField getTxtFldQuestion1() {
-		return txtFldQuestion1;
-	}
-
-	public Label getLblSurveyStatus() {
-		return lblSurveyStatus;
-	}
-
-	public Label getLblCurrentSurveyID() {
-		return lblCurrentSurveyID;
-	}
-
-	public Label getLblCurrentWorkerID() {
-		return lblCurrentWorkerID;
-	}
-
-	public TextField getTxtFldQuestion2() {
-		return txtFldQuestion2;
-	}
-
-	public TextField getTxtFldQuestion3() {
-		return txtFldQuestion3;
-	}
-
-	public TextField getTxtFldQuestion4() {
-		return txtFldQuestion4;
-	}
-
-	public TextField getTxtFldQuestion5() {
-		return txtFldQuestion5;
-	}
-
-	public TextField getTxtFldQuestion6() {
-		return txtFldQuestion6;
-	}
-
-	public Button getBtnAddSurvey() {
-		return btnAddSurvey;
-	}
-
 	
 
 }

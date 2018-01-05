@@ -2,10 +2,8 @@ package server;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import client.Main;
-import gui.EditPuductInformation;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,8 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-public class ServerPanel implements Initializable{
+public class ServerPanel implements Initializable {
 
 	// Labels
 	@FXML
@@ -32,12 +31,10 @@ public class ServerPanel implements Initializable{
 	private Label lblSqlPassword;
 	@FXML
 	private Label lblDBName;
-	
+
 	@FXML
 	private TextArea txtAreaConsol;
-	
-	
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -49,12 +46,11 @@ public class ServerPanel implements Initializable{
 		lblSqlUsername.setText("Username: " + ServerMain.getUserName());
 		lblSqlPassword.setText("Password: " + ServerMain.getPassword());
 		lblDBName.setText("DataBase Name: " + ServerMain.getSqlDbName());
-		
+
 		txtAreaConsol.setText("");
-		
+
 	}
-	
-	
+
 	public void start(Stage primaryStage) throws Exception {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -68,23 +64,28 @@ public class ServerPanel implements Initializable{
 		primaryStage.setScene(scene);
 
 		primaryStage.show();
-		
+
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				System.exit(0);
+			}
+
+		});
+
 		EchoServer.initializeServer();
 
 	}
-	
-	
-	public void UpdateConsol (String message) {
+
+	public void UpdateConsol(String message) {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				
+
 				System.out.println(message);
 				txtAreaConsol.setText(txtAreaConsol.getText() + "\n" + message);
 			}
 		});
 	}
-	
-	
-	
+
 }

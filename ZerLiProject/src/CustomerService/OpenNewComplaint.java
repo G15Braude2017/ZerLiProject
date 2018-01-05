@@ -2,26 +2,22 @@ package CustomerService;
 
 import java.util.ArrayList;
 
+import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
 
-public class OpenNewComplaint {
+public class OpenNewComplaint extends GuiExtensions{
 
-	private static int CurrentWorkerID = -1;
+	private static String CurrentWorkerID = null;
 
 	// ComboBox
 	@FXML
@@ -46,15 +42,7 @@ public class OpenNewComplaint {
 
 	public void start() throws Exception {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("OpenNewComplaint.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.setTitle("Open complaint");
-		stage.show();
-
-		OpenNewComplaint OpenNewComplaintControl = fxmlLoader.getController();
-		Main.getCustomerServiceMainControl().setOpenNewComplaintControl(OpenNewComplaintControl);
+		Main.getCustomerServiceMainControl().setOpenNewComplaintControl((OpenNewComplaint) createAndDefinedFxmlWindow("OpenNewComplaint.fxml", "Open complaint" ));
 
 		initializeOpenNewComplaint();
 
@@ -64,8 +52,8 @@ public class OpenNewComplaint {
 
 		setGUI_OpenNewComplaint_Disable(true);
 
-		// TODO get WORKERID into CurrentWorkerID
-		CurrentWorkerID = 7777;
+	
+		CurrentWorkerID = Main.getLoginLogicControl().getNewUser().getUserName();
 
 		// TODO create table of customers
 		PacketClass packet = new PacketClass(
@@ -75,7 +63,7 @@ public class OpenNewComplaint {
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true);
+			updateStatusLabel("Client connection error", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 		}
 	}
 
@@ -89,16 +77,16 @@ public class OpenNewComplaint {
 
 		if (packet.getSuccessSql()) {
 
-			if (CurrentWorkerID == -1) {
+			if (CurrentWorkerID == null) {
 				// Invalid workerID, not changed
-				updateStatusLabel("Invalid WorkerID, log in again", true);
+				updateStatusLabel("Invalid WorkerID, log in again", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 			} else {
 
 				DataList = (ArrayList<ArrayList<String>>) packet.getResults();
 
 				if (DataList == null) {
-					updateStatusLabel("There is no customers", true);
+					updateStatusLabel("There is no customers", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 				} else {
 
@@ -122,7 +110,7 @@ public class OpenNewComplaint {
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 		}
 
@@ -140,7 +128,7 @@ public class OpenNewComplaint {
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true);
+			updateStatusLabel("Client connection error", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 		}
 
 	}
@@ -165,7 +153,7 @@ public class OpenNewComplaint {
 			String SurveyIDstr;
 
 			if (DataList == null) {
-				updateStatusLabel("There is no orders for this customer", true);
+				updateStatusLabel("There is no orders for this customer", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 				Platform.runLater(new Runnable() {
 					@Override
@@ -191,7 +179,7 @@ public class OpenNewComplaint {
 					}
 				});
 
-				updateStatusLabel("", true);
+				updateStatusLabel("", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 				for (i = 0; i < DataList.size(); i++) {
 					SurveyIDstr = DataList.get(i).get(0);
@@ -204,7 +192,7 @@ public class OpenNewComplaint {
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 			Platform.runLater(new Runnable() {
 				@Override
@@ -231,7 +219,7 @@ public class OpenNewComplaint {
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true);
+			updateStatusLabel("Client connection error", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 		}
 
 	}
@@ -246,7 +234,7 @@ public class OpenNewComplaint {
 			String SurveyIDstr;
 
 			if (DataList == null) {
-				updateStatusLabel("", true);
+				updateStatusLabel("", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 				Platform.runLater(new Runnable() {
 					@Override
@@ -270,13 +258,13 @@ public class OpenNewComplaint {
 					}
 				});
 
-				updateStatusLabel("There is already complaint for this order", true);
+				updateStatusLabel("There is already complaint for this order", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 			}
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 			Platform.runLater(new Runnable() {
 				@Override
@@ -296,7 +284,7 @@ public class OpenNewComplaint {
 			if (Main.getCustomerServiceMainControl().getOpenNewComplaintControl().cbOrderID.getValue() != null) {
 				if (Main.getCustomerServiceMainControl().getOpenNewComplaintControl().taComplaintText.getText()
 						.isEmpty()) {
-					updateStatusLabel("Complaint text is empty", true);
+					updateStatusLabel("Complaint text is empty", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 				} else {
 					// TODO change tables info
@@ -315,14 +303,14 @@ public class OpenNewComplaint {
 					try {
 						Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 					} catch (Exception e) {
-						updateStatusLabel("Client connection error", true);
+						updateStatusLabel("Client connection error", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 					}
 				}
 			} else {
-				updateStatusLabel("OrderID is empty", true);
+				updateStatusLabel("OrderID is empty", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 			}
 		} else {
-			updateStatusLabel("CustomerID is empty", true);
+			updateStatusLabel("CustomerID is empty", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 		}
 	}
 
@@ -343,11 +331,11 @@ public class OpenNewComplaint {
 				}
 			});
 
-			updateStatusLabel("New complaint opened", false);
+			updateStatusLabel("New complaint opened", false ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed open new complaint", true);
+			updateStatusLabel("Failed open new complaint", true ,Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus);
 		}
 	}
 
@@ -355,7 +343,7 @@ public class OpenNewComplaint {
 
 		((Node) event.getSource()).getScene().getWindow().hide();
 
-		CurrentWorkerID = -1;
+		CurrentWorkerID = null;
 
 		try {
 			Main.getCustomerServiceMainControl().start();
@@ -368,24 +356,6 @@ public class OpenNewComplaint {
 	//////////////////////////////////
 	// INTERNAL FUNCTIONS
 	//////////////////////////////////
-
-	private void updateStatusLabel(String message, boolean red_green) {
-
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// Update GUI
-				Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus.setText(message);
-
-				if (red_green)
-					Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus
-							.setTextFill(Paint.valueOf(Main.RED));
-				else
-					Main.getCustomerServiceMainControl().getOpenNewComplaintControl().lblComplaintStatus
-							.setTextFill(Paint.valueOf(Main.GREEN));
-			}
-		});
-	}
 
 	private void setGUI_OpenNewComplaint_Disable(boolean bool) {
 

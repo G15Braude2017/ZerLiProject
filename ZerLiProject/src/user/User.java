@@ -1,28 +1,33 @@
 package user;
 
-
-import java.util.EnumSet;
-
 import client.Main;
-import client.Main.Premission;
+import client.Main.Permission;
 
 public class User 
 {
 	private String userName;
 	private String password;
 	private boolean connected;
-	private Premission permission;
+	private Permission permission;
 	
 	private int storeID;
 	
 	
-	public User(String Uname, String pass, boolean conn, int per, int Sid )
+	public User(String Uname, String pass, boolean conn, int per, String Sid )
 	{
 		userName = Uname;
 		password = pass;
 		connected = conn;
-		permission = Main.Premission.values()[per];
-		storeID = Sid;
+		permission = Main.Permission.values()[per];
+		
+		try {
+			storeID = Integer.parseInt(Sid);
+			
+			if(storeID < 0)
+				storeID = -1;
+		}catch (Exception e) {
+			storeID = -1;
+		}
 	}
 	
 	public String getUserName()
@@ -40,7 +45,7 @@ public class User
 		return connected;
 	}
 	
-	public Premission getPermission()
+	public Permission getPermission()
 	{
 		return permission;
 	}

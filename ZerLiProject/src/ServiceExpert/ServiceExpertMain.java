@@ -1,28 +1,29 @@
 package ServiceExpert;
 
+import client.GuiExtensions;
 import client.Main;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-public class ServiceExpertMain {
+public class ServiceExpertMain extends GuiExtensions{
 
 private static PullSurveyResults PullSurveyResultsControl;
 	
+	//Button
+	@FXML
+	private Button btnLogout;
 	
 	public void start() throws Exception {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ServiceExpertMain.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.setTitle("Service expert panel");
-		stage.show();
-
-		Main.setServiceExpertMainControl(fxmlLoader.getController());
+		Main.setServiceExpertMainControl((ServiceExpertMain) createAndDefinedFxmlWindow("ServiceExpertMain.fxml", "Service expert panel"));
+		
 		PullSurveyResultsControl = new PullSurveyResults();
 	}
 
@@ -38,6 +39,12 @@ private static PullSurveyResults PullSurveyResultsControl;
 			e.printStackTrace();
 		}
 	}
+	
+	public void clickLogoutButton() {
+		
+		logoutApplicationClient(btnLogout);
+	}
+
 
 
 	public static PullSurveyResults getPullSurveyResultsControl() {

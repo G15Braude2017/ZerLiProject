@@ -2,26 +2,23 @@ package CustomerService;
 
 import java.util.ArrayList;
 
+import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
 
-public class FollowComplaint {
+public class FollowComplaint extends GuiExtensions {
 
-	private static int CurrentWorkerID = -1;
+	private static String CurrentWorkerID = null;
 	private static UpdateTimerComplaint UpdateTimerComplaintControl = null;
 	private static boolean complaintAlreadyCompensated;
 
@@ -53,16 +50,8 @@ public class FollowComplaint {
 
 	public void start() throws Exception {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FollowComplaint.fxml"));
-		Parent root1;
-		root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.setTitle("Follow complaint");
-		stage.show();
-
-		FollowComplaint FollowComplaintControl = fxmlLoader.getController();
-		Main.getCustomerServiceMainControl().setFollowComplaintControl(FollowComplaintControl);
+		Main.getCustomerServiceMainControl().setFollowComplaintControl(
+				(FollowComplaint) createAndDefinedFxmlWindow("FollowComplaint.fxml", "Follow complaint"));
 
 		initializeFollowComplaint();
 
@@ -71,7 +60,7 @@ public class FollowComplaint {
 	public void initializeFollowComplaint() {
 
 		complaintAlreadyCompensated = false;
-		
+
 		setGUI_OpenNewComplaint_Disable(true);
 
 		Platform.runLater(new Runnable() {
@@ -83,19 +72,21 @@ public class FollowComplaint {
 			}
 		});
 
-		// TODO get worker id
-		CurrentWorkerID = 7777;
+		
+			CurrentWorkerID = Main.getLoginLogicControl().getNewUser().getUserName();
 
-		PacketClass packet = new PacketClass(
-				Main.SELECTCommandStatement + "OrderID" + Main.FROMCommmandStatement + "complaints"
-						+ Main.WHERECommmandStatement + "WorkerID = '" + CurrentWorkerID + "';",
-				Main.FollowComplaintInitializeOrderID, Main.READ);
+			PacketClass packet = new PacketClass(
+					Main.SELECTCommandStatement + "OrderID" + Main.FROMCommmandStatement + "complaints"
+							+ Main.WHERECommmandStatement + "WorkerID = '" + CurrentWorkerID + "';",
+					Main.FollowComplaintInitializeOrderID, Main.READ);
 
-		try {
-			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
-		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true);
-		}
+			try {
+				Main.getClientConsolHandle().sendSqlQueryToServer(packet);
+			} catch (Exception e) {
+				updateStatusLabel("Client connection error", true,
+						Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
+			}
+		
 	}
 
 	public void initializeGUI_OrderIDCheck_FromServer(PacketClass packet) {
@@ -106,16 +97,18 @@ public class FollowComplaint {
 
 		if (packet.getSuccessSql()) {
 
-			if (CurrentWorkerID == -1) {
+			if (CurrentWorkerID == null) {
 				// Invalid workerID, not changed
-				updateStatusLabel("Invalid WorkerID, log in again", true);
+				updateStatusLabel("Invalid WorkerID, log in again", true,
+						Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 
 			} else {
 
 				DataList = (ArrayList<ArrayList<String>>) packet.getResults();
 
 				if (DataList == null) {
-					updateStatusLabel("There is no complaints", true);
+					updateStatusLabel("There is no complaints", true,
+							Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 
 				} else {
 
@@ -139,7 +132,8 @@ public class FollowComplaint {
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true,
+					Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 
 		}
 
@@ -169,7 +163,8 @@ public class FollowComplaint {
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true);
+			updateStatusLabel("Client connection error", true,
+					Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 		}
 
 	}
@@ -184,7 +179,8 @@ public class FollowComplaint {
 			String SurveyIDstr;
 
 			if (DataList == null) {
-				updateStatusLabel("Invalid complaint data", true);
+				updateStatusLabel("Invalid complaint data", true,
+						Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 
 				setGUI_OpenNewComplaint_Disable(true);
 
@@ -254,7 +250,8 @@ public class FollowComplaint {
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true);
+			updateStatusLabel("Failed connect to surveys data", true,
+					Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 
 			setGUI_OpenNewComplaint_Disable(true);
 		}
@@ -269,7 +266,8 @@ public class FollowComplaint {
 			if (Main.getCustomerServiceMainControl().getFollowComplaintControl().cbComplaintStatus.getValue() != null) {
 				if (Main.getCustomerServiceMainControl().getFollowComplaintControl().taComplaintText.getText()
 						.isEmpty()) {
-					updateStatusLabel("Complaint text is empty", true);
+					updateStatusLabel("Complaint text is empty", true,
+							Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 
 				} else {
 
@@ -282,11 +280,13 @@ public class FollowComplaint {
 								+ " , ComplaintText = '"
 								+ Main.getCustomerServiceMainControl().getFollowComplaintControl().taComplaintText
 										.getText()
-								+ "' " + Main.WHERECommmandStatement + " OrderID = "+Main.getCustomerServiceMainControl().getFollowComplaintControl().cbOrderID.getValue();
+								+ "' " + Main.WHERECommmandStatement + " OrderID = "
+								+ Main.getCustomerServiceMainControl().getFollowComplaintControl().cbOrderID.getValue();
 					} else {
 						if (Main.getCustomerServiceMainControl().getFollowComplaintControl().tfCompensationAmount
 								.getText().isEmpty())
-							updateStatusLabel("Compensation amount is empty", true);
+							updateStatusLabel("Compensation amount is empty", true,
+									Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 						else {
 							// TODO change tables info
 							sqlCommandStr = Main.UPDATECommandStatement + "complaints" + Main.SETCommandStatement
@@ -299,7 +299,9 @@ public class FollowComplaint {
 									+ " , ComplaintText = '"
 									+ Main.getCustomerServiceMainControl().getFollowComplaintControl().taComplaintText
 											.getText()
-											+ "' " + Main.WHERECommmandStatement + " OrderID = "+Main.getCustomerServiceMainControl().getFollowComplaintControl().cbOrderID.getValue();
+									+ "' " + Main.WHERECommmandStatement + " OrderID = "
+									+ Main.getCustomerServiceMainControl().getFollowComplaintControl().cbOrderID
+											.getValue();
 						}
 					}
 
@@ -310,15 +312,18 @@ public class FollowComplaint {
 						try {
 							Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 						} catch (Exception e) {
-							updateStatusLabel("Client connection error", true);
+							updateStatusLabel("Client connection error", true,
+									Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 						}
 					}
 				}
 			} else {
-				updateStatusLabel("Complaint status is empty", true);
+				updateStatusLabel("Complaint status is empty", true,
+						Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 			}
 		} else {
-			updateStatusLabel("OrderID is empty", true);
+			updateStatusLabel("OrderID is empty", true,
+					Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 		}
 	}
 
@@ -327,14 +332,16 @@ public class FollowComplaint {
 		if (packet.getSuccessSql()) {
 
 			complaintAlreadyCompensated = false;
-			
+
 			setGUI_OpenNewComplaint_Disable(true);
 
-			updateStatusLabel("Complaint updated", false);
+			updateStatusLabel("Complaint updated", false,
+					Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed update complaint", true);
+			updateStatusLabel("Failed update complaint", true,
+					Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus);
 		}
 	}
 
@@ -358,7 +365,7 @@ public class FollowComplaint {
 
 		((Node) event.getSource()).getScene().getWindow().hide();
 
-		CurrentWorkerID = -1;
+		CurrentWorkerID = null;
 		complaintAlreadyCompensated = false;
 
 		// Close timer thread
@@ -381,24 +388,6 @@ public class FollowComplaint {
 	//////////////////////////////////
 	// INTERNAL FUNCTIONS
 	//////////////////////////////////
-
-	private void updateStatusLabel(String message, boolean red_green) {
-
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// Update GUI
-				Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus.setText(message);
-
-				if (red_green)
-					Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus
-							.setTextFill(Paint.valueOf(Main.RED));
-				else
-					Main.getCustomerServiceMainControl().getFollowComplaintControl().lblStatus
-							.setTextFill(Paint.valueOf(Main.GREEN));
-			}
-		});
-	}
 
 	private void setGUI_OpenNewComplaint_Disable(boolean bool) {
 
