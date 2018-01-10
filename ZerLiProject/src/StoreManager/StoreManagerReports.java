@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import CompanyManager.CompanyManagerReports;
-import Reports.ComplaintReport;
+import Reports.ComplaintReports;
 import Reports.Reports;
 import client.Main;
 import clientServerCommon.PacketClass;

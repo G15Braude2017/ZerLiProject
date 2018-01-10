@@ -135,6 +135,39 @@ public class ChatClient extends AbstractClient {
 		case Main.LoginUpdateStatusOfAnExistingUser:
 			Main.getLoginLogicControl().UpdateStatusUserFromServer((PacketClass)msg);
 			break;
+		case Main.SystemManagerInitializeUserID:
+			Main.getSystemManagerMainControl().getUpdateUserInformationControl().initialize_UpdateUserInformation_server((PacketClass)msg);
+			break;
+		case Main.SystemManagerInitializeStoreID:
+			Main.getSystemManagerMainControl().getUpdateUserInformationControl().addStores_UpdateUserInformation_server((PacketClass)msg);
+			break;
+		case Main.SystemManagerClickUserID:
+			Main.getSystemManagerMainControl().getUpdateUserInformationControl().click_UpdateUserInformation_ComboBoxIDServer((PacketClass)msg);
+			break;
+		case Main.SystemManagerClickConfirmChanges:
+			Main.getSystemManagerMainControl().getUpdateUserInformationControl().click_UpdateUserInformation_ConfirmChangesServer((PacketClass)msg);
+			break;
+		case Main.InitializeCompanyManagerStoreIDcomboBox:
+			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().FillCompanyManagerStoreID_ComboBoxStoreID_FromServer((PacketClass)msg);
+			break;
+		case Main.GetComplaintReportData:
+			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getComplaintReportHandle().setComplaintReport_FromServer((PacketClass)msg);
+			break;
+		case Main.InitializeStoreManagerUsernamecomboBox:
+			Main.getStoreManagerMainControl().getShowStoreManagerCreateCustomerHandle().FillStoreManagerUsername_ComboBoxUserName_FromServer((PacketClass)msg);
+			break;
+		case Main.CheckCustomerUsernameExist:
+			Main.getStoreManagerMainControl().getShowStoreManagerCreateCustomerHandle().CheckExistUsername_FromServer((PacketClass)msg);
+			break;
+		case Main.CreateNewCustomer:
+			Main.getStoreManagerMainControl().getShowStoreManagerCreateCustomerHandle().click_createCustomer_SendBtn_FromServer((PacketClass)msg);
+			break;
+		case Main.GetIncomeReportData:
+			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getIncomeReportHandle().setIncomeReport_FromServer((PacketClass)msg);
+			break;
+		case Main.GetOrderReportData:
+			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getOrderReportHandle().setOrderReport_FromServer((PacketClass)msg);
+			break;
 		default:
 		}
 			/*try {

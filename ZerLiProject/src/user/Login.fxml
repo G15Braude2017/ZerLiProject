@@ -11,10 +11,10 @@
    <children>
       <Pane layoutX="9.0" layoutY="10.0" prefHeight="35.0" prefWidth="69.0" />
       <Button fx:id="btnLogin" layoutX="404.0" layoutY="248.0" mnemonicParsing="false" onAction="#ClickLogin" text="Login" />
-      <TextField fx:id="txtFldUserName" layoutX="195.0" layoutY="123.0" text="avi45" />
+      <TextField fx:id="txtFldUserName" layoutX="195.0" layoutY="123.0" text="gabi44" />
       <Label fx:id="lblUserName" layoutX="126.0" layoutY="127.0" prefHeight="14.0" prefWidth="81.0" text="User Name" />
       <Label fx:id="lblPassword" layoutX="126.0" layoutY="175.0" text="Password" />
       <Label fx:id="lblNote" layoutX="126.0" layoutY="252.0" text="_____" />
-      <PasswordField fx:id="txtFldPassword" layoutX="195.0" layoutY="171.0" text="q1w2" />
+      <PasswordField fx:id="txtFldPassword" layoutX="195.0" layoutY="171.0" text="1234" />
    </children>
 </AnchorPane>

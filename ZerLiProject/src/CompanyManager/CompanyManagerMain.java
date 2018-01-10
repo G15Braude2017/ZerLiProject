@@ -1,6 +1,6 @@
 package CompanyManager;
 
-//import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXButton;
 import client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class CompanyManagerMain {
     @FXML
-    //private JFXButton btn_showReports;
+    private JFXButton btn_showReports;
     
 	private static CompanyManagerReports showManagerReportsHandle;
 	

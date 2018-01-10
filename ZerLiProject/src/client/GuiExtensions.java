@@ -9,9 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -127,13 +129,40 @@ public class GuiExtensions {
 					}
 				}
 			});
-				
 
 		} else {
 			// Sql command failed
 			System.out.println("Failed connect sever, must diconnect before exit");
 
 		}
+	}
+
+	public void disableGui(boolean tf , Node...nodes) {
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+
+				for (Node nd : nodes)
+					nd.setDisable(tf);
+
+			}
+		});
+		
+	}
+	
+	
+	public void addItemsToComboBox(ComboBox<String> cbItem , String...strs) {
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+
+				cbItem.getItems().addAll(strs);
+
+			}
+		});
+		
 	}
 
 	//////////////////////////////////

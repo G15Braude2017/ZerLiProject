@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="462.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SystemManager.UpdateUserInformation">
+   <children>
+      <Pane layoutX="33.0" layoutY="19.0" prefHeight="12.0" prefWidth="9.0" />
+      <Button layoutX="16.0" layoutY="19.0" mnemonicParsing="false" text="Back" />
+      <ComboBox fx:id="cbUserName" layoutX="141.0" layoutY="69.0" onAction="#click_UpdateUserInformation_ComboBoxIDClient" prefHeight="25.0" prefWidth="264.0" />
+      <Label layoutX="57.0" layoutY="73.0" text="UserName:" />
+      <Label layoutX="145.0" layoutY="106.0" text="-- Left blank for no changes take affect --" />
+      <Label layoutX="43.0" layoutY="144.0" text="UserName:" />
+      <Label layoutX="43.0" layoutY="173.0" text="Password:" />
+      <Label layoutX="43.0" layoutY="201.0" text="Permission:" />
+      <TextField fx:id="tfUserName" layoutX="180.0" layoutY="140.0" />
+      <TextField fx:id="tfPassword" layoutX="180.0" layoutY="169.0" />
+      <ComboBox fx:id="cbPermission" layoutX="179.0" layoutY="197.0" prefWidth="150.0" />
+      <Label layoutX="43.0" layoutY="231.0" text="Store connection:" />
+      <ComboBox fx:id="cbStoreConnection" layoutX="179.0" layoutY="227.0" prefWidth="150.0" />
+      <Label layoutX="209.0" layoutY="285.0" text="Payment account" />
+      <Label layoutX="43.0" layoutY="311.0" text="Status:" />
+      <ComboBox fx:id="cbPaymentStatus" layoutX="145.0" layoutY="307.0" prefHeight="25.0" prefWidth="264.0" />
+      <Button fx:id="btnConfirmChanges" layoutX="202.0" layoutY="402.0" mnemonicParsing="false" onAction="#click_UpdateUserInformation_ConfirmChangesClient" text="Confirm changes" />
+      <Label fx:id="lblUpdateUserInformationStatus" layoutX="277.0" layoutY="23.0" text="---" />
+      <Label layoutX="43.0" layoutY="344.0" text="Balance:" />
+      <TextField fx:id="tfPaymentBalance" layoutX="145.0" layoutY="340.0" prefHeight="25.0" prefWidth="264.0" />
+   </children>
+</AnchorPane>

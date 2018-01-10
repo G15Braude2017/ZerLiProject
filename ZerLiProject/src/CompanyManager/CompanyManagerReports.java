@@ -9,9 +9,9 @@ import java.util.Calendar;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
-import QuarterReports.ReportsData;
-import Reports.ComplaintReport;
-import Reports.Reports;
+import QuarterReports.*;
+
+import Reports.*;
 import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
@@ -25,12 +25,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
+
 
 public class CompanyManagerReports {
-	private static int CurrentStoreID = -1;
-	private static int reportAmount=0;
-	private static ComplaintReport complaintReport;//=new ComplaintReport();
+
+	private static ComplaintReports complaintReport;//=new ComplaintReport();
+	private static ComplaintReport complaintReportHandle;
+	private static IncomeReports incomeReport;
+	private static IncomeReport incomeReportHandle;
+	private static OrderReports orderReport;
+	private static OrderReport orderReportHandle;
   //  @FXML
   //  private JFXButton back_btn;
     @FXML
@@ -91,9 +95,12 @@ public class CompanyManagerReports {
 
 		CompanyManagerReports CompanyManagerReportsHandle = fxmlLoader.getController();
 		Main.getCompanyManagerMainControl().setShowManagerReportsHandle(CompanyManagerReportsHandle);
-
-		//initialize();
-
+		complaintReportHandle=new ComplaintReport();
+		complaintReport=new ComplaintReports();
+		incomeReportHandle=new IncomeReport();
+		incomeReport=new IncomeReports();
+		orderReportHandle=new OrderReport();
+		orderReport=new OrderReports();
 	}
   
     public void initialize() {
@@ -107,7 +114,7 @@ public class CompanyManagerReports {
     comboBox_Rquarter1.setItems(quarterNumList); 
     comboBox_Rquarter2.setItems(quarterNumList); 
 	PacketClass packet = new PacketClass( // , store id
-			Main.SELECTCommandStatement + "storeID" + Main.FROMCommmandStatement + "store",
+			Main.SELECTCommandStatement + "storeID" + Main.FROMCommmandStatement + "stores",
 			Main.InitializeCompanyManagerStoreIDcomboBox, Main.READ);
 
 
@@ -139,9 +146,6 @@ public class CompanyManagerReports {
 		ObservableList storeIDList=FXCollections.observableArrayList();
    
 		if (packet.getSuccessSql()) {
-		/*	if (CurrentStoreID == -1) {
-				// Invalid ShopID, not changed
-				updateStatusLabel("Invalid ShopID, log in again", true);*/
 
 				DataList = (ArrayList<ArrayList<String>>) packet.getResults();
 				String SurveyIDstr;
@@ -167,14 +171,12 @@ public class CompanyManagerReports {
 						});
 					} catch (Exception e) {
 						updateStatusLabel("store id data is invalid", true);
-						CurrentStoreID = -1;
 					}
 				}
 
 		} else {
 			// Sql command failed
 			updateStatusLabel("Failed connect to store data", true);
-			CurrentStoreID = -1;
 		}
 	}
     @FXML
@@ -222,67 +224,42 @@ public class CompanyManagerReports {
     		}
     	}
     }
-    public void setComplaintReport_FromServer(PacketClass packet) {
-    	ArrayList<ArrayList<String>> DataList;
- 
-		if (packet.getSuccessSql()) {
-				DataList = (ArrayList<ArrayList<String>>) packet.getResults();
-				if (DataList == null) {
-					updateStatusLabel("Couldn't get complaint report data", true);
-				} else {
 
-					try {
-
-						Platform.runLater(new Runnable() {
-							@Override
-							public void run() {
-								int i=0;
-								for(i=0;i<DataList.size();i++)
-								{
-									complaintReport.setMonthNum(DataList.get(i).get(0));
-									complaintReport.setComplaintAmount(DataList.get(i).get(1));
-								}
-								
-							}
-						});
-					} catch (Exception e) {
-						updateStatusLabel("complaint report data is invalid", true);
-					}
-				}
-
-		} else {
-			// Sql command failed
-			updateStatusLabel("Failed connect to complaint_reports data", true);
-		}
-    	
-    	
-    }
    // @FXML
    // void click_CompanyManagerReports_backBtn2(ActionEvent event) {
 
    // }
 
     @FXML
-    void click_CompanyManagerReports_btnSend(ActionEvent event) {
-    	    	complaintReport=new ComplaintReport();
+    void click_CompanyManagerReports_btnSend(ActionEvent event) throws Exception {
+    	    	//complaintReport=new ComplaintReports();
     	switch (this.comboBox_Rtype1.getValue().toString())
     	{
     	case "Income Report":
-    		
+    		this.incomeReport.setStoreID(comboBox_StoreID1.getValue().toString());
+    		this.incomeReport.setQyear(comboBox_Ryear1.getValue().toString());
+    		this.incomeReport.setQnum(comboBox_Rquarter1.getValue().toString());
+   		 ((Node)(event.getSource())).getScene().getWindow().hide();
+   		 this.incomeReportHandle.start();
     		break;
     	case "Order Report":
-    		
+    		this.orderReport.setStoreID(comboBox_StoreID1.getValue().toString());
+    		this.orderReport.setQyear(comboBox_Ryear1.getValue().toString());
+    		this.orderReport.setQnum(comboBox_Rquarter1.getValue().toString());
+   		 ((Node)(event.getSource())).getScene().getWindow().hide();
+   		 this.orderReportHandle.start();
     		break;
     	case "Satisfaction Report":
     		
     		break;
     	case "Complaint Report":
+  
     		this.complaintReport.setStoreID(comboBox_StoreID1.getValue().toString());
     		this.complaintReport.setQyear(comboBox_Ryear1.getValue().toString());
-    		this.complaintReport.setQnum(comboBox_Rquarter1.getValue().toString());
-    		ReportsData.getComplaintReport(this.complaintReport.getStoreID(),this.complaintReport.getQyear(),this.complaintReport.getQnum());
-    		OpenNewWindow();
+    		this.complaintReport.setQnum(comboBox_Rquarter1.getValue().toString());	
     		 ((Node)(event.getSource())).getScene().getWindow().hide();
+    		 this.complaintReportHandle.start();
+
     		break;
     	default:
     		
@@ -306,20 +283,50 @@ public class CompanyManagerReports {
 			}
 		});
 	}
-	private void OpenNewWindow()
-	{
-        try {
-    		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ZerLiProject/src/QuarterReports/ComplaintReport.fxml"));
-    		Parent root1 = (Parent) fxmlLoader.load();
-    		Stage stage = new Stage();
-    		stage.setScene(new Scene(root1));
-    		stage.setTitle("Complaint Report");
-    		stage.show();
 
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    
+	/**complaintReportHandle geters, setters,complaintReports entity getter
+	 * 
+	 * @return
+	 */
+	public static ComplaintReport getComplaintReportHandle() {
+		return complaintReportHandle;
+	}
+
+
+	public static void setComplaintReportHandle(ComplaintReport showComplaintReportsHandle) {
+		CompanyManagerMain.getShowManagerReportsHandle().complaintReportHandle = showComplaintReportsHandle;
+	}
+	
+	public static ComplaintReports getComplaintReports() {
+		return complaintReport;
+	}
+	/**
+	 * incomeReportHandle getter,setter,incomeReports entity getter
+	 * @return
+	 */
+	public static IncomeReport getIncomeReportHandle() {
+		return incomeReportHandle;
+	}
+
+
+	public static void setIncomeReportHandle(IncomeReport showIncomeReportsHandle) {
+		CompanyManagerMain.getShowManagerReportsHandle().incomeReportHandle = showIncomeReportsHandle;
+	}
+	public static IncomeReports getIncomeReports() {
+		return incomeReport;
+	}
+	/**
+	 * orderReportHandle getter,setter,orderReports entity getter
+	 */
+	public static OrderReport getOrderReportHandle() {
+		return orderReportHandle;
+	}
+
+
+	public static void setOrderReportHandle(OrderReport showOrderReportsHandle) {
+		CompanyManagerMain.getShowManagerReportsHandle().orderReportHandle = showOrderReportsHandle;
+	}
+	public static OrderReports getOrderReports() {
+		return orderReport;
 	}
 }

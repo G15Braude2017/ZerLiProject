@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="421.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QuarterReports.OrderReport">
+   <children>
+      <AnchorPane prefHeight="87.0" prefWidth="618.0" style="-fx-background-color: #145A32;">
+         <children>
+            <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+               <image>
+                  <Image url="@../../ProjectImages/white-down-arrow-png-2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ProjectImages/זר-לי.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="42.0" layoutY="20.0" prefHeight="25.0" prefWidth="109.0" text="Back to preview" textFill="WHITE" />
+            <Label fx:id="lblFillStatus" layoutX="413.0" layoutY="37.0" prefHeight="17.0" prefWidth="122.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="87.0" prefHeight="335.0" prefWidth="618.0" style="-fx-background-color: #6DC76C;">
+         <children>
+            <Label layoutX="226.0" layoutY="33.0" prefHeight="27.0" prefWidth="167.0" text="Order report:" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <TableView fx:id="ordertable" blendMode="MULTIPLY" layoutY="120.0" prefHeight="217.0" prefWidth="618.0">
+               <columns>
+                  <TableColumn fx:id="productID" prefWidth="150.0" style="-fx-alignment: CENTER;" text="Product ID" />
+                  <TableColumn fx:id="name" prefWidth="150.0" style="-fx-alignment: CENTER;" text="Product name" />
+                  <TableColumn fx:id="amount" prefWidth="150.0" style="-fx-alignment: CENTER;" text="Order amount" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Label layoutX="14.0" layoutY="86.0" prefHeight="25.0" prefWidth="93.0" text="Store ID:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="226.0" layoutY="86.0" prefHeight="25.0" prefWidth="93.0" text="Quarter year:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="428.0" layoutY="86.0" prefHeight="25.0" prefWidth="122.0" text="Quarter number:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="storeID" layoutX="84.0" layoutY="86.0" prefHeight="25.0" prefWidth="93.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="qyear" layoutX="319.0" layoutY="86.0" prefHeight="25.0" prefWidth="93.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="qnum" layoutX="541.0" layoutY="86.0" prefHeight="25.0" prefWidth="70.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

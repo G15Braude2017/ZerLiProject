@@ -26,6 +26,7 @@
       <AnchorPane layoutY="88.0" prefHeight="335.0" prefWidth="618.0" style="-fx-background-color: #6DC76C;">
          <children>
             <JFXButton fx:id="btn_showReports" layoutX="235.0" layoutY="57.0" onAction="#click_StoreManagerMain_btnShowReports" prefHeight="27.0" prefWidth="131.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Show Reports" textFill="WHITE" />
+            <JFXButton fx:id="btn_createCustomer" layoutX="235.0" layoutY="128.0" onAction="#click_StoreManagerMain_btnCreateCustomer" prefHeight="27.0" prefWidth="131.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Create Customer" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

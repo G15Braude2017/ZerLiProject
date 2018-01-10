@@ -14,9 +14,11 @@ import javafx.stage.Stage;
 
 public class StoreManagerMain {
     @FXML
+    private JFXButton btn_createCustomer;
+    @FXML
     private JFXButton btn_showReports;
     private static StoreManagerReports showStoreManagerReportsHandle;
-    
+    private static StoreManagerCreateCustomer storeManagerCreateCustomerHandle;
 	public void start() throws Exception {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StoreManagerMain.fxml"));
@@ -28,6 +30,7 @@ public class StoreManagerMain {
 
 		Main.setStoreManagerMainControl(fxmlLoader.getController());
 		showStoreManagerReportsHandle = new StoreManagerReports();
+		storeManagerCreateCustomerHandle=new StoreManagerCreateCustomer();
 	}
     @FXML
     void click_StoreManagerMain_btnShowReports(ActionEvent event) {
@@ -40,7 +43,17 @@ public class StoreManagerMain {
 			e.printStackTrace();
 		}
     }
-
+    @FXML
+    void click_StoreManagerMain_btnCreateCustomer(ActionEvent event) {
+	((Node) event.getSource()).getScene().getWindow().hide();
+		
+		try {
+			storeManagerCreateCustomerHandle.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
     @FXML
     void click_StoreManagerReports_backBtn(ActionEvent event) {
 
@@ -54,6 +67,17 @@ public class StoreManagerMain {
 	public static void setShowStoreManagerReportsHandle(StoreManagerReports showStoreManagerReportsHandle) {
 		StoreManagerMain.showStoreManagerReportsHandle = showStoreManagerReportsHandle;
 	}
+	/**
+	 * 
+	 * @return
+	 */
+	public static StoreManagerCreateCustomer getShowStoreManagerCreateCustomerHandle() {
+		return storeManagerCreateCustomerHandle;
+	}
 
+
+	public static void setShowStoreManagerCreateCustomerHandle(StoreManagerCreateCustomer storeManagerCreateCustomerHandle) {
+		StoreManagerMain.storeManagerCreateCustomerHandle = storeManagerCreateCustomerHandle;
+	}
 
 }

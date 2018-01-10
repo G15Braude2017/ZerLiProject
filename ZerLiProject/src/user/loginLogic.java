@@ -7,6 +7,7 @@ import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import ShopWorker.ShopWorkerMain;
+import SystemManager.SystemManagerMain;
 import CustomerService.CustomerServiceMain;
 import ServiceExpert.ServiceExpertMain;
 import javafx.application.Platform;
@@ -185,6 +186,24 @@ public class loginLogic extends GuiExtensions {
 
 						try {
 							(new ServiceExpertMain()).start();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+			break;
+			
+			
+			case SystemManager: {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						stage.hide();
+
+						try {
+							(new SystemManagerMain()).start();
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

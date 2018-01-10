@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="254.0" prefWidth="482.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Button layoutX="382.0" layoutY="200.0" mnemonicParsing="false" text="Back" />
+      <Button layoutX="215.0" layoutY="200.0" mnemonicParsing="false" text="Pay" />
+      <Label layoutX="114.0" layoutY="70.0" prefHeight="25.0" prefWidth="173.0" text="Total  order payment amount  :" />
+      <Label layoutX="316.0" layoutY="74.0" prefHeight="17.0" prefWidth="50.0" text="total " />
+      <Label layoutX="114.0" layoutY="127.0" prefHeight="17.0" prefWidth="99.0" text="Store Balance :" />
+      <Label layoutX="316.0" layoutY="127.0" prefHeight="17.0" prefWidth="50.0" text="balance" />
+      <Label layoutX="114.0" layoutY="168.0" text="left to papy after store balance use :" />
+      <Label layoutX="323.0" layoutY="168.0" text="left" />
+   </children>
+</AnchorPane>
