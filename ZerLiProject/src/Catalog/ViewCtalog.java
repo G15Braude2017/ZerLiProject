@@ -1,13 +1,6 @@
 package Catalog;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.cell.PropertyValueFactory;
-
 import client.Main;
 import clientServerCommon.PacketClass;
 import Catalog.catalog;
@@ -31,16 +24,72 @@ import javafx.stage.Stage;
 import user.loginLogic;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ViewCtalog extends GuiExtensions {
 
+	// Labels
 	@FXML
 	private Label lblNote;
+	
+	@FXML
+	private Label lblProductName1;
+	
+	@FXML
+	private Label lblProductName2;
+	
+	@FXML
+	private Label lblProductName3;
+	
+	@FXML
+	private Label lblProductName4;
+	
+	@FXML
+	private Label lblProductPrice1;
+	
+	@FXML
+	private Label lblProductPrice2;
+	
+	@FXML
+	private Label lblProductPrice3;
+	
+	@FXML
+	private Label lblProductPrice4;
+	
+	// Image View
+	@FXML
+	private ImageView image1;
+	
+	@FXML
+	private ImageView image2;
+	
+	@FXML
+	private ImageView image3;
+	
+	@FXML
+	private ImageView image4;
 
 	@FXML
-	private TableView Catalog;
-
+	private ImageView imageOrder1;
+	
+	@FXML
+	private ImageView imageOrder2;
+	
+	@FXML
+	private ImageView imageOrder3;
+	
+	@FXML
+	private ImageView imageOrder4;
+	
+	// Buttons 
 	@FXML
 	private Button btnLoginout;
 
@@ -49,7 +98,17 @@ public class ViewCtalog extends GuiExtensions {
 
 	@FXML
 	private Button btnBack;
+	
+	@FXML
+	private Button btnBackCatalog;
+	
+	@FXML
+	private Button btnNextCatalog;
+	
+	
+	private ArrayList<catalog> itemsList = new ArrayList<catalog>();
 
+	
 	public void start() throws Exception {
 
 		Main.setViewCtalogControl((ViewCtalog) createAndDefinedFxmlWindow("Catalog.fxml", "Catalog"));
@@ -58,9 +117,8 @@ public class ViewCtalog extends GuiExtensions {
 	}
 
 	public void getCatalogData() {
-		PacketClass packet = new PacketClass(
-				Main.SELECTCommandStatement + "*" + Main.FROMCommmandStatement + "itemcatalog", Main.ViewCatalog,
-				Main.READ);
+		PacketClass packet = new PacketClass(Main.SELECTCommandStatement + "*" + Main.FROMCommmandStatement + "test",
+				Main.ViewCatalog, Main.READ);
 
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
@@ -73,26 +131,52 @@ public class ViewCtalog extends GuiExtensions {
 		if (packet.getSuccessSql()) {
 			ArrayList<ArrayList<String>> dataList;
 			dataList = (ArrayList<ArrayList<String>>) packet.getResults();
+			String imageLocalPath;
+			String localPath = null;
 
 			if (dataList != null) {
-				TableColumn ImageCol = new TableColumn("Image");
-				TableColumn ItemNameCol = new TableColumn("Item name");
-				TableColumn ItemIDCol = new TableColumn("Item ID");
-				TableColumn TypeCol = new TableColumn("Type");
-				TableColumn PriceCol = new TableColumn("Price");
-				TableColumn OrderCol = new TableColumn("");
 
-				Catalog.getColumns().addAll(ImageCol, ItemNameCol, ItemIDCol, TypeCol, PriceCol, OrderCol);
-
-				ObservableList<catalog> data = null;
-
-				for (int i = 0; i < dataList.size(); i++) {
-					data = FXCollections.observableArrayList(
-							new catalog(new ImageView(dataList.get(i).get(0)), dataList.get(i).get(1),
-									dataList.get(i).get(2), dataList.get(i).get(3), dataList.get(i).get(4)));
+				try {
+					Files.delete(Paths.get(System.getProperty("user.dir")+"catalog.tempimages"));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					//e1.printStackTrace();
 				}
+				
+				localPath = System.getProperty("user.dir")+"\\catalog.tempimages";
+				new File(localPath).mkdir();
+				
+				
+				for(int i=0; i<dataList.size(); i++) {
+					if(!dataList.get(i).get(1).isEmpty() && !dataList.get(i).get(0).isEmpty() && !dataList.get(i).get(2).isEmpty() && !dataList.get(i).get(3).isEmpty())
+					{
 
-				Catalog.setItems(data);
+						imageLocalPath = localPath + "\\" + dataList.get(i).get(2) + ".jpg";
+						
+						// Try save image
+						try (FileOutputStream fileOuputStream = new FileOutputStream(imageLocalPath)) {
+							fileOuputStream.write(packet.fileList.get(i).mybytearray);
+				        } catch (Exception e) {
+				            imageLocalPath = null;
+				        }
+						
+						itemsList.add(new catalog(imageLocalPath, dataList.get(i).get(1), dataList.get(i).get(0), dataList.get(i).get(2) , dataList.get(i).get(3)));
+						
+						
+					}
+					else
+						updateStatusLabel("One or more of items is invalid", true, Main.getViewCtalogControl().lblNote);
+				}
+				
+
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						// Update GUI
+						Main.getViewCtalogControl().image1.setImage(new Image("file:"+ itemsList.get(0).getItemImage()));
+					}
+				});
+
 			} else
 				updateStatusLabel("The catalog is empty", true, Main.getViewCtalogControl().lblNote);
 		} else

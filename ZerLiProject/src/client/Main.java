@@ -173,11 +173,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 
-		loginLogic frameInstance = new loginLogic();
+		/*loginLogic frameInstance = new loginLogic();
 
 		LoginLogicControl = frameInstance;
 
-		frameInstance.start(connectionflag);
+		frameInstance.start(connectionflag);*/
 
 		// Only for tests - this section should include only login frame
 		/*
@@ -187,6 +187,13 @@ public class Main extends Application {
 		 * 
 		 * frameInstance.start();
 		 */
+		
+		
+		ViewCtalog frameInstance = new ViewCtalog();
+		 
+		ViewCtalogControl = frameInstance;
+		  
+		frameInstance.start();
 
 	}
 

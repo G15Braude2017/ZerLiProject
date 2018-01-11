@@ -168,6 +168,9 @@ public class ChatClient extends AbstractClient {
 		case Main.GetOrderReportData:
 			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getOrderReportHandle().setOrderReport_FromServer((PacketClass)msg);
 			break;
+		case Main.ViewCatalog:
+			Main.getViewCtalogControl().initializeCatalog((PacketClass)msg);
+			break;
 		default:
 		}
 			/*try {

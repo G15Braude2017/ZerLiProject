@@ -12,6 +12,9 @@ public class PacketClass implements Serializable{
 	private boolean succeedCommand = false;
 	private int guiHandle;
 	
+	// Images data
+	public ArrayList<MyFile> fileList = new ArrayList<MyFile>();
+	
 	
 	public PacketClass(String sqlstr, int Handle , boolean readSql)
 	{
@@ -70,4 +73,6 @@ public class PacketClass implements Serializable{
 		// TODO should be cloned
 		return DataList;
 	}
+	
+	
 }

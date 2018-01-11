@@ -7,13 +7,16 @@ package server;
 import java.io.*;
 import ocsf.server.*;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import clientServerCommon.MyFile;
 import clientServerCommon.PacketClass;
 
 public class EchoServer extends AbstractServer {
@@ -74,6 +77,7 @@ public class EchoServer extends AbstractServer {
 
 			} else {
 				rs = stmt.executeQuery(tempSqlCommand);
+				ResultSetMetaData rsmd = rs.getMetaData();
 
 				while (rs.next()) {
 					int i = 1;
@@ -81,11 +85,24 @@ public class EchoServer extends AbstractServer {
 
 					try {
 						while (true) {
-							rawList.add(rs.getString(i));
+							if(rsmd.getColumnType(i) != -4)
+							{
+								rawList.add(rs.getString(i));
+							}
+							else
+							{
+								Blob blob = rs.getBlob(rsmd.getColumnCount());
+								MyFile imageFile = new MyFile(null);
+								imageFile.initArray((int)blob.length());
+								imageFile.setMybytearray(blob.getBytes(1, (int) blob.length()));
+								((PacketClass) packet).fileList.add(imageFile);
+							}
+							
 							i++;
 							queryResultEmpty = false;
 						}
 					} catch (Exception ex) {
+						//ex.printStackTrace();
 					}
 					;
 
