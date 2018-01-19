@@ -99,6 +99,12 @@ public class ChatClient extends AbstractClient {
 		case Main.PullSurveyResultsAddConclusionBtn:
 			Main.getServiceExpertMainControl().getPullSurveyResultsControl().click_PullSurveyResults_AddConclusionServer((PacketClass)msg);
 			break;
+		case Main.PullSurveyResultsCheckComboBoxConclusionText:
+			Main.getServiceExpertMainControl().getPullSurveyResultsControl().click_PullSurveyResults_ConclusionTextAreaServer((PacketClass)msg);
+			break;
+		case Main.UpdateComplaintNumberStatus:
+			Main.getCustomerServiceMainControl().initialize_CustomerServiceMain_ComplaintNumberStatusServer((PacketClass)msg);
+			break;
 		case Main.SaveSurveyConclusionCheckComboBoxSurveyID:
 			Main.getCustomerServiceMainControl().getSaveSurveyConclusionControl().initializeGUI_SaveSurveyConclusion_FromServer((PacketClass)msg);
 			break;
@@ -151,7 +157,14 @@ public class ChatClient extends AbstractClient {
 			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().FillCompanyManagerStoreID_ComboBoxStoreID_FromServer((PacketClass)msg);
 			break;
 		case Main.GetComplaintReportData:
+			if (Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getcompanyManager()==true)
+	    	{
 			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getComplaintReportHandle().setComplaintReport_FromServer((PacketClass)msg);
+	    	}
+			else
+			{
+				Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().getComplaintReportHandle().setComplaintReport_FromServer((PacketClass)msg);
+			}
 			break;
 		case Main.InitializeStoreManagerUsernamecomboBox:
 			Main.getStoreManagerMainControl().getShowStoreManagerCreateCustomerHandle().FillStoreManagerUsername_ComboBoxUserName_FromServer((PacketClass)msg);
@@ -163,14 +176,51 @@ public class ChatClient extends AbstractClient {
 			Main.getStoreManagerMainControl().getShowStoreManagerCreateCustomerHandle().click_createCustomer_SendBtn_FromServer((PacketClass)msg);
 			break;
 		case Main.GetIncomeReportData:
+			if (Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getcompanyManager()==true)
+	    	{
 			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getIncomeReportHandle().setIncomeReport_FromServer((PacketClass)msg);
+	    	}
+			else
+			{
+				Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().getIncomeReportHandle().setIncomeReport_FromServer((PacketClass)msg);
+			}
 			break;
 		case Main.GetOrderReportData:
+			if (Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getcompanyManager()==true)
+	    	{
 			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getOrderReportHandle().setOrderReport_FromServer((PacketClass)msg);
+	    	}
+			else
+			{
+				Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().getOrderReportHandle().setOrderReport_FromServer((PacketClass)msg);
+			}
 			break;
 		case Main.ViewCatalog:
 			Main.getViewCtalogControl().initializeCatalog((PacketClass)msg);
 			break;
+		case Main.EditCatalog:
+			Main.getCompanyWorkerMainControl().getEditCatalogControl().initializeCatalog((PacketClass)msg);
+			break;
+		case Main.DoneEditItem:
+			Main.getCompanyWorkerMainControl().getEditCatalogControl().DoneMessSave((PacketClass)msg);
+			break;
+		case Main.DoneRemoveItem:
+			Main.getCompanyWorkerMainControl().getEditCatalogControl().DoneMessRemove((PacketClass)msg);
+			break;
+		case Main.DisplayText:
+			Main.getCompanyWorkerMainControl().getEditCatalogControl().ClickEditDisplay((PacketClass)msg);
+			break;
+		case Main.SaveNewItem:
+			Main.getCompanyWorkerMainControl().getEditCatalogControl().DoneMessSaveNewItem((PacketClass)msg);;
+			break;
+		case Main.SaveSizeStoreID:
+			Main.getCompanyWorkerMainControl().getEditCatalogControl().SaveSizeStoreID((PacketClass)msg);
+			break;
+		case Main.SaveImage:
+			Main.getCompanyWorkerMainControl().getEditCatalogControl().SaveImageMessageFromServer((PacketClass)msg);
+			break;
+			
+			
 		default:
 		}
 			/*try {

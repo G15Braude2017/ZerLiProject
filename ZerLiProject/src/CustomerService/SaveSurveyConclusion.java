@@ -45,8 +45,8 @@ public class SaveSurveyConclusion extends GuiExtensions{
 		setGUI_SaveSurveyConclusion_Disable(true);
 
 		PacketClass packet = new PacketClass(
-				Main.SELECTCommandStatement + " DISTINCT " + "SurveyID" + Main.FROMCommmandStatement
-						+ "surveys_questions" + Main.WHERECommmandStatement + "ConclusionText != 'NULL'",
+				Main.SELECTCommandStatement + "SurveyID" + Main.FROMCommmandStatement
+						+ "surveys_questions" + Main.WHERECommmandStatement + "ConclusionText IS NOT NULL AND ConclusionApproved = 0",
 				Main.SaveSurveyConclusionCheckComboBoxSurveyID, Main.READ);
 
 		try {

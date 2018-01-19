@@ -3,12 +3,14 @@ package QuarterReports;
 import java.util.ArrayList;
 
 import Reports.ComplaintReports;
+import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -19,9 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
-public class ComplaintReport {
-	
-	public static ArrayList<Integer>number;
+public class ComplaintReport extends GuiExtensions{
+	public static boolean actorflag;
+	public static ComplaintReports data;
     @FXML
     private Label lblFillStatus;
     @FXML
@@ -33,15 +35,16 @@ public class ComplaintReport {
     @FXML
     private NumberAxis y;
     public void start() throws Exception {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/QuarterReports/ComplaintReport.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.setTitle("Complaint Report");
-		stage.show();
-
-		ComplaintReport ComplaintReportHandle = fxmlLoader.getController();
-		Main.getCompanyManagerMainControl().getShowManagerReportsHandle().setComplaintReportHandle(ComplaintReportHandle);
+    	if (Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getcompanyManager()==true)
+    	{
+    		actorflag=true;
+		Main.getCompanyManagerMainControl().getShowManagerReportsHandle().setComplaintReportHandle((ComplaintReport) createAndDefinedFxmlWindow("/QuarterReports/ComplaintReport.fxml","Complaint Report"));
+    	}
+    	else
+    	{
+    		Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().setComplaintReportHandle((ComplaintReport) createAndDefinedFxmlWindow("/QuarterReports/ComplaintReport.fxml","Complaint Report"));
+    	}
+		data=new ComplaintReports();
 		initialized();
     }
     /**
@@ -49,8 +52,10 @@ public class ComplaintReport {
      */
     public void initialized()
     {
-    	ComplaintReports data=new ComplaintReports();
+    	if (actorflag==true)
     	data=Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getComplaintReports();
+    	else
+    		data=Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().getComplaintReports();	
     	getComplaintReport(data.getStoreID(),data.getQyear(),data.getQnum()); 
     
     }
@@ -86,7 +91,7 @@ public class ComplaintReport {
 				DataList = (ArrayList<ArrayList<String>>) packet.getResults();
 
 				if (DataList == null) {
-					updateStatusLabel("Couldn't get complaint report data", true);
+					updateStatusLabel("Couldn't get complaint report data", true,lblFillStatus);
 				} else {
 
 					try {
@@ -108,36 +113,31 @@ public class ComplaintReport {
 							}
 						});
 					} catch (Exception e) {
-						updateStatusLabel("complaint report data is invalid", true);
+						updateStatusLabel("complaint report data is invalid", true,lblFillStatus);
 					}
 				}
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to complaint_reports data", true);
+			updateStatusLabel("Failed connect to complaint_reports data", true,lblFillStatus);
 		}
     	
     	
     }
-	private void updateStatusLabel(String message, boolean red_green) {
 
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// Update GUI
-				Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getComplaintReportHandle().lblFillStatus.setText(message);
-
-				if (red_green)
-					Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getComplaintReportHandle().lblFillStatus
-							.setTextFill(Paint.valueOf(Main.RED));
-				else
-					Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getComplaintReportHandle().lblFillStatus
-							.setTextFill(Paint.valueOf(Main.GREEN));
-			}
-		});
-	}
     @FXML
-    void click_StoreManagerReports_backBtn(ActionEvent event) {
-
+    void click_backBtn(ActionEvent event) throws Exception {
+  		 ((Node)(event.getSource())).getScene().getWindow().hide();
+  		if(actorflag==true)
+  		{
+  			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().decWindowsCounter();
+  			if(Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getTwoReportsFlag()==false)
+  				Main.getCompanyManagerMainControl().getShowManagerReportsHandle().start();
+  			else
+  				if(Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getWindowsCounter()==0)
+  					Main.getCompanyManagerMainControl().getShowManagerReportsHandle().disableReportsAmount(false);
+  		}
+  		else
+  		Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().start();
     }
 }

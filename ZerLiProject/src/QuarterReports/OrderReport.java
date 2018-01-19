@@ -9,8 +9,10 @@ import clientServerCommon.PacketClass;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -20,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class OrderReport extends GuiExtensions{
+	public static boolean actorflag;
 	public static OrderReports data;
     @FXML
     private Label lblFillStatus;
@@ -46,15 +49,25 @@ public class OrderReport extends GuiExtensions{
     private Label qnum;
 
     public void start() throws Exception {
+    	if (Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getcompanyManager()==true)
+    	{
+    		actorflag=true;
     	Main.getCompanyManagerMainControl().getShowManagerReportsHandle().setOrderReportHandle((OrderReport) createAndDefinedFxmlWindow("/QuarterReports/OrderReport.fxml","Order Report"));
+    	}
+    	else
+    	{
+    		Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().setOrderReportHandle((OrderReport) createAndDefinedFxmlWindow("/QuarterReports/OrderReport.fxml","Order Report"));
+    	}
     	data=new OrderReports();
     	initialized();
     }
     
     public void initialized()
     {
+    	if (actorflag==true)
   	  data=Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getOrderReports();
-
+    	else
+    		data=Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().getOrderReports();
   	  getOrderReport(data.getStoreID(),data.getQyear(),data.getQnum());
     }
     public static void getOrderReport(String store,String year,String qnum)
@@ -117,5 +130,21 @@ public class OrderReport extends GuiExtensions{
   		}
     	
     	
+    }
+    @FXML
+    void click_backBtn(ActionEvent event) throws Exception {
+    	
+  		 ((Node)(event.getSource())).getScene().getWindow().hide();
+  		 if(actorflag==true)
+  		 {
+  			Main.getCompanyManagerMainControl().getShowManagerReportsHandle().decWindowsCounter();
+  			if(Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getTwoReportsFlag()==false)
+  				Main.getCompanyManagerMainControl().getShowManagerReportsHandle().start();
+  			else
+  				if(Main.getCompanyManagerMainControl().getShowManagerReportsHandle().getWindowsCounter()==0)
+  					Main.getCompanyManagerMainControl().getShowManagerReportsHandle().disableReportsAmount(false);
+  		 }
+  		 else
+  			 Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().start();
     }
 }

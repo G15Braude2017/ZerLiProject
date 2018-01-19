@@ -63,7 +63,7 @@ public class ServerMain extends Application{
 		
 	    try {
 			p.load(new FileInputStream("ServerProperties.ini"));
-			currentPath = System.getProperty("user.dir");
+			currentPath = System.getProperty("Login.dir");
 			userName = p.getProperty("userName");
 			password = p.getProperty("password");
 			sqlHost = p.getProperty("sqlHost");

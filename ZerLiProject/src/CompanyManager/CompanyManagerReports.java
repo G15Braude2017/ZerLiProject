@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXComboBox;
 import QuarterReports.*;
 
 import Reports.*;
+import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
@@ -28,7 +29,9 @@ import javafx.stage.Stage;
 
 
 public class CompanyManagerReports {
-
+	private static int windowsCounter=0;
+	private static boolean twoReportsFlag;
+	private static boolean companyManager=false;
 	private static ComplaintReports complaintReport;//=new ComplaintReport();
 	private static ComplaintReport complaintReportHandle;
 	private static IncomeReports incomeReport;
@@ -101,6 +104,7 @@ public class CompanyManagerReports {
 		incomeReport=new IncomeReports();
 		orderReportHandle=new OrderReport();
 		orderReport=new OrderReports();
+		companyManager=true;
 	}
   
     public void initialize() {
@@ -200,6 +204,7 @@ public class CompanyManagerReports {
     		comboBox_Ryear1.setDisable(false);
     		label_qnum1.setDisable(false);
     		comboBox_Rquarter1.setDisable(false);
+    		twoReportsFlag=false;
     	}
     	else
     	{
@@ -221,24 +226,49 @@ public class CompanyManagerReports {
         		comboBox_Ryear2.setDisable(false);
         		label_qnum2.setDisable(false);
         		comboBox_Rquarter2.setDisable(false);
+        		twoReportsFlag=true;
     		}
     	}
     }
 
-   // @FXML
-   // void click_CompanyManagerReports_backBtn2(ActionEvent event) {
+    public void click_CompanyManagerReports_backButton(ActionEvent event) {
 
-   // }
+		((Node) event.getSource()).getScene().getWindow().hide();
+		
+		try {
+			Main.getCompanyManagerMainControl().start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
     @FXML
     void click_CompanyManagerReports_btnSend(ActionEvent event) throws Exception {
-    	    	//complaintReport=new ComplaintReports();
+    	if(windowsCounter==0)
+    	{
+    	    	if(twoReportsFlag==true)
+    	    	{
+    	    		check2ReportType( event);
+    	    		windowsCounter++;
+    	    		disableReportsAmount(true);
+    	    	}
+    	    	check1ReportType(event);
+    	    	windowsCounter++;
+    	}
+    	else
+    		updateStatusLabel("Close opened reports", true);	
+    }
+    private void check1ReportType(ActionEvent event) throws Exception
+    {
     	switch (this.comboBox_Rtype1.getValue().toString())
     	{
     	case "Income Report":
     		this.incomeReport.setStoreID(comboBox_StoreID1.getValue().toString());
     		this.incomeReport.setQyear(comboBox_Ryear1.getValue().toString());
     		this.incomeReport.setQnum(comboBox_Rquarter1.getValue().toString());
+    		if(twoReportsFlag==false)
    		 ((Node)(event.getSource())).getScene().getWindow().hide();
    		 this.incomeReportHandle.start();
     		break;
@@ -246,6 +276,7 @@ public class CompanyManagerReports {
     		this.orderReport.setStoreID(comboBox_StoreID1.getValue().toString());
     		this.orderReport.setQyear(comboBox_Ryear1.getValue().toString());
     		this.orderReport.setQnum(comboBox_Rquarter1.getValue().toString());
+    		if(twoReportsFlag==false)
    		 ((Node)(event.getSource())).getScene().getWindow().hide();
    		 this.orderReportHandle.start();
     		break;
@@ -257,7 +288,43 @@ public class CompanyManagerReports {
     		this.complaintReport.setStoreID(comboBox_StoreID1.getValue().toString());
     		this.complaintReport.setQyear(comboBox_Ryear1.getValue().toString());
     		this.complaintReport.setQnum(comboBox_Rquarter1.getValue().toString());	
+    		if(twoReportsFlag==false)
     		 ((Node)(event.getSource())).getScene().getWindow().hide();
+    		 this.complaintReportHandle.start();
+
+    		break;
+    	default:
+    		
+    		break;
+    	}
+    }
+    private void check2ReportType(ActionEvent event) throws Exception
+    {
+    	switch (this.comboBox_Rtype2.getValue().toString())
+    	{
+    	case "Income Report":
+    		this.incomeReport.setStoreID(comboBox_StoreID2.getValue().toString());
+    		this.incomeReport.setQyear(comboBox_Ryear2.getValue().toString());
+    		this.incomeReport.setQnum(comboBox_Rquarter2.getValue().toString());
+   		// ((Node)(event.getSource())).getScene().getWindow().hide();
+   		 this.incomeReportHandle.start();
+    		break;
+    	case "Order Report":
+    		this.orderReport.setStoreID(comboBox_StoreID2.getValue().toString());
+    		this.orderReport.setQyear(comboBox_Ryear2.getValue().toString());
+    		this.orderReport.setQnum(comboBox_Rquarter2.getValue().toString());
+   		// ((Node)(event.getSource())).getScene().getWindow().hide();
+   		 this.orderReportHandle.start();
+    		break;
+    	case "Satisfaction Report":
+    		
+    		break;
+    	case "Complaint Report":
+  
+    		this.complaintReport.setStoreID(comboBox_StoreID2.getValue().toString());
+    		this.complaintReport.setQyear(comboBox_Ryear2.getValue().toString());
+    		this.complaintReport.setQnum(comboBox_Rquarter2.getValue().toString());	
+    		// ((Node)(event.getSource())).getScene().getWindow().hide();
     		 this.complaintReportHandle.start();
 
     		break;
@@ -328,5 +395,25 @@ public class CompanyManagerReports {
 	}
 	public static OrderReports getOrderReports() {
 		return orderReport;
+	}
+	public static boolean getcompanyManager()
+	{
+		return companyManager;
+	}
+	public static int getWindowsCounter()
+	{
+		return windowsCounter;
+	}
+	public static void decWindowsCounter()
+	{
+		windowsCounter--;
+	}
+	public static boolean getTwoReportsFlag()
+	{
+		return twoReportsFlag;
+	}
+	public void disableReportsAmount(boolean flag)
+	{
+		this.comboBox_amount1.setDisable(flag);
 	}
 }

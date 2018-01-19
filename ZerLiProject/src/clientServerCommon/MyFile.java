@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class MyFile implements Serializable {
 	
-	private String Description=null;
+	private String ColumName=null;
 	private String fileName=null;	
 	private int size=0;
 	public	byte[] mybytearray;
@@ -50,12 +50,12 @@ public class MyFile implements Serializable {
 		this.mybytearray[i] = mybytearray[i];
 	}
 
-	public String getDescription() {
-		return Description;
+	public String getColumName() {
+		return ColumName;
 	}
 
-	public void setDescription(String description) {
-		Description = description;
+	public void setColumName(String description) {
+		ColumName = description;
 	}	
 }
 

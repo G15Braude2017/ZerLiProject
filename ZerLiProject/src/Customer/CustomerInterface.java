@@ -4,6 +4,7 @@ package Customer;
 
 
 import Customer.CreateOrder;
+import Login.LoginMain;
 import client.GuiExtensions;
 import client.Main;
 import javafx.event.ActionEvent;
@@ -14,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import user.loginLogic;
 
 public class CustomerInterface extends GuiExtensions {
 

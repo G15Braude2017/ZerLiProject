@@ -6,9 +6,16 @@ import java.util.Calendar;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import CompanyManager.CompanyManagerMain;
 import CompanyManager.CompanyManagerReports;
+import QuarterReports.ComplaintReport;
+import QuarterReports.IncomeReport;
+import QuarterReports.OrderReport;
 import Reports.ComplaintReports;
+import Reports.IncomeReports;
+import Reports.OrderReports;
 import Reports.Reports;
+import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import javafx.application.Platform;
@@ -17,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -24,10 +32,14 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-public class StoreManagerReports {
-	private static int CurrentStoreID = -1;
-	private static int reportAmount=0;
-	private Reports report;
+public class StoreManagerReports extends GuiExtensions{
+	private static ComplaintReports complaintReport;//=new ComplaintReport();
+	private static ComplaintReport complaintReportHandle;
+	private static IncomeReports incomeReport;
+	private static IncomeReport incomeReportHandle;
+	private static OrderReports orderReport;
+	private static OrderReport orderReportHandle;
+	private static boolean storeManager=false;
     @FXML
     private Label lblFillStatus;
 
@@ -54,15 +66,14 @@ public class StoreManagerReports {
 
     public void start() throws Exception {
 
- 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StoreManagerReports.fxml"));
- 		Parent root1 = (Parent) fxmlLoader.load();
- 		Stage stage = new Stage();
- 		stage.setScene(new Scene(root1));
- 		stage.setTitle("Store Manager Reports");
- 		stage.show();
-
- 		StoreManagerReports StoreManagerReportsHandle = fxmlLoader.getController();
- 		Main.getStoreManagerMainControl().setShowStoreManagerReportsHandle(StoreManagerReportsHandle);
+    	Main.getStoreManagerMainControl().setShowStoreManagerReportsHandle((StoreManagerReports) createAndDefinedFxmlWindow("StoreManagerReports.fxml","Store Manager Reports"));
+		complaintReportHandle=new ComplaintReport();
+		complaintReport=new ComplaintReports();
+		incomeReportHandle=new IncomeReport();
+		incomeReport=new IncomeReports();
+		orderReportHandle=new OrderReport();
+		orderReport=new OrderReports();
+		storeManager=true;
     }
  	    public void initialize() {
  	    	ObservableList RtypeList=FXCollections.observableArrayList("Income Report","Order Report","Satisfaction Report","Complaint Report");
@@ -84,47 +95,101 @@ public class StoreManagerReports {
     	
     	return yearList;
     }
+
 /**
  * 
  * @param event
+ * @throws Exception 
  */
+ 
     @FXML
-    void click_StoreManagerReports_btnSend(ActionEvent event) {
- /*   	report=new Reports("10",this.comboBox_Ryear1.getValue().toString(),this.comboBox_Rquarter1.getValue().toString());
+    void click_StoreManagerReports_btnSend(ActionEvent event) throws Exception {
     	switch (this.comboBox_Rtype1.getValue().toString())
     	{
     	case "Income Report":
-    		
+    		this.incomeReport.setStoreID("1");
+    		this.incomeReport.setQyear(comboBox_Ryear1.getValue().toString());
+    		this.incomeReport.setQnum(comboBox_Rquarter1.getValue().toString());
+   		 ((Node)(event.getSource())).getScene().getWindow().hide();
+   		 this.incomeReportHandle.start();
     		break;
     	case "Order Report":
-    		
+    		this.orderReport.setStoreID("1");
+    		this.orderReport.setQyear(comboBox_Ryear1.getValue().toString());
+    		this.orderReport.setQnum(comboBox_Rquarter1.getValue().toString());
+   		 ((Node)(event.getSource())).getScene().getWindow().hide();
+   		 this.orderReportHandle.start();
     		break;
     	case "Satisfaction Report":
-    		report=new ComplaintReport(report.getStoreID(),report.getQyear(),report.getQnum(),"1","12");
+    		
     		break;
     	case "Complaint Report":
-    		
+  
+    		this.complaintReport.setStoreID("1");
+    		this.complaintReport.setQyear(comboBox_Ryear1.getValue().toString());
+    		this.complaintReport.setQnum(comboBox_Rquarter1.getValue().toString());	
+    		 ((Node)(event.getSource())).getScene().getWindow().hide();
+    		 this.complaintReportHandle.start();
+
     		break;
     	default:
     		
     		break;
-    	}*/
+    	}
     }
-	private void updateStatusLabel(String message, boolean red_green) {
+    @FXML
+    void click_StoreManagerReports_backBtn(ActionEvent event) throws Exception {
+    	 ((Node)(event.getSource())).getScene().getWindow().hide();
+    	 Main.getStoreManagerMainControl().start();
+    }
+	
+	/**complaintReportHandle geters, setters,complaintReports entity getter
+	 * 
+	 * @return
+	 */
+	public static ComplaintReport getComplaintReportHandle() {
+		return complaintReportHandle;
+	}
 
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// Update GUI
-				Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().lblFillStatus.setText(message);
 
-				if (red_green)
-					Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().lblFillStatus
-							.setTextFill(Paint.valueOf(Main.RED));
-				else
-					Main.getStoreManagerMainControl().getShowStoreManagerReportsHandle().lblFillStatus
-							.setTextFill(Paint.valueOf(Main.GREEN));
-			}
-		});
+	public static void setComplaintReportHandle(ComplaintReport showComplaintReportsHandle) {
+		StoreManagerMain.getShowStoreManagerReportsHandle().complaintReportHandle = showComplaintReportsHandle;
+	}
+	
+	public static ComplaintReports getComplaintReports() {
+		return complaintReport;
+	}
+	/**
+	 * incomeReportHandle getter,setter,incomeReports entity getter
+	 * @return
+	 */
+	public static IncomeReport getIncomeReportHandle() {
+		return incomeReportHandle;
+	}
+
+
+	public static void setIncomeReportHandle(IncomeReport showIncomeReportsHandle) {
+		StoreManagerMain.getShowStoreManagerReportsHandle().incomeReportHandle = showIncomeReportsHandle;
+	}
+	public static IncomeReports getIncomeReports() {
+		return incomeReport;
+	}
+	/**
+	 * orderReportHandle getter,setter,orderReports entity getter
+	 */
+	public static OrderReport getOrderReportHandle() {
+		return orderReportHandle;
+	}
+
+
+	public static void setOrderReportHandle(OrderReport showOrderReportsHandle) {
+		StoreManagerMain.getShowStoreManagerReportsHandle().orderReportHandle = showOrderReportsHandle;
+	}
+	public static OrderReports getOrderReports() {
+		return orderReport;
+	}
+	public static boolean getcompanyManager()
+	{
+		return storeManager;
 	}
 }

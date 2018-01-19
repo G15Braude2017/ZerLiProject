@@ -57,7 +57,8 @@ public class OpenNewComplaint extends GuiExtensions{
 
 		// TODO create table of customers
 		PacketClass packet = new PacketClass(
-				Main.SELECTCommandStatement + "customer_id" + Main.FROMCommmandStatement + "customer",
+				Main.SELECTCommandStatement + "UserName" + Main.FROMCommmandStatement + "users" 
+				+ Main.WHERECommmandStatement + "Permission = 2;",
 				Main.OpenNewComplaintInitializeSurveyID, Main.READ);
 
 		try {
@@ -121,8 +122,8 @@ public class OpenNewComplaint extends GuiExtensions{
 		// TODO change tables info
 		PacketClass packet = new PacketClass(
 				Main.SELECTCommandStatement + "OrderID" + Main.FROMCommmandStatement + "orders"
-						+ Main.WHERECommmandStatement + "CustomerID = "
-						+ Main.getCustomerServiceMainControl().getOpenNewComplaintControl().cbCustomerID.getValue(),
+						+ Main.WHERECommmandStatement + "CustomerID = '"
+						+ Main.getCustomerServiceMainControl().getOpenNewComplaintControl().cbCustomerID.getValue() + "';",
 				Main.OpenNewComplaintInitializeOrderID, Main.READ);
 
 		try {

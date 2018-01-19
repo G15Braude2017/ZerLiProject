@@ -1,14 +1,18 @@
-package user;
-
-import user.User;
+package Login;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import CompanyManager.CompanyManagerMain;
+import CompanyWorker.CompanyWorkerMain;
 import client.GuiExtensions;
 import client.Main;
 import clientServerCommon.PacketClass;
 import ShopWorker.ShopWorkerMain;
+import StoreManager.StoreManagerMain;
 import SystemManager.SystemManagerMain;
 import CustomerService.CustomerServiceMain;
+import Login.UserEntity;
 import ServiceExpert.ServiceExpertMain;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,11 +22,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class loginLogic extends GuiExtensions {
+public class LoginMain extends GuiExtensions {
 
 	private String userName, password;
 
-	private User NewUser;
+	private UserEntity NewUser;
 
 	@FXML
 	private Label lblNote;
@@ -39,7 +43,7 @@ public class loginLogic extends GuiExtensions {
 
 	public void start(boolean connFlag) throws Exception {
 
-		Main.setLoginLogicControl((loginLogic) createAndDefinedFxmlWindow("Login.fxml", "Login"));
+		Main.setLoginLogicControl((LoginMain) createAndDefinedFxmlWindow("LoginMain.fxml", "Login"));
 
 		if (!connFlag) {
 			Platform.runLater(new Runnable() {
@@ -56,17 +60,17 @@ public class loginLogic extends GuiExtensions {
 		}
 	}
 
-	public void ClickLogin(ActionEvent event) {
+	public void clickLoginButton(ActionEvent event) {
 
-		String patternPassword = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}";
-		String patternUserName = "[a-zA-Z]{4,}";
+		Pattern patternPassword = Pattern.compile("^[a-zA-Z0-9_-]{4,20}$");
+		Pattern patternUserName = Pattern.compile("^[a-zA-Z0-9]{4,20}$");
 
 		if (txtFldUserName.getText().isEmpty() || txtFldPassword.getText().isEmpty()) {
 			updateStatusLabel("Username or password is blank", true, Main.getLoginLogicControl().lblNote);
 		} else {
 
-			if (txtFldUserName.getText().matches(patternUserName)
-					|| txtFldPassword.getText().matches(patternPassword)) {
+			if (!patternUserName.matcher(txtFldUserName.getText()).matches()
+					|| !patternPassword.matcher(txtFldPassword.getText()).matches()) {
 				updateStatusLabel("Invalid chars in username or password", true, Main.getLoginLogicControl().lblNote);
 			} else {
 
@@ -101,7 +105,7 @@ public class loginLogic extends GuiExtensions {
 						if (Integer.parseInt(dataList.get(0).get(3)) == 1)
 							updateStatusLabel("User already connected", true, Main.getLoginLogicControl().lblNote);
 						else {
-							NewUser = new User(dataList.get(0).get(0), dataList.get(0).get(1), true,
+							NewUser = new UserEntity(dataList.get(0).get(0), dataList.get(0).get(1), true,
 									Integer.parseInt(dataList.get(0).get(2)), dataList.get(0).get(4));
 
 							packet = new PacketClass(Main.UPDATECommandStatement + "Users" + Main.SETCommandStatement
@@ -119,9 +123,9 @@ public class loginLogic extends GuiExtensions {
 						}
 
 					} else
-						updateStatusLabel("User not connected to store", true, Main.getLoginLogicControl().lblNote);
+						updateStatusLabel("Problem in data base", true, Main.getLoginLogicControl().lblNote);
 				} else
-					updateStatusLabel("Invalid user data", true, Main.getLoginLogicControl().lblNote);
+					updateStatusLabel("Invalid Login data", true, Main.getLoginLogicControl().lblNote);
 
 			} else
 				updateStatusLabel("User not exist or password incorrect", true, Main.getLoginLogicControl().lblNote);
@@ -133,7 +137,7 @@ public class loginLogic extends GuiExtensions {
 		if (packet.getSuccessSql()) {
 			OpenWindowByPermission();
 		} else {
-			updateStatusLabel("Unable update user data", true, Main.getLoginLogicControl().lblNote);
+			updateStatusLabel("Unable update Login data", true, Main.getLoginLogicControl().lblNote);
 		}
 	}
 
@@ -143,6 +147,23 @@ public class loginLogic extends GuiExtensions {
 
 		try {
 			switch (getNewUser().getPermission()) {
+			case user: {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						stage.hide();
+
+						try {
+							(new UserMain()).start();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+			break;
+			
 			case ShopWorker: {
 				Platform.runLater(new Runnable() {
 					@Override
@@ -160,6 +181,23 @@ public class loginLogic extends GuiExtensions {
 				break;
 			}
 
+			
+			case Expert: {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						stage.hide();
+
+						try {
+							(new ServiceExpertMain()).start();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+			break;
 
 			case CustomerService: {
 				Platform.runLater(new Runnable() {
@@ -178,22 +216,7 @@ public class loginLogic extends GuiExtensions {
 				break;
 			}
 			
-			case Expert: {
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						stage.hide();
-
-						try {
-							(new ServiceExpertMain()).start();
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-			break;
+			
 			
 			
 			case SystemManager: {
@@ -213,14 +236,78 @@ public class loginLogic extends GuiExtensions {
 			}
 			break;
 			
+			
+			case CompanyManager: {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						stage.hide();
+
+						try {
+							(new CompanyManagerMain()).start();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+			break;
+			
+			case StoreManager: {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						stage.hide();
+
+						try {
+							(new StoreManagerMain()).start();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+			break;
+			
+			case CompanyEmployee: {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						stage.hide();
+
+						try {
+							(new CompanyWorkerMain()).start();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+			break;
+			
+			
+			
+			
+			
+			
+			
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public User getNewUser() {
+	public UserEntity getNewUser() {
 		return NewUser;
+	}
+
+	@Override
+	public void start() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

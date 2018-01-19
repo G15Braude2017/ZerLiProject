@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
-public class FillCustomerAnswers extends GuiExtensions{
+public class FillCustomerAnswers extends GuiExtensions {
 
 	private static int CurrentSurveyID = -1;
 	private static int CurrentStoreID = -1;
@@ -61,7 +61,8 @@ public class FillCustomerAnswers extends GuiExtensions{
 
 	public void start() throws Exception {
 
-		Main.getShopWorkerMainControl().setFillCustomerAnswersHandle((FillCustomerAnswers) createAndDefinedFxmlWindow("FillCustomerAnswers.fxml", "Fill customer answers"));
+		Main.getShopWorkerMainControl().setFillCustomerAnswersHandle(
+				(FillCustomerAnswers) createAndDefinedFxmlWindow("FillCustomerAnswers.fxml", "Fill customer answers"));
 
 		initializeFillCustomerAnswers();
 
@@ -75,21 +76,22 @@ public class FillCustomerAnswers extends GuiExtensions{
 		// config all choise box with 1-10 answers
 		setGUI_FillCustomerAnswers_ChoiseBoxCong();
 
-		if(Main.getLoginLogicControl().getNewUser().getStoreID() != -1)
-		{
-		CurrentStoreID = Main.getLoginLogicControl().getNewUser().getStoreID();
+		if (Main.getLoginLogicControl().getNewUser().getStoreID() != -1) {
+			CurrentStoreID = Main.getLoginLogicControl().getNewUser().getStoreID();
 
-		PacketClass packet = new PacketClass( // , question1, question2, question3, question4, question5, question6
-				Main.SELECTCommandStatement + "SurveyID" + Main.FROMCommmandStatement + "surveys_questions",
-				Main.FillCustomerAnswersInitializeSurveyID, Main.READ);
+			PacketClass packet = new PacketClass( // , question1, question2, question3, question4, question5, question6
+					Main.SELECTCommandStatement + "SurveyID" + Main.FROMCommmandStatement + "surveys_questions",
+					Main.FillCustomerAnswersInitializeSurveyID, Main.READ);
 
-		try {
-			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
-		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true , Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
-		}
-		}else
-			updateStatusLabel("Worker not connected to valid store", true , Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+			try {
+				Main.getClientConsolHandle().sendSqlQueryToServer(packet);
+			} catch (Exception e) {
+				updateStatusLabel("Client connection error", true,
+						Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+			}
+		} else
+			updateStatusLabel("Worker not connected to valid store", true,
+					Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 
 	}
 
@@ -101,7 +103,8 @@ public class FillCustomerAnswers extends GuiExtensions{
 
 			if (CurrentStoreID == -1) {
 				// Invalid ShopID, not changed
-				updateStatusLabel("Invalid ShopID, log in again", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+				updateStatusLabel("Invalid ShopID, log in again", true,
+						Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 
 			} else {
 
@@ -110,7 +113,8 @@ public class FillCustomerAnswers extends GuiExtensions{
 				int i;
 
 				if (DataList == null) {
-					updateStatusLabel("Survey list is empty", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+					updateStatusLabel("Survey list is empty", true,
+							Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 				} else {
 
 					setGUI_FillCustomerAnswers_Disable(false);
@@ -124,26 +128,28 @@ public class FillCustomerAnswers extends GuiExtensions{
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+			updateStatusLabel("Failed connect to surveys data", true,
+					Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 
 		}
 	}
 
 	public void click_FillCustomerAnswers_ComboBoxIDClient() {
 
-		CurrentSurveyID = Integer.parseInt((String) Main.getShopWorkerMainControl().getFillCustomerAnswersHandle()
-				.cbChooseSurveyID.getValue());
+		CurrentSurveyID = Integer.parseInt(
+				(String) Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbChooseSurveyID.getValue());
 
 		PacketClass packet = new PacketClass(Main.SELECTCommandStatement
 				+ "question1, question2, question3, question4, question5, question6" + Main.FROMCommmandStatement
-				+ "surveys_questions" + Main.WHERECommmandStatement + "SurveyID = " + (String) Main
-						.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbChooseSurveyID.getValue(),
+				+ "surveys_questions" + Main.WHERECommmandStatement + "SurveyID = "
+				+ (String) Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbChooseSurveyID.getValue(),
 				Main.FillCustomerAnswersCheckComboBox, Main.READ);
 
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+			updateStatusLabel("Client connection error", true,
+					Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 			setGUI_FillCustomerAnswers_Disable(true);
 		}
 
@@ -156,7 +162,8 @@ public class FillCustomerAnswers extends GuiExtensions{
 		if (packet.getSuccessSql()) {
 			if (CurrentStoreID == -1) {
 				// Invalid ShopID, not changed
-				updateStatusLabel("Invalid ShopID, log in again", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+				updateStatusLabel("Invalid ShopID, log in again", true,
+						Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 
 			} else {
 
@@ -164,7 +171,8 @@ public class FillCustomerAnswers extends GuiExtensions{
 				String SurveyIDstr;
 
 				if (DataList == null) {
-					updateStatusLabel("Survey data incomplete", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+					updateStatusLabel("Survey data incomplete", true,
+							Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 				} else {
 
 					try {
@@ -187,7 +195,8 @@ public class FillCustomerAnswers extends GuiExtensions{
 							}
 						});
 					} catch (Exception e) {
-						updateStatusLabel("Survey question data is invalid", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+						updateStatusLabel("Survey question data is invalid", true,
+								Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 						CurrentSurveyID = -1;
 					}
 				}
@@ -196,7 +205,8 @@ public class FillCustomerAnswers extends GuiExtensions{
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+			updateStatusLabel("Failed connect to surveys data", true,
+					Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 			CurrentSurveyID = -1;
 		}
 	}
@@ -204,51 +214,56 @@ public class FillCustomerAnswers extends GuiExtensions{
 	public void click_FillCustomerAnswers_SaveAnswersBtnClient() {
 
 		if (CurrentSurveyID == -1 || CurrentStoreID == -1) {
-			updateStatusLabel("Invalid SurveyID or StoreId", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+			updateStatusLabel("Invalid SurveyID or StoreId", true,
+					Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 		} else {
 			if (a1 && a2 && a3 && a4 && a5 && a6) {
-				PacketClass packet = new PacketClass(Main.INSERTCommmandStatement + "surveys_answers"
+				PacketClass packet = new PacketClass(Main.INSERTCommmandStatement
+						+ "surveys_answers (SurveyID, StoreID, answer1, answer2, answer3 ,answer4 ,answer5, answer6, AddingDate) "
 						+ Main.VALUESCommmandStatement + "(" + CurrentSurveyID + "," + CurrentStoreID + ","
 						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbQ1.getValue() + ","
 						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbQ2.getValue() + ","
 						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbQ3.getValue() + ","
 						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbQ4.getValue() + ","
 						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbQ5.getValue() + ","
-						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbQ6.getValue() + ", CURDATE());",
-						Main.FillCustomerAnswersAddSurveyAnswersBtn, Main.WRITE);
+						+ Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().cbQ6.getValue()
+						+ ", CURDATE());", Main.FillCustomerAnswersAddSurveyAnswersBtn, Main.WRITE);
 
 				try {
 					Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 				} catch (Exception e) {
-					updateStatusLabel("Client connection error", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+					updateStatusLabel("Client connection error", true,
+							Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 				}
 			} else
-				updateStatusLabel("Not all questions answered", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+				updateStatusLabel("Not all questions answered", true,
+						Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 		}
 	}
 
 	public void click_FillCustomerAnswers_SaveAnswersBtn_FromServer(PacketClass packet) {
 
 		if (packet.getSuccessSql())
-			updateStatusLabel("Save answers for " + CurrentSurveyID + " succeed", false, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+			updateStatusLabel("Save answers for " + CurrentSurveyID + " succeed", false,
+					Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 		else
-			updateStatusLabel("Save answers for " + CurrentSurveyID + " failed", true, Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
+			updateStatusLabel("Save answers for " + CurrentSurveyID + " failed", true,
+					Main.getShopWorkerMainControl().getFillCustomerAnswersHandle().lblFillStatus);
 	}
-	
-	
+
 	public void click_FillCustomerAnswers_backButton(ActionEvent event) {
 
 		((Node) event.getSource()).getScene().getWindow().hide();
 
 		CurrentSurveyID = -1;
 		CurrentStoreID = -1;
-		a1 = false; 
-		a2 = false; 
-		a3 = false; 
-		a4 = false; 
-		a5 = false; 
+		a1 = false;
+		a2 = false;
+		a3 = false;
+		a4 = false;
+		a5 = false;
 		a6 = false;
-		
+
 		try {
 			Main.getShopWorkerMainControl().start();
 		} catch (Exception e) {
@@ -257,7 +272,6 @@ public class FillCustomerAnswers extends GuiExtensions{
 		}
 
 	}
-	
 
 	//////////////////////////////////
 	// INTERNAL FUNCTIONS
@@ -342,7 +356,7 @@ public class FillCustomerAnswers extends GuiExtensions{
 	public void ComboBox5() {
 		a5 = true;
 	}
-	
+
 	public void ComboBox6() {
 		a6 = true;
 	}

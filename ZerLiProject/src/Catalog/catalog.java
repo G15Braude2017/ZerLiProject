@@ -1,21 +1,25 @@
 package Catalog;
 
+import client.Main;
+import client.Main.ItemType;
 
 public class catalog 
 {
 	private String ItemImage;
 	private String ItemName;
-	private String ItemID;
-	private String Type;
-	private String Price;
+	private int ItemID;
+	private ItemType Type;
+	private float Price;
+	private int Sale;
 	
-	public catalog ( String image ,String itemName, String itemID, String type, String price)
+	public catalog ( String image ,String itemName, int type, float price, int itemID, int sale)
 	{
 		ItemImage = image;
         ItemName = itemName;
 		ItemID = itemID;
-		Type = type;
+		Type = Main.ItemType.values()[type];
 		Price = price;
+		Sale = sale;
 	}
 
 	public String getItemImage() {
@@ -34,30 +38,39 @@ public class catalog
 		ItemName = itemName;
 	}
 
-	public String getItemID() {
+	public int getItemID() {
 		return ItemID;
 	}
 
-	public void setItemID(String itemID) {
+	public void setItemID(int itemID) {
 		ItemID = itemID;
 	}
 
-	public String getType() {
+	public ItemType getType() {
 		return Type;
 	}
 
-	public void setType(String type) {
+	public void setType(ItemType type) {
 		Type = type;
 	}
 
-	public String getPrice() {
+	public float getPrice() {
 		return Price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(float price) {
 		Price = price;
 	}
 
+	public int getSale() 
+	{
+		return Sale;
+	}
+
+	public void setSale(int sale) 
+	{
+		Sale = sale;
+	}
 	
 	
 }

@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
-public class GuiExtensions {
+public abstract class GuiExtensions implements GuiIF{
 
 	private static Window currentWindowToCloseInLogout;
 
@@ -61,6 +61,7 @@ public class GuiExtensions {
 			@Override
 			public void run() {
 				// Update GUI
+				System.out.println(message);
 				statusLabel.setText(message);
 
 				if (red_green)
@@ -151,6 +152,20 @@ public class GuiExtensions {
 		
 	}
 	
+	public void visibleGui(boolean tf , Node...nodes) {
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+
+				for (Node nd : nodes)
+					nd.setVisible(tf);
+
+			}
+		});
+		
+	}
+	
 	
 	public void addItemsToComboBox(ComboBox<String> cbItem , String...strs) {
 
@@ -163,6 +178,18 @@ public class GuiExtensions {
 			}
 		});
 		
+	}
+	
+	public void openNewWindowAndClosePrevious(Node currentWindowNode, GuiIF newWindow)
+	{
+		currentWindowNode.getScene().getWindow().hide();
+		
+		try {
+			newWindow.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	//////////////////////////////////
@@ -198,5 +225,8 @@ public class GuiExtensions {
 		}
 
 	}
+
+	
+	public abstract void start() throws Exception ;
 
 }

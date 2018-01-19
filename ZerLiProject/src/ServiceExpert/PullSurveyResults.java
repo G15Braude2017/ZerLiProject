@@ -13,7 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-public class PullSurveyResults extends GuiExtensions{
+public class PullSurveyResults extends GuiExtensions {
 
 	// Labels
 	@FXML
@@ -39,7 +39,8 @@ public class PullSurveyResults extends GuiExtensions{
 
 	public void start() throws Exception {
 
-		Main.getServiceExpertMainControl().setPullSurveyResultsControl((PullSurveyResults) createAndDefinedFxmlWindow("PullSurveyResults.fxml", "Pull survey results"));
+		Main.getServiceExpertMainControl().setPullSurveyResultsControl(
+				(PullSurveyResults) createAndDefinedFxmlWindow("PullSurveyResults.fxml", "Pull survey results"));
 
 		initializePullSurveyResults();
 
@@ -55,7 +56,8 @@ public class PullSurveyResults extends GuiExtensions{
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+			updateStatusLabel("Client connection error", true,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 		}
 
 	}
@@ -71,7 +73,8 @@ public class PullSurveyResults extends GuiExtensions{
 			int i;
 
 			if (DataList == null) {
-				updateStatusLabel("Survey list is empty", true, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+				updateStatusLabel("Survey list is empty", true,
+						Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 			} else {
 
 				setGUI_PullSurveyResults_Disable(false);
@@ -83,7 +86,8 @@ public class PullSurveyResults extends GuiExtensions{
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+			updateStatusLabel("Failed connect to surveys data", true,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 
 		}
 	}
@@ -113,7 +117,22 @@ public class PullSurveyResults extends GuiExtensions{
 		try {
 			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 		} catch (Exception e) {
-			updateStatusLabel("Client connection error", true, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+			updateStatusLabel("Client connection error", true,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+			setGUI_PullSurveyResults_Disable(true);
+		}
+
+		packet = new PacketClass(Main.SELECTCommandStatement + "ConclusionText" + Main.FROMCommmandStatement
+				+ "surveys_questions" + Main.WHERECommmandStatement + "SurveyID = "
+				+ Integer.parseInt((String) Main.getServiceExpertMainControl().getPullSurveyResultsControl().cbSurveyId
+						.getValue()),
+				Main.PullSurveyResultsCheckComboBoxConclusionText, Main.READ);
+
+		try {
+			Main.getClientConsolHandle().sendSqlQueryToServer(packet);
+		} catch (Exception e) {
+			updateStatusLabel("Client connection error", true,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 			setGUI_PullSurveyResults_Disable(true);
 		}
 
@@ -130,7 +149,8 @@ public class PullSurveyResults extends GuiExtensions{
 			String SurveyIDstr;
 
 			if (DataList == null) {
-				updateStatusLabel("Survey data is empty", true, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+				updateStatusLabel("Survey data is empty", true,
+						Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 			} else {
 
 				for (i = 0; i < DataList.size(); i++) {
@@ -176,7 +196,38 @@ public class PullSurveyResults extends GuiExtensions{
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+			updateStatusLabel("Failed connect to surveys data", true,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+		}
+
+	}
+
+	public void click_PullSurveyResults_ConclusionTextAreaServer(PacketClass packet) {
+
+		ArrayList<ArrayList<String>> DataList;
+		int c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0, c6 = 0, c7 = 0, c8 = 0, c9 = 0, c10 = 0;
+		int i, j;
+
+		if (packet.getSuccessSql()) {
+			DataList = (ArrayList<ArrayList<String>>) packet.getResults();
+			String SurveyIDstr;
+
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					if (DataList == null) {
+						Main.getServiceExpertMainControl().getPullSurveyResultsControl().taConclusionText.setText("");
+					} else {
+						Main.getServiceExpertMainControl().getPullSurveyResultsControl().taConclusionText
+								.setText(DataList.get(0).get(0));
+					}
+				}
+			});
+
+		} else {
+			// Sql command failed
+			updateStatusLabel("Failed connect to surveys data", true,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 		}
 
 	}
@@ -184,20 +235,22 @@ public class PullSurveyResults extends GuiExtensions{
 	public void click_PullSurveyResults_AddConclusionBtn() {
 
 		if (Main.getServiceExpertMainControl().getPullSurveyResultsControl().taConclusionText.getText().isEmpty())
-			updateStatusLabel("Conclusion text is empty", true, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+			updateStatusLabel("Conclusion text is empty", true,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 		else {
 			PacketClass packet = new PacketClass(
 					Main.UPDATECommandStatement + "surveys_questions" + Main.SETCommandStatement + "ConclusionText = '"
 							+ Main.getServiceExpertMainControl().getPullSurveyResultsControl().taConclusionText
 									.getText()
-							+ "'" + Main.WHERECommmandStatement + "SurveyID = "
+							+ "' , ConclusionApproved = 0" + Main.WHERECommmandStatement + "SurveyID = "
 							+ Main.getServiceExpertMainControl().getPullSurveyResultsControl().cbSurveyId.getValue(),
 					Main.PullSurveyResultsAddConclusionBtn, Main.WRITE);
 
 			try {
 				Main.getClientConsolHandle().sendSqlQueryToServer(packet);
 			} catch (Exception e) {
-				updateStatusLabel("Client connection error", true, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+				updateStatusLabel("Client connection error", true,
+						Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 			}
 		}
 	}
@@ -206,11 +259,13 @@ public class PullSurveyResults extends GuiExtensions{
 
 		if (packet.getSuccessSql()) {
 
-			updateStatusLabel("Survey conclusion added", false, Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+			updateStatusLabel("Survey conclusion added", false,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 
 		} else {
 			// Sql command failed
-			updateStatusLabel("Failed connect to surveys data", true , Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
+			updateStatusLabel("Failed connect to surveys data", true,
+					Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblStatus);
 		}
 	}
 
@@ -249,8 +304,9 @@ public class PullSurveyResults extends GuiExtensions{
 			@Override
 			public void run() {
 				Main.getServiceExpertMainControl().getPullSurveyResultsControl().lblResultTxt.setText("Ans1: " + c1
-						+ "   Ans2: " + c2 + "   Ans3: " + c3 + "   Ans4: " + c4 + "   Ans5: " + c5 + "   Ans6: " + c6
-						+ "   Ans7: " + c7 + "   Ans8: " + c8 + "   Ans9: " + c9 + "   Ans10: " + c10);
+						+ "   _______________   Ans2: " + c2 + "   _______________   Ans3: " + c3 + "\nAns4: " + c4
+						+ "   _______________   Ans5: " + c5 + "   _______________   Ans6: " + c6 + "\nAns7: " + c7
+						+ "   _______________   Ans8: " + c8 + "   _______________   Ans9: " + c9 + "\nAns10: " + c10);
 			}
 		});
 	}

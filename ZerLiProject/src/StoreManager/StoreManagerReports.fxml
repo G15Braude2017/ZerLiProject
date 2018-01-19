@@ -21,7 +21,7 @@
                   <Image url="@../../ProjectImages/זר-לי.png" />
                </image>
             </ImageView>
-            <JFXButton layoutX="42.0" layoutY="20.0" prefHeight="25.0" prefWidth="109.0" text="Back to preview" textFill="WHITE" />
+            <JFXButton layoutX="42.0" layoutY="20.0" onAction="#click_StoreManagerReports_backBtn" prefHeight="25.0" prefWidth="109.0" text="Back to preview" textFill="WHITE" />
             <Label fx:id="lblFillStatus" layoutX="413.0" layoutY="37.0" prefHeight="17.0" prefWidth="122.0" />
          </children>
       </AnchorPane>

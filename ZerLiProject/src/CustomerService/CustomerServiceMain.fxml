@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerService.CustomerServiceMain">
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomerService.CustomerServiceMain">
    <children>
-      <Pane fx:id="paneCustomerServiceMain" prefHeight="514.0" prefWidth="520.0">
+      <AnchorPane prefHeight="87.0" prefWidth="618.0" style="-fx-background-color: #145A32;">
          <children>
-            <Button layoutX="215.0" layoutY="115.0" mnemonicParsing="false" onAction="#click_CreateNewSurvey_btn" text="Add new survey" />
-            <Button fx:id="btnLogout" layoutX="449.0" layoutY="23.0" mnemonicParsing="false" onAction="#clickLogoutButton" text="Log out" />
-            <Button layoutX="196.0" layoutY="158.0" mnemonicParsing="false" onAction="#click_SaveSurveyConclusion_btn" text="Save survey conclusion" />
-            <Button layoutX="201.0" layoutY="202.0" mnemonicParsing="false" onAction="#click_OpenNewComplaint_btn" text="Open new complaint" />
-            <Button layoutX="209.0" layoutY="245.0" mnemonicParsing="false" onAction="#click_FollowComplaint_btn" text="Follow complaints" />
-            <Label layoutX="253.0" layoutY="62.0" text="---" />
+            <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ProjectImages/זר-לי.png" />
+               </image>
+            </ImageView>
+         	<JFXButton fx:id="btnLogout" layoutX="474.0" layoutY="35.0" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="27.0" prefWidth="131.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Logout" textFill="WHITE" />
          </children>
-      </Pane>
+      </AnchorPane>
+      <AnchorPane layoutY="88.0" prefHeight="335.0" prefWidth="618.0" style="-fx-background-color: #6DC76C;">
+         <children>         
+			<JFXButton layoutX="197.0" layoutY="110.0" mnemonicParsing="false" onAction="#click_CreateNewSurvey_btn" prefHeight="27.0" prefWidth="172.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Add new survey" textFill="WHITE" />
+			<JFXButton layoutX="197.0" layoutY="150.0" mnemonicParsing="false" onAction="#click_SaveSurveyConclusion_btn" prefHeight="27.0" prefWidth="172.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Save survey conclusion" textFill="WHITE" />
+			<JFXButton layoutX="197.0" layoutY="190.0" mnemonicParsing="false" onAction="#click_OpenNewComplaint_btn" prefHeight="27.0" prefWidth="172.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Open new complaint" textFill="WHITE" />
+			<Label fx:id="lblStatus" layoutX="207.0" layoutY="34.0" text="---" />
+			<JFXButton layoutX="196.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickViewCatalog_CustomerServiceMain_btn" prefHeight="27.0" prefWidth="172.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="View catalog" textFill="WHITE" />
+            <JFXButton layoutX="197.0" layoutY="230.0" mnemonicParsing="false" onAction="#click_FollowComplaint_btn" prefHeight="27.0" prefWidth="172.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Follow complaints" textFill="WHITE" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

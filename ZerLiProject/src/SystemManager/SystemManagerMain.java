@@ -1,7 +1,9 @@
 package SystemManager;
 
 
+import Catalog.ViewCatalog;
 import client.GuiExtensions;
+import client.GuiIF;
 import client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +32,18 @@ public class SystemManagerMain extends GuiExtensions{
 
 			try {
 				UpdateUserInformationControl.start();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public void clickViewCatalog_SystemManagerMain_btn(ActionEvent event) {
+
+			((Node) event.getSource()).getScene().getWindow().hide();
+
+			try {
+				(new ViewCatalog()).start(Main.getSystemManagerMainControl());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

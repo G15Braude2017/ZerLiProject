@@ -55,7 +55,7 @@ public class UpdateUserInformation extends GuiExtensions {
 
 		Main.getSystemManagerMainControl().setUpdateUserInformationControl(
 				(UpdateUserInformation) createAndDefinedFxmlWindow("UpdateUserInformation.fxml",
-						"Update user information"));
+						"Update Login information"));
 
 		initialize_UpdateUserInformation_client();
 	}
@@ -207,7 +207,7 @@ public class UpdateUserInformation extends GuiExtensions {
 			DataList = (ArrayList<ArrayList<String>>) packet.getResults();
 
 			if (DataList == null) {
-				updateStatusLabel("Failed found user", true, Main.getSystemManagerMainControl()
+				updateStatusLabel("Failed found Login", true, Main.getSystemManagerMainControl()
 						.getUpdateUserInformationControl().lblUpdateUserInformationStatus);
 			} else {
 
@@ -283,7 +283,7 @@ public class UpdateUserInformation extends GuiExtensions {
 			
 			sqlCommandInsert += "Permission";
 			
-			if(Main.getSystemManagerMainControl().getUpdateUserInformationControl().cbPermission.getValue().equals("user"))
+			if(Main.getSystemManagerMainControl().getUpdateUserInformationControl().cbPermission.getValue().equals("Login"))
 				sqlCommandValues += "0";
 			else if(Main.getSystemManagerMainControl().getUpdateUserInformationControl().cbPermission.getValue().equals("ShopWorker"))
 				sqlCommandValues += "1";
@@ -387,6 +387,19 @@ public class UpdateUserInformation extends GuiExtensions {
 
 		}
 		
+	}
+	
+	public void click_UpdateUserInformation_backButton(ActionEvent event) {
+
+		((Node) event.getSource()).getScene().getWindow().hide();
+		
+		try {
+			Main.getSystemManagerMainControl().start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

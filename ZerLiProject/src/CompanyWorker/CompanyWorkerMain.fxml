@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CompanyWorker.CompanyWorkerMain">
+   <children>
+      <AnchorPane prefHeight="87.0" prefWidth="618.0" style="-fx-background-color: #145A32;">
+         <children>
+            <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ProjectImages/זר-לי.png" />
+               </image>
+            </ImageView>
+         	<JFXButton fx:id="btnLogout" layoutX="474.0" layoutY="35.0" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="27.0" prefWidth="131.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Logout" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="88.0" prefHeight="335.0" prefWidth="618.0" style="-fx-background-color: #6DC76C;">
+         <children>
+			<JFXButton layoutX="223.0" layoutY="105.0" mnemonicParsing="false" onAction="#click_EditCatalog_btn" prefHeight="27.0" prefWidth="172.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Edit catalog" textFill="WHITE" />
+			<JFXButton layoutX="223.0" layoutY="70.0" mnemonicParsing="false" onAction="#clickViewCatalog_CompanyWorkerMain_btn" prefHeight="27.0" prefWidth="172.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="View catalog" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -157,7 +157,7 @@ public class FollowComplaint extends GuiExtensions {
 				Main.SELECTCommandStatement + "State, AddingDate, CompansationAmount, ComplaintText"
 						+ Main.FROMCommmandStatement + "complaints" + Main.WHERECommmandStatement + "OrderID = "
 						+ Main.getCustomerServiceMainControl().getFollowComplaintControl().cbOrderID.getValue()
-						+ " AND WorkerID = " + CurrentWorkerID + ";",
+						+ " AND WorkerID = '" + CurrentWorkerID + "';",
 				Main.FollowComplaintCheckComboBoxOrderID, Main.READ);
 
 		try {

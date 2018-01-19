@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CompanyWorker.EditCatalog">
+   <children>
+      <AnchorPane prefHeight="87.0" prefWidth="618.0" style="-fx-background-color: #145A32;">
+         <children>
+            <Button layoutX="42.0" layoutY="18.0" mnemonicParsing="false" onAction="#click_EditCatalog_backButton" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #145A32;" text="Back" textFill="#fcfcfc" />
+            <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+            <image>
+                  <Image url="@../../ProjectImages/white-down-arrow-png-2.png" />
+               </image>
+               </ImageView>
+            <ImageView fitHeight="88.0" fitWidth="153.0" layoutX="219.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../ProjectImages/זר-לי.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="80.0" prefHeight="432.0" prefWidth="618.0" style="-fx-background-color: #6DC76C;">
+         <children>
+         	<JFXButton fx:id="btnConfirmChanges" layoutX="208.0" layoutY="146.0" mnemonicParsing="false" onAction="#click_EditCatalog_ConfirmChangesBtn" prefHeight="27.0" prefWidth="172.0" ripplerFill="WHITE" style="-fx-background-color: #008000; -fx-background-radius: 25px;" text="Confirm changes" textFill="WHITE" />
+            <Button fx:id="btnAddNewItem" layoutX="361.0" layoutY="50.0" mnemonicParsing="false" onAction="#ClickNewItem" prefHeight="25.0" prefWidth="194.0" text="Add new item" />
+      <ComboBox fx:id="cmbitemID" layoutX="42.0" layoutY="50.0" onAction="#ClickComboBox" prefHeight="25.0" prefWidth="250.0" />
+      <Button fx:id="btnRemoveItem" layoutX="184.0" layoutY="92.0" mnemonicParsing="false" onAction="#click_EditCatalog_Removebtn" prefHeight="25.0" prefWidth="109.0" text="Remove" />
+      <Button fx:id="btnEditItem" layoutX="42.0" layoutY="92.0" mnemonicParsing="false" onAction="#ClickEdit" prefHeight="25.0" prefWidth="109.0" text="Edit" />
+      <TextField fx:id="txtItemName" layoutX="178.0" layoutY="200.0" prefHeight="25.0" prefWidth="205.0" text="Name" />
+      <TextField fx:id="txtItemPrice" layoutX="178.0" layoutY="234.0" prefHeight="25.0" prefWidth="205.0" text="Price" />
+      <TextField fx:id="txtSale" layoutX="178.0" layoutY="295.0" prefHeight="25.0" prefWidth="205.0" text="Sale" />
+      <Label fx:id="lblNote" layoutX="318.0" layoutY="14.0" text="___" />
+      <Label fx:id="lblTitelName" layoutX="113.0" layoutY="205.0" text="Name:" />
+      <Label fx:id="lblTitelPrice" layoutX="113.0" layoutY="238.0" text="Price:" />
+      <Label fx:id="lblTitelType" layoutX="113.0" layoutY="266.0" text="Type:" />
+      <Label fx:id="lblTitelSale" layoutX="113.0" layoutY="299.0" text="Sale:" />
+      <TextField fx:id="txtItemColor" layoutX="178.0" layoutY="325.0" prefHeight="25.0" prefWidth="205.0" />
+      <Label fx:id="lblTitelColor" layoutX="113.0" layoutY="329.0" text="Color:" />
+      <ComboBox fx:id="cmbStoreID" layoutX="178.0" layoutY="356.0" prefHeight="25.0" prefWidth="205.0" />
+      <Label fx:id="lblTitelStoreID" layoutX="113.0" layoutY="360.0" text="StoreID:" />
+      <ComboBox fx:id="cmbItemType" layoutX="178.0" layoutY="262.0" prefHeight="25.0" prefWidth="205.0" />
+      <TextField fx:id="txtImagePath" layoutX="98.0" layoutY="389.0" prefHeight="25.0" prefWidth="250.0" />
+      <Button fx:id="btnAddImage" layoutX="349.0" layoutY="389.0" mnemonicParsing="false" onAction="#click_EditCatalog_ChooseImage" prefHeight="25.0" prefWidth="147.0" text="Choose image" />
+      <ImageView fx:id="ivUploadImage" fitHeight="147.0" fitWidth="163.0" layoutX="415.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ProjectImages/300px-No_image_available.svg.png" />
+         </image>
+      </ImageView>
+            <Label layoutX="42.0" layoutY="23.0" text="Check ItemID or Add new Item:" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

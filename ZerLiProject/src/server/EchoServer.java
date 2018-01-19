@@ -10,6 +10,7 @@ import ocsf.server.*;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -61,21 +62,42 @@ public class EchoServer extends AbstractServer {
 
 			ResultSet rs;
 
-			if (tempSqlCommand.toLowerCase().contains("update")
-					|| tempSqlCommand.toLowerCase().contains("insert into")) {
+			if ((tempSqlCommand.toLowerCase().startsWith("update") || tempSqlCommand.toLowerCase().startsWith("insert into")
+					|| tempSqlCommand.toLowerCase().startsWith("delete"))
+					&& !((PacketClass) packet).getReturnWithResult()) {
 				try {
 					stmt.executeUpdate(tempSqlCommand);
 					((PacketClass) packet).setSuccessSql(true);
 					ServerMain.getServerPanelControl().UpdateConsol(
 							"SqlCommand " + ((PacketClass) packet).getSqlCommand() + " succeed from " + client);
 				} catch (Exception ex) {
+					
+					if(((PacketClass) packet).fileList.size() != 0)
+					{
+						try {
+							PreparedStatement statement = sqlConnection.prepareStatement(tempSqlCommand);
+							InputStream is = new ByteArrayInputStream(((PacketClass) packet).fileList.get(0).getMybytearray());
+							statement.setBlob(1, is);
+							statement.setString(2, ((PacketClass) packet).fileList.get(0).getColumName());
+							statement.executeUpdate();
+							((PacketClass) packet).setSuccessSql(true);
+						} catch (Exception e) {
+							((PacketClass) packet).setSuccessSql(false);
+							ServerMain.getServerPanelControl().UpdateConsol(e.toString());
+							ServerMain.getServerPanelControl().UpdateConsol(
+									"SqlCommand " + ((PacketClass) packet).getSqlCommand() + " failed from " + client);
+						}
+					}
+					else {
 					((PacketClass) packet).setSuccessSql(false);
 					ServerMain.getServerPanelControl().UpdateConsol(ex.toString());
-					ServerMain.getServerPanelControl()
-							.UpdateConsol("SqlCommand " + ((PacketClass) packet).getSqlCommand() + " failed from " + client);
+					ServerMain.getServerPanelControl().UpdateConsol(
+							"SqlCommand " + ((PacketClass) packet).getSqlCommand() + " failed from " + client);
+					}
 				}
+				
 
-			} else {
+			} else if(((PacketClass) packet).getReturnWithResult() && tempSqlCommand.toLowerCase().startsWith("select")) {
 				rs = stmt.executeQuery(tempSqlCommand);
 				ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -85,24 +107,26 @@ public class EchoServer extends AbstractServer {
 
 					try {
 						while (true) {
-							if(rsmd.getColumnType(i) != -4)
-							{
+							if (rsmd.getColumnType(i) != -4) {
 								rawList.add(rs.getString(i));
+							} else {
+								try {
+									Blob blob = rs.getBlob(i);
+									MyFile imageFile = new MyFile(null);
+									imageFile.initArray((int) blob.length());
+									imageFile.setMybytearray(blob.getBytes(1, (int) blob.length()));
+									((PacketClass) packet).fileList.add(imageFile);
+								}catch(Exception e) {
+									ServerMain.getServerPanelControl().UpdateConsol(
+											"Failed insert file into packet for " + client);
+								}
 							}
-							else
-							{
-								Blob blob = rs.getBlob(rsmd.getColumnCount());
-								MyFile imageFile = new MyFile(null);
-								imageFile.initArray((int)blob.length());
-								imageFile.setMybytearray(blob.getBytes(1, (int) blob.length()));
-								((PacketClass) packet).fileList.add(imageFile);
-							}
-							
+
 							i++;
 							queryResultEmpty = false;
 						}
 					} catch (Exception ex) {
-						//ex.printStackTrace();
+						// ex.printStackTrace();
 					}
 					;
 
@@ -167,7 +191,7 @@ public class EchoServer extends AbstractServer {
 
 			try {
 
-				// jdbc:mysql://localhost:3306/?user=root
+				// jdbc:mysql://localhost:3306/?Login=root
 				sqlConnection = DriverManager
 						.getConnection(
 								"jdbc:mysql://" + ServerMain.getSqlHost() + ":" + ServerMain.getSqlPort() + "/"

@@ -1,9 +1,9 @@
-package user;
+package Login;
 
 import client.Main;
 import client.Main.Permission;
 
-public class User 
+public class UserEntity 
 {
 	private String userName;
 	private String password;
@@ -13,7 +13,7 @@ public class User
 	private int storeID;
 	
 	
-	public User(String Uname, String pass, boolean conn, int per, String Sid )
+	public UserEntity(String Uname, String pass, boolean conn, int per, String Sid )
 	{
 		userName = Uname;
 		password = pass;

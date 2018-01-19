@@ -2,10 +2,13 @@ package client;
 
 import java.io.IOException;
 
-import Catalog.ViewCtalog;
+import Catalog.ViewCatalog;
 import CompanyManager.CompanyManagerMain;
+import CompanyWorker.CompanyWorkerMain;
 import Customer.CustomerInterface;
 import CustomerService.CustomerServiceMain;
+import Login.LoginMain;
+import Login.UserMain;
 import ServiceExpert.ServiceExpertMain;
 import ShopWorker.ShopWorkerMain;
 import StoreManager.StoreManagerMain;
@@ -13,7 +16,6 @@ import SystemManager.SystemManagerMain;
 import gui.EditPuductInformation;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import user.loginLogic;
 
 public class Main extends Application {
 
@@ -31,19 +33,22 @@ public class Main extends Application {
 	public static final int PullSurveyResultsInitializeSurveyID = 8;
 	public static final int PullSurveyResultsAddConclusionBtn = 9;
 	public static final int PullSurveyResultsCheckComboBoxSurveyID = 10;
+	public static final int PullSurveyResultsCheckComboBoxConclusionText = 11;
 
-	public static final int SaveSurveyConclusionCheckComboBoxSurveyID = 11;
-	public static final int SaveSurveyConclusionGetConclusionText = 12;
-	public static final int SaveSurveyConclusionApproveConclusionBtn = 13;
+	public static final int SaveSurveyConclusionCheckComboBoxSurveyID = 15;
+	public static final int SaveSurveyConclusionGetConclusionText = 16;
+	public static final int SaveSurveyConclusionApproveConclusionBtn = 17;
 
-	public static final int OpenNewComplaintInitializeSurveyID = 14;
-	public static final int OpenNewComplaintInitializeOrderID = 15;
-	public static final int OpenNewComplaintCheckComboBoxOrderID = 16;
-	public static final int OpenNewComplaintOpenComplaintBtn = 17;
+	public static final int OpenNewComplaintInitializeSurveyID = 20;
+	public static final int OpenNewComplaintInitializeOrderID = 21;
+	public static final int OpenNewComplaintCheckComboBoxOrderID = 22;
+	public static final int OpenNewComplaintOpenComplaintBtn = 23;
 
-	public static final int FollowComplaintInitializeOrderID = 18;
-	public static final int FollowComplaintCheckComboBoxOrderID = 19;
-	public static final int FollowComplaintConfirmComplaintBtn = 20;
+	public static final int FollowComplaintInitializeOrderID = 30;
+	public static final int FollowComplaintCheckComboBoxOrderID = 31;
+	public static final int FollowComplaintConfirmComplaintBtn = 32;
+	
+	public static final int UpdateComplaintNumberStatus = 35;
 
 	public static final int SystemManagerInitializeUserID = 40;
 	public static final int SystemManagerInitializeStoreID = 41;
@@ -61,14 +66,22 @@ public class Main extends Application {
 	public static final int SelfdefindItemFlowers = 60;
 	public static final int SelfdefindItemBouqut =61;
 	
-	public static final int LoginCheckIfUserExists = 30;
-	public static final int LoginUpdateStatusOfAnExistingUser = 31;
-	public static final int LoginVerificateCloseApplication = 32;
-	public static final int LoginVerificateLogoutApplication = 33;
+	public static final int LoginCheckIfUserExists = 70;
+	public static final int LoginUpdateStatusOfAnExistingUser = 71;
+	public static final int LoginVerificateCloseApplication = 72;
+	public static final int LoginVerificateLogoutApplication = 73;
 	
-	public static final int createOrderStoreIDCB =70;
+	public static final int createOrderStoreIDCB =80;
 
-	public static final int ViewCatalog = 85;
+	public static final int ViewCatalog = 90;
+	
+	public static final int EditCatalog = 100;
+	public static final int DoneEditItem = 101;
+	public static final int DoneRemoveItem = 102;
+	public static final int DisplayText = 103;
+	public static final int SaveNewItem = 104;
+	public static final int SaveSizeStoreID = 105;
+	public static final int SaveImage = 106;
 
 	// Gui controls handles
 	private static EditPuductInformation EditPuductInformationControl;
@@ -78,10 +91,11 @@ public class Main extends Application {
 	private static ServiceExpertMain ServiceExpertMainControl;
 	private static StoreManagerMain StoreManagerMainControl;
 	private static SystemManagerMain SystemManagerMainControl;
-	private static ViewCtalog ViewCtalogControl;
+	private static ViewCatalog ViewCtalogControl;
 	private static CustomerInterface CustomerMainControl;
-
-	private static loginLogic LoginLogicControl;
+	private static CompanyWorkerMain CompanyWorkerMainControl;
+	private static LoginMain LoginLogicControl;
+	private static UserMain UserMainControl;
 
 	// Client control handle
 	private static ClientConsole clientConsolHandle;
@@ -95,6 +109,7 @@ public class Main extends Application {
 	final public static String INSERTCommmandStatement = "INSERT INTO ";
 	final public static String VALUESCommmandStatement = " VALUES ";
 	final public static String DISTINCTCommandStatement = "DISTINCT ";
+	final public static String DELETECommmandStatement = "DELETE ";
 
 	// Socket properties
 	final public static int DEFAULT_PORT = 5555;
@@ -173,27 +188,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 
-		/*loginLogic frameInstance = new loginLogic();
+		LoginMain frameInstance = new LoginMain();
 
 		LoginLogicControl = frameInstance;
 
-		frameInstance.start(connectionflag);*/
-
-		// Only for tests - this section should include only login frame
-		/*
-		 * CompanyManagerMain frameInstance = new CompanyManagerMain();
-		 * 
-		 * CompanyManagerMainControl = frameInstance;
-		 * 
-		 * frameInstance.start();
-		 */
-		
-		
-		ViewCtalog frameInstance = new ViewCtalog();
-		 
-		ViewCtalogControl = frameInstance;
-		  
-		frameInstance.start();
+		frameInstance.start(connectionflag);
 
 	}
 
@@ -249,11 +248,11 @@ public class Main extends Application {
 		StoreManagerMainControl = storeManagerMainControl;
 	}
 
-	public static loginLogic getLoginLogicControl() {
+	public static LoginMain getLoginLogicControl() {
 		return LoginLogicControl;
 	}
 
-	public static void setLoginLogicControl(loginLogic loginLogicControl) {
+	public static void setLoginLogicControl(LoginMain loginLogicControl) {
 		LoginLogicControl = loginLogicControl;
 	}
 
@@ -273,11 +272,11 @@ public class Main extends Application {
 		SystemManagerMainControl = systemManagerMainControl;
 	}
 
-	public static ViewCtalog getViewCtalogControl() {
+	public static ViewCatalog getViewCtalogControl() {
 		return ViewCtalogControl;
 	}
 
-	public static void setViewCtalogControl(ViewCtalog viewCtalogControl) {
+	public static void setViewCtalogControl(ViewCatalog viewCtalogControl) {
 		ViewCtalogControl = viewCtalogControl;
 	}
 
@@ -287,6 +286,22 @@ public class Main extends Application {
 
 	public static void setCustomerMainControl(CustomerInterface CostumereMainControl) {
 		CustomerMainControl = CostumereMainControl;
+	}
+
+	public static CompanyWorkerMain getCompanyWorkerMainControl() {
+		return CompanyWorkerMainControl;
+	}
+
+	public static void setCompanyWorkerMainControl(CompanyWorkerMain companyWorkerMainControl) {
+		CompanyWorkerMainControl = companyWorkerMainControl;
+	}
+	
+	public static UserMain getUserMainControl() {
+		return UserMainControl;
+	}
+
+	public static void setUserMainControl(UserMain userMainControl) {
+		UserMainControl = userMainControl;
 	}
 
 }

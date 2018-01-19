@@ -2,7 +2,9 @@ package StoreManager;
 
 import com.jfoenix.controls.JFXButton;
 
-
+import Catalog.ViewCatalog;
+import SystemManager.SystemManagerMain;
+import client.GuiExtensions;
 import client.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,10 +12,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class StoreManagerMain {
-    @FXML
+public class StoreManagerMain extends GuiExtensions{
+    
+	@FXML
+	private Button btnLogout;
+	
+	@FXML
     private JFXButton btn_createCustomer;
     @FXML
     private JFXButton btn_showReports;
@@ -21,14 +28,9 @@ public class StoreManagerMain {
     private static StoreManagerCreateCustomer storeManagerCreateCustomerHandle;
 	public void start() throws Exception {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StoreManagerMain.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.setTitle("Store Manager panel");
-		stage.show();
-
-		Main.setStoreManagerMainControl(fxmlLoader.getController());
+		Main.setStoreManagerMainControl(
+				(StoreManagerMain)createAndDefinedFxmlWindow("StoreManagerMain.fxml", "Store Manager panel"));
+		
 		showStoreManagerReportsHandle = new StoreManagerReports();
 		storeManagerCreateCustomerHandle=new StoreManagerCreateCustomer();
 	}
@@ -54,10 +56,23 @@ public class StoreManagerMain {
 			e.printStackTrace();
 		}
     }
-    @FXML
-    void click_StoreManagerReports_backBtn(ActionEvent event) {
+    
+    public void clickViewCatalog_StoreManagerMain_btn(ActionEvent event) {
 
-    }
+		((Node) event.getSource()).getScene().getWindow().hide();
+
+		try {
+			(new ViewCatalog()).start(Main.getStoreManagerMainControl());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    
+    public void clickLogoutButton() {
+
+		logoutApplicationClient(btnLogout);
+	}
 
 	public static StoreManagerReports getShowStoreManagerReportsHandle() {
 		return showStoreManagerReportsHandle;
@@ -67,10 +82,7 @@ public class StoreManagerMain {
 	public static void setShowStoreManagerReportsHandle(StoreManagerReports showStoreManagerReportsHandle) {
 		StoreManagerMain.showStoreManagerReportsHandle = showStoreManagerReportsHandle;
 	}
-	/**
-	 * 
-	 * @return
-	 */
+
 	public static StoreManagerCreateCustomer getShowStoreManagerCreateCustomerHandle() {
 		return storeManagerCreateCustomerHandle;
 	}

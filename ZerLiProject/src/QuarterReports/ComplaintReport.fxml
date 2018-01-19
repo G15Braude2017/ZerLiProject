@@ -13,7 +13,7 @@
    <children>
       <AnchorPane prefHeight="90.0" prefWidth="618.0" style="-fx-background-color: #145A32;">
          <children>
-            <Button layoutX="42.0" layoutY="18.0" mnemonicParsing="false" onAction="#click_StoreManagerReports_backBtn" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #145A32;" text="Back to preview" textFill="#fcfcfc" />
+            <Button layoutX="42.0" layoutY="18.0" mnemonicParsing="false" onAction="#click_backBtn" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #145A32;" text="Back to preview" textFill="#fcfcfc" />
             <ImageView fitHeight="90.0" fitWidth="200.0" layoutX="226.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@זר-לי.png" />
